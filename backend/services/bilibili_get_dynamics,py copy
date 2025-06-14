@@ -1,0 +1,103 @@
+import json
+import time
+import asyncio
+import configparser
+from pathlib import Path
+from typing import List, Dict
+from bilibili_api import dynamic
+from bilibili_api import Credential
+
+class UserDynamicFetcher:
+    def __init__(self, cookies: Dict[str, str], uid: int):
+        self.uid = uid
+        self.credential = Credential(
+            sessdata=cookies["SESSDATA"],
+            bili_jct=cookies["bili_jct"],
+            dedeuserid=cookies["DedeUserID"]
+        )
+
+    async def fetch_dynamic_list(self) -> List[Dict]:
+        offset = None
+        all_dynamics = []
+
+        while True:
+            res = await dynamic.get_dynamic_page_info(credential=self.credential, host_mid=self.uid, offset=offset)
+            items = res.get("items", [])
+            if not items:
+                break
+
+            for item in items:
+                pub_ts = item["modules"]["module_author"].get("pub_ts")
+                all_dynamics.append({
+                    "id_str": item.get("id_str", ""),
+                    "type": item.get("type", ""),
+                    "pub_ts": pub_ts,
+                    "raw": item
+                })
+
+            if not res.get("has_more", False):
+                break
+
+            offset = items[-1]["id_str"]
+
+        return all_dynamics
+
+    async def get_filtered_dynamic_details(self, since_timestamp: int, json_file="filtered_dynamics.json"):
+        all_dynamics = await self.fetch_dynamic_list()
+        filtered = [d for d in all_dynamics if d["pub_ts"] > since_timestamp]
+
+        with open(json_file, "w", encoding="utf-8") as f:
+            json.dump([d["raw"] for d in filtered], f, ensure_ascii=False, indent=4)
+
+        print(f"{self.uid} 共更新 {len(filtered)} 条动态")
+        return len(filtered)
+
+
+# 示例使用
+if __name__ == "__main__":
+    from datetime import datetime
+
+    # 配置路径
+    config_path = Path("data/config.ini")
+    section_name = "dynamic"
+    timestamp_key = "last_fetch_time"
+
+    # 检查配置文件是否存在
+    if not config_path.exists():
+        raise FileNotFoundError(f"配置文件不存在：{config_path.resolve()}")
+
+    # 加载配置
+    config = configparser.ConfigParser()
+    config.read(config_path, encoding="utf-8")
+
+    # 获取上次运行时间（人类可读时间）
+    if section_name not in config or timestamp_key not in config[section_name]:
+        raise KeyError(f"配置文件缺少 [{section_name}] 区段或 {timestamp_key} 键")
+
+    try:
+        # 读取并转换为时间戳
+        last_time_str = config[section_name][timestamp_key]
+        last_dt = datetime.strptime(last_time_str, "%Y-%m-%d %H:%M:%S")
+        last_timestamp = int(last_dt.timestamp())
+    except ValueError:
+        raise ValueError(f"{timestamp_key} 不是有效时间格式（应为 YYYY-MM-DD HH:MM:SS）：{last_time_str}")
+
+    # 用户配置
+    UID = 23306371
+    COOKIES = {
+        "SESSDATA": "88000d5c%2C1765404109%2Cd6199%2A62CjD09cVXp23EtRgCPOA48AE4sf6XBXYYBzYAcdDztRyyfqQXnW47ED_rBAdzeYORv7wSVlJ0bDg2aHdLeXd6Q2xuTVJ4cGRCWGZ5NFdGVDdEQVB4YXZyTUhVS2FZbjh0cEhfdUQyMjZvbWFZTGlfcFkwZWRUN25BUFFCYm55WnFkZWRLcUQzbVhBIIEC",
+        "bili_jct": "f0c1edb4d5f44cfa6d55842c8df308c5",
+        "DedeUserID": "67727345-8BA8-E479-5FD1-64450BB5A1A485280infoc"
+    }
+
+    # 实例化并运行
+    fetcher = UserDynamicFetcher(COOKIES, UID)
+    count = asyncio.run(fetcher.get_filtered_dynamic_details(last_timestamp))
+
+    # 如果有更新，则写入当前时间（人类可读格式）
+    if count > 0:
+        now_str = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        config[section_name][timestamp_key] = now_str
+        with open(config_path, "w", encoding="utf-8") as f:
+            config.write(f)
+        print(f"已更新 {section_name} 的时间戳为：{now_str}")

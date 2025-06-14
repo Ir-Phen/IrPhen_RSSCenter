@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>简易后端测试界面</title>
+    <style>
+        body { font-family: sans-serif; margin: 20px; }
+        div { margin-bottom: 10px; padding: 10px; border: 1px solid #ccc; border-radius: 5px; }
+        button { padding: 8px 15px; margin-right: 10px; cursor: pointer; }
+        pre { background-color: #eee; padding: 10px; border-radius: 3px; overflow-x: auto; }
+        .error { color: red; }
+        .success { color: green; }
+    </style>
+</head>
+<body>
+    <h1>后端 API 简易测试工具</h1>
+
+    <p>请确保你的 FastAPI 后端已在 <a href="http://127.0.0.1:8000" target="_blank">http://127.0.0.1:8000</a> 运行。</p>
+
+    <h2>1. 获取所有订阅</h2>
+    <div>
+        <button onclick="getSubscriptions()">获取订阅</button>
+        <pre id="subscriptionsResult"></pre>
+    </div>
+
+    <h2>2. 添加新订阅</h2>
+    <div>
+        <input type="text" id="addPlatform" placeholder="平台 (e.g., bilibili)">
+        <input type="text" id="addUserId" placeholder="用户ID (e.g., U12345)">
+        <input type="text" id="addUserName" placeholder="用户名 (可选)">
+        <button onclick="addSubscription()">添加订阅</button>
+        <pre id="addSubscriptionResult"></pre>
+    </div>
+
+    <h2>3. 获取所有动态</h2>
+    <div>
+        <button onclick="getAllPosts()">获取动态</button>
+        <pre id="postsResult"></pre>
+    </div>
+
+    <h2>4. 为某个订阅拉取动态</h2>
+    <div>
+        <input type="text" id="fetchSubscriptionId" placeholder="输入订阅ID (从上面获取)">
+        <button onclick="fetchPostsForSubscription()">拉取动态</button>
+        <pre id="fetchPostsResult"></pre>
+    </div>
+
+    <h2>5. 删除订阅</h2>
+    <div>
+        <input type="text" id="deleteSubscriptionId" placeholder="输入要删除的订阅ID">
+        <button onclick="deleteSubscription()">删除订阅</button>
+        <pre id="deleteSubscriptionResult"></pre>
+    </div>
+    
+    <script>
+        const API_BASE_URL = 'http://127.0.0.1:8000'; // 确保与你的后端地址一致
+
+        async function request(url, method = 'GET', data = null) {
+            const options = {
+                method: method,
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            };
+            if (data) {
+                options.body = JSON.stringify(data);
+            }
+
+            try {
+                const response = await fetch(API_BASE_URL + url, options);
+                const result = await response.json();
+                if (!response.ok) {
+                    throw new Error(`HTTP Error! Status: ${response.status} - ${JSON.stringify(result)}`);
+                }
+                return result;
+            } catch (error) {
+                console.error("请求失败:", error);
+                throw error;
+            }
+        }
+
+        async function getSubscriptions() {
+            const resultElement = document.getElementById('subscriptionsResult');
+            try {
+                const data = await request('/subscriptions');
+                resultElement.className = 'success';
+                resultElement.textContent = JSON.stringify(data, null, 2);
+            } catch (error) {
+                resultElement.className = 'error';
+                resultElement.textContent = `错误: ${error.message}`;
+            }
+        }
+
+        async function addSubscription() {
+            const platform = document.getElementById('addPlatform').value;
+            const userId = document.getElementById('addUserId').value;
+            const userName = document.getElementById('addUserName').value;
+            const resultElement = document.getElementById('addSubscriptionResult');
+
+            if (!platform || !userId) {
+                resultElement.className = 'error';
+                resultElement.textContent = "平台和用户ID不能为空！";
+                return;
+            }
+
+            try {
+                const data = await request('/subscriptions', 'POST', {
+                    platform: platform,
+                    user_id: userId,
+                    user_name: userName,
+                    category: "Default"
+                });
+                resultElement.className = 'success';
+                resultElement.textContent = JSON.stringify(data, null, 2);
+            } catch (error) {
+                resultElement.className = 'error';
+                resultElement.textContent = `错误: ${error.message}`;
+            }
+        }
+
+        async function getAllPosts() {
+            const resultElement = document.getElementById('postsResult');
+            try {
+                const data = await request('/posts');
+                resultElement.className = 'success';
+                resultElement.textContent = JSON.stringify(data, null, 2);
+            } catch (error) {
+                resultElement.className = 'error';
+                resultElement.textContent = `错误: ${error.message}`;
+            }
+        }
+
+        async function fetchPostsForSubscription() {
+            const subscriptionId = document.getElementById('fetchSubscriptionId').value;
+            const resultElement = document.getElementById('fetchPostsResult');
+
+            if (!subscriptionId) {
+                resultElement.className = 'error';
+                resultElement.textContent = "订阅ID不能为空！";
+                return;
+            }
+
+            try {
+                const data = await request(`/posts/fetch_and_store/${subscriptionId}`, 'POST');
+                resultElement.className = 'success';
+                resultElement.textContent = JSON.stringify(data, null, 2);
+            } catch (error) {
+                resultElement.className = 'error';
+                resultElement.textContent = `错误: ${error.message}`;
+            }
+        }
+
+        async function deleteSubscription() {
+            const subscriptionId = document.getElementById('deleteSubscriptionId').value;
+            const resultElement = document.getElementById('deleteSubscriptionResult');
+
+            if (!subscriptionId) {
+                resultElement.className = 'error';
+                resultElement.textContent = "订阅ID不能为空！";
+                return;
+            }
+
+            try {
+                // DELETE请求通常没有响应体，但我们仍会检查状态
+                await request(`/subscriptions/${subscriptionId}`, 'DELETE');
+                resultElement.className = 'success';
+                resultElement.textContent = `订阅ID ${subscriptionId} 已成功删除。`;
+            } catch (error) {
+                resultElement.className = 'error';
+                resultElement.textContent = `错误: ${error.message}`;
+            }
+        }
+    
+    
+    </script>
+</body>
+</html>
