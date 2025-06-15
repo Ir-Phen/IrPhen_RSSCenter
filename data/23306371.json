@@ -1,0 +1,1974 @@
+[
+    {
+        "basic": {
+            "comment_id_str": "354357002",
+            "comment_type": 11,
+            "jump_url": "//www.bilibili.com/opus/1078096306678792192",
+            "like_icon": {
+                "action_url": "https://i0.hdslb.com/bfs/garb/item/475a0e56c22553a026a78ee53670c0298600c860.bin",
+                "end_url": "",
+                "id": 37819,
+                "start_url": ""
+            },
+            "rid_str": "354357002"
+        },
+        "id_str": "1078096306678792192",
+        "modules": {
+            "module_author": {
+                "avatar": {
+                    "container_size": {
+                        "height": 1.35,
+                        "width": 1.35
+                    },
+                    "fallback_layers": {
+                        "is_critical_group": true,
+                        "layers": [
+                            {
+                                "general_spec": {
+                                    "pos_spec": {
+                                        "axis_x": 0.675,
+                                        "axis_y": 0.675,
+                                        "coordinate_pos": 2
+                                    },
+                                    "render_spec": {
+                                        "opacity": 1
+                                    },
+                                    "size_spec": {
+                                        "height": 1,
+                                        "width": 1
+                                    }
+                                },
+                                "layer_config": {
+                                    "is_critical": true,
+                                    "tags": {
+                                        "AVATAR_LAYER": {},
+                                        "GENERAL_CFG": {
+                                            "config_type": 1,
+                                            "general_config": {
+                                                "web_css_style": {
+                                                    "borderRadius": "50%"
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "resource": {
+                                    "res_image": {
+                                        "image_src": {
+                                            "placeholder": 6,
+                                            "remote": {
+                                                "bfs_style": "widget-layer-avatar",
+                                                "url": "https://i1.hdslb.com/bfs/face/759e729316e7b5f9f0eefd177f3a3534dc8fa7b6.jpg"
+                                            },
+                                            "src_type": 1
+                                        }
+                                    },
+                                    "res_type": 3
+                                },
+                                "visible": true
+                            },
+                            {
+                                "general_spec": {
+                                    "pos_spec": {
+                                        "axis_x": 0.8000000000000002,
+                                        "axis_y": 0.8000000000000002,
+                                        "coordinate_pos": 1
+                                    },
+                                    "render_spec": {
+                                        "opacity": 1
+                                    },
+                                    "size_spec": {
+                                        "height": 0.41666666666666663,
+                                        "width": 0.41666666666666663
+                                    }
+                                },
+                                "layer_config": {
+                                    "tags": {
+                                        "GENERAL_CFG": {
+                                            "config_type": 1,
+                                            "general_config": {
+                                                "web_css_style": {
+                                                    "background-color": "rgb(255,255,255)",
+                                                    "border": "2px solid rgba(255,255,255,1)",
+                                                    "borderRadius": "50%",
+                                                    "boxSizing": "border-box"
+                                                }
+                                            }
+                                        },
+                                        "ICON_LAYER": {}
+                                    }
+                                },
+                                "resource": {
+                                    "res_image": {
+                                        "image_src": {
+                                            "local": 1,
+                                            "src_type": 2
+                                        }
+                                    },
+                                    "res_type": 3
+                                },
+                                "visible": true
+                            }
+                        ]
+                    },
+                    "mid": "23306371"
+                },
+                "decorate": {
+                    "card_url": "https://i0.hdslb.com/bfs/garb/5d429d50702c7ed9de5fbe5648c2dad510d482b3.png",
+                    "fan": {
+                        "color": "#FEB300",
+                        "color_format": {
+                            "colors": [
+                                "#FEB300FF",
+                                "#FEB300FF"
+                            ],
+                            "end_point": "0,100",
+                            "gradients": [
+                                0,
+                                100
+                            ],
+                            "start_point": "0,0"
+                        },
+                        "is_fan": true,
+                        "num_prefix": "NO.",
+                        "num_str": "000762",
+                        "number": 762
+                    },
+                    "id": 1727689185002,
+                    "jump_url": "https://www.bilibili.com/h5/mall/equity-link/collect-home?item_id=1727689185002&isdiy=0&part=card&from=post&f_source=garb&vmid=23306371&native.theme=1&navhide=1",
+                    "name": "上倉eku - 棉花糖派对粉丝",
+                    "type": 3
+                },
+                "face": "https://i1.hdslb.com/bfs/face/759e729316e7b5f9f0eefd177f3a3534dc8fa7b6.jpg",
+                "face_nft": false,
+                "following": null,
+                "jump_url": "//space.bilibili.com/23306371/dynamic",
+                "label": "",
+                "mid": 23306371,
+                "name": "四氰铱邻菲",
+                "official_verify": {
+                    "desc": "",
+                    "type": -1
+                },
+                "pendant": {
+                    "expire": 0,
+                    "image": "",
+                    "image_enhance": "",
+                    "image_enhance_frame": "",
+                    "n_pid": 0,
+                    "name": "",
+                    "pid": 0
+                },
+                "pub_action": "",
+                "pub_location_text": "",
+                "pub_time": "昨天 06:04",
+                "pub_ts": 1749852257,
+                "type": "AUTHOR_TYPE_NORMAL",
+                "vip": {
+                    "avatar_subscript": 1,
+                    "avatar_subscript_url": "",
+                    "due_date": 1795708800000,
+                    "label": {
+                        "bg_color": "#FB7299",
+                        "bg_style": 1,
+                        "border_color": "",
+                        "img_label_uri_hans": "",
+                        "img_label_uri_hans_static": "https://i0.hdslb.com/bfs/vip/8d4f8bfc713826a5412a0a27eaaac4d6b9ede1d9.png",
+                        "img_label_uri_hant": "",
+                        "img_label_uri_hant_static": "https://i0.hdslb.com/bfs/activity-plat/static/20220614/e369244d0b14644f5e1a06431e22a4d5/VEW8fCC0hg.png",
+                        "label_theme": "annual_vip",
+                        "path": "",
+                        "text": "年度大会员",
+                        "text_color": "#FFFFFF",
+                        "use_img_label": true
+                    },
+                    "nickname_color": "#FB7299",
+                    "status": 1,
+                    "theme_type": 0,
+                    "type": 2
+                }
+            },
+            "module_dynamic": {
+                "additional": null,
+                "desc": null,
+                "major": {
+                    "opus": {
+                        "fold_action": [
+                            "展开",
+                            "收起"
+                        ],
+                        "jump_url": "//www.bilibili.com/opus/1078096306678792192",
+                        "pics": [],
+                        "summary": {
+                            "rich_text_nodes": [
+                                {
+                                    "orig_text": "我觉得评价还是一件门槛比较高的事情，大部分的评价也远没有达到应有的水平，只是一种品头论足的感想。而这种发表者自己都不负责，极有可能左右脑打架的感想，自然是不需要特别评价的。\n简称：懒得喷。",
+                                    "text": "我觉得评价还是一件门槛比较高的事情，大部分的评价也远没有达到应有的水平，只是一种品头论足的感想。而这种发表者自己都不负责，极有可能左右脑打架的感想，自然是不需要特别评价的。\n简称：懒得喷。",
+                                    "type": "RICH_TEXT_NODE_TYPE_TEXT"
+                                }
+                            ],
+                            "text": "我觉得评价还是一件门槛比较高的事情，大部分的评价也远没有达到应有的水平，只是一种品头论足的感想。而这种发表者自己都不负责，极有可能左右脑打架的感想，自然是不需要特别评价的。\n简称：懒得喷。"
+                        },
+                        "title": null
+                    },
+                    "type": "MAJOR_TYPE_OPUS"
+                },
+                "topic": null
+            },
+            "module_more": {
+                "three_point_items": [
+                    {
+                        "label": "删除",
+                        "modal": {
+                            "cancel": "取消",
+                            "confirm": "确认删除",
+                            "content": "动态删除后将无法恢复，请谨慎操作",
+                            "title": "要删除动态吗？"
+                        },
+                        "params": {
+                            "dyn_id_str": "1078096306678792192",
+                            "dyn_type": 2,
+                            "rid_str": "354357002"
+                        },
+                        "type": "THREE_POINT_DELETE"
+                    }
+                ]
+            },
+            "module_stat": {
+                "comment": {
+                    "count": 2,
+                    "forbidden": false
+                },
+                "forward": {
+                    "count": 0,
+                    "forbidden": false
+                },
+                "like": {
+                    "count": 0,
+                    "forbidden": false,
+                    "status": false
+                }
+            }
+        },
+        "type": "DYNAMIC_TYPE_DRAW",
+        "visible": true
+    },
+    {
+        "basic": {
+            "comment_id_str": "41990731",
+            "comment_type": 12,
+            "jump_url": "//www.bilibili.com/opus/1077766805398749187",
+            "like_icon": {
+                "action_url": "https://i0.hdslb.com/bfs/garb/item/475a0e56c22553a026a78ee53670c0298600c860.bin",
+                "end_url": "",
+                "id": 37819,
+                "start_url": ""
+            },
+            "rid_str": "41990731"
+        },
+        "id_str": "1077766805398749187",
+        "modules": {
+            "module_author": {
+                "avatar": {
+                    "container_size": {
+                        "height": 1.35,
+                        "width": 1.35
+                    },
+                    "fallback_layers": {
+                        "is_critical_group": true,
+                        "layers": [
+                            {
+                                "general_spec": {
+                                    "pos_spec": {
+                                        "axis_x": 0.675,
+                                        "axis_y": 0.675,
+                                        "coordinate_pos": 2
+                                    },
+                                    "render_spec": {
+                                        "opacity": 1
+                                    },
+                                    "size_spec": {
+                                        "height": 1,
+                                        "width": 1
+                                    }
+                                },
+                                "layer_config": {
+                                    "is_critical": true,
+                                    "tags": {
+                                        "AVATAR_LAYER": {},
+                                        "GENERAL_CFG": {
+                                            "config_type": 1,
+                                            "general_config": {
+                                                "web_css_style": {
+                                                    "borderRadius": "50%"
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "resource": {
+                                    "res_image": {
+                                        "image_src": {
+                                            "placeholder": 6,
+                                            "remote": {
+                                                "bfs_style": "widget-layer-avatar",
+                                                "url": "https://i1.hdslb.com/bfs/face/759e729316e7b5f9f0eefd177f3a3534dc8fa7b6.jpg"
+                                            },
+                                            "src_type": 1
+                                        }
+                                    },
+                                    "res_type": 3
+                                },
+                                "visible": true
+                            },
+                            {
+                                "general_spec": {
+                                    "pos_spec": {
+                                        "axis_x": 0.8000000000000002,
+                                        "axis_y": 0.8000000000000002,
+                                        "coordinate_pos": 1
+                                    },
+                                    "render_spec": {
+                                        "opacity": 1
+                                    },
+                                    "size_spec": {
+                                        "height": 0.41666666666666663,
+                                        "width": 0.41666666666666663
+                                    }
+                                },
+                                "layer_config": {
+                                    "tags": {
+                                        "GENERAL_CFG": {
+                                            "config_type": 1,
+                                            "general_config": {
+                                                "web_css_style": {
+                                                    "background-color": "rgb(255,255,255)",
+                                                    "border": "2px solid rgba(255,255,255,1)",
+                                                    "borderRadius": "50%",
+                                                    "boxSizing": "border-box"
+                                                }
+                                            }
+                                        },
+                                        "ICON_LAYER": {}
+                                    }
+                                },
+                                "resource": {
+                                    "res_image": {
+                                        "image_src": {
+                                            "local": 1,
+                                            "src_type": 2
+                                        }
+                                    },
+                                    "res_type": 3
+                                },
+                                "visible": true
+                            }
+                        ]
+                    },
+                    "mid": "23306371"
+                },
+                "decorate": {
+                    "card_url": "https://i0.hdslb.com/bfs/garb/5d429d50702c7ed9de5fbe5648c2dad510d482b3.png",
+                    "fan": {
+                        "color": "#FEB300",
+                        "color_format": {
+                            "colors": [
+                                "#FEB300FF",
+                                "#FEB300FF"
+                            ],
+                            "end_point": "0,100",
+                            "gradients": [
+                                0,
+                                100
+                            ],
+                            "start_point": "0,0"
+                        },
+                        "is_fan": true,
+                        "num_prefix": "NO.",
+                        "num_str": "000762",
+                        "number": 762
+                    },
+                    "id": 1727689185002,
+                    "jump_url": "https://www.bilibili.com/h5/mall/equity-link/collect-home?item_id=1727689185002&isdiy=0&part=card&from=post&f_source=garb&vmid=23306371&native.theme=1&navhide=1",
+                    "name": "上倉eku - 棉花糖派对粉丝",
+                    "type": 3
+                },
+                "face": "https://i1.hdslb.com/bfs/face/759e729316e7b5f9f0eefd177f3a3534dc8fa7b6.jpg",
+                "face_nft": false,
+                "following": null,
+                "jump_url": "//space.bilibili.com/23306371/dynamic",
+                "label": "",
+                "mid": 23306371,
+                "name": "四氰铱邻菲",
+                "official_verify": {
+                    "desc": "",
+                    "type": -1
+                },
+                "pendant": {
+                    "expire": 0,
+                    "image": "",
+                    "image_enhance": "",
+                    "image_enhance_frame": "",
+                    "n_pid": 0,
+                    "name": "",
+                    "pid": 0
+                },
+                "pub_action": "投稿了文章",
+                "pub_location_text": "",
+                "pub_time": "2天前",
+                "pub_ts": 1749775539,
+                "type": "AUTHOR_TYPE_NORMAL",
+                "vip": {
+                    "avatar_subscript": 1,
+                    "avatar_subscript_url": "",
+                    "due_date": 1795708800000,
+                    "label": {
+                        "bg_color": "#FB7299",
+                        "bg_style": 1,
+                        "border_color": "",
+                        "img_label_uri_hans": "",
+                        "img_label_uri_hans_static": "https://i0.hdslb.com/bfs/vip/8d4f8bfc713826a5412a0a27eaaac4d6b9ede1d9.png",
+                        "img_label_uri_hant": "",
+                        "img_label_uri_hant_static": "https://i0.hdslb.com/bfs/activity-plat/static/20220614/e369244d0b14644f5e1a06431e22a4d5/VEW8fCC0hg.png",
+                        "label_theme": "annual_vip",
+                        "path": "",
+                        "text": "年度大会员",
+                        "text_color": "#FFFFFF",
+                        "use_img_label": true
+                    },
+                    "nickname_color": "#FB7299",
+                    "status": 1,
+                    "theme_type": 0,
+                    "type": 2
+                }
+            },
+            "module_dynamic": {
+                "additional": null,
+                "desc": null,
+                "major": {
+                    "opus": {
+                        "fold_action": [
+                            "全文"
+                        ],
+                        "jump_url": "//www.bilibili.com/opus/1077766805398749187",
+                        "pics": [],
+                        "summary": {
+                            "rich_text_nodes": [
+                                {
+                                    "orig_text": "应该说男生的身体果然不一样吗？流感后第三天就恢复好重新来学校了。 去找淅吃午饭，刚出班级，就看见淅在教师办公室门口偷听。 『淅……』我轻手轻脚来到淅背后。 『嘘——』淅扭头，稍稍责备我有些吓到她了。 办公室木门虚掩，隐约能听见老师们低沉的议论声，在说依的事情。我趴在淅背上，头和她的一起靠在门边。 这时，办公室的门突然被推开，我和淅急忙躲避。我们班的自然课老师出来了，她看见在门口偷听的我们，微微一愣。和老师聊后，我和淅才知道事情完整的经过。 栖川学院是十六年一贯制，成绩不是差到一定程度都能直升大学。这样的学校，学习氛围本来就松散，活动课才是在学校的生涯重头，老师对学生也采取半放养。 依上学年骗老师，父母已经同意自己早上出完勤就不用上课了，他奶奶代表父母答复了学校。老师们才放心让依天天在小栖山公园看小说。活动课也只参加了文学部，只是听淅说依在文学部也从来不参加活动，只交稿子。淅和依认识也是快要截稿了，部长突然才想起来部里居然还有这么一号人，让淅去找依交稿。上午老师和依母亲通话，才知道依其实是撒谎了。 『反正已经不是第一次了吧。』我想起月见依在教室那副百无聊赖的样子，在他看来，上课也许和浪费时间没什么区别。",
+                                    "text": "应该说男生的身体果然不一样吗？流感后第三天就恢复好重新来学校了。 去找淅吃午饭，刚出班级，就看见淅在教师办公室门口偷听。 『淅……』我轻手轻脚来到淅背后。 『嘘——』淅扭头，稍稍责备我有些吓到她了。 办公室木门虚掩，隐约能听见老师们低沉的议论声，在说依的事情。我趴在淅背上，头和她的一起靠在门边。 这时，办公室的门突然被推开，我和淅急忙躲避。我们班的自然课老师出来了，她看见在门口偷听的我们，微微一愣。和老师聊后，我和淅才知道事情完整的经过。 栖川学院是十六年一贯制，成绩不是差到一定程度都能直升大学。这样的学校，学习氛围本来就松散，活动课才是在学校的生涯重头，老师对学生也采取半放养。 依上学年骗老师，父母已经同意自己早上出完勤就不用上课了，他奶奶代表父母答复了学校。老师们才放心让依天天在小栖山公园看小说。活动课也只参加了文学部，只是听淅说依在文学部也从来不参加活动，只交稿子。淅和依认识也是快要截稿了，部长突然才想起来部里居然还有这么一号人，让淅去找依交稿。上午老师和依母亲通话，才知道依其实是撒谎了。 『反正已经不是第一次了吧。』我想起月见依在教室那副百无聊赖的样子，在他看来，上课也许和浪费时间没什么区别。",
+                                    "type": "RICH_TEXT_NODE_TYPE_TEXT"
+                                }
+                            ],
+                            "text": "应该说男生的身体果然不一样吗？流感后第三天就恢复好重新来学校了。 去找淅吃午饭，刚出班级，就看见淅在教师办公室门口偷听。 『淅……』我轻手轻脚来到淅背后。 『嘘——』淅扭头，稍稍责备我有些吓到她了。 办公室木门虚掩，隐约能听见老师们低沉的议论声，在说依的事情。我趴在淅背上，头和她的一起靠在门边。 这时，办公室的门突然被推开，我和淅急忙躲避。我们班的自然课老师出来了，她看见在门口偷听的我们，微微一愣。和老师聊后，我和淅才知道事情完整的经过。 栖川学院是十六年一贯制，成绩不是差到一定程度都能直升大学。这样的学校，学习氛围本来就松散，活动课才是在学校的生涯重头，老师对学生也采取半放养。 依上学年骗老师，父母已经同意自己早上出完勤就不用上课了，他奶奶代表父母答复了学校。老师们才放心让依天天在小栖山公园看小说。活动课也只参加了文学部，只是听淅说依在文学部也从来不参加活动，只交稿子。淅和依认识也是快要截稿了，部长突然才想起来部里居然还有这么一号人，让淅去找依交稿。上午老师和依母亲通话，才知道依其实是撒谎了。 『反正已经不是第一次了吧。』我想起月见依在教室那副百无聊赖的样子，在他看来，上课也许和浪费时间没什么区别。"
+                        },
+                        "title": "#3 只想做朋友是什么意思"
+                    },
+                    "type": "MAJOR_TYPE_OPUS"
+                },
+                "topic": null
+            },
+            "module_more": {
+                "three_point_items": []
+            },
+            "module_stat": {
+                "comment": {
+                    "count": 0,
+                    "forbidden": false
+                },
+                "forward": {
+                    "count": 0,
+                    "forbidden": false
+                },
+                "like": {
+                    "count": 0,
+                    "forbidden": false,
+                    "status": false
+                }
+            }
+        },
+        "type": "DYNAMIC_TYPE_ARTICLE",
+        "visible": true
+    },
+    {
+        "basic": {
+            "comment_id_str": "41979013",
+            "comment_type": 12,
+            "jump_url": "//www.bilibili.com/opus/1077375559657324545",
+            "like_icon": {
+                "action_url": "https://i0.hdslb.com/bfs/garb/item/475a0e56c22553a026a78ee53670c0298600c860.bin",
+                "end_url": "",
+                "id": 37819,
+                "start_url": ""
+            },
+            "rid_str": "41979013"
+        },
+        "id_str": "1077375559657324545",
+        "modules": {
+            "module_author": {
+                "avatar": {
+                    "container_size": {
+                        "height": 1.35,
+                        "width": 1.35
+                    },
+                    "fallback_layers": {
+                        "is_critical_group": true,
+                        "layers": [
+                            {
+                                "general_spec": {
+                                    "pos_spec": {
+                                        "axis_x": 0.675,
+                                        "axis_y": 0.675,
+                                        "coordinate_pos": 2
+                                    },
+                                    "render_spec": {
+                                        "opacity": 1
+                                    },
+                                    "size_spec": {
+                                        "height": 1,
+                                        "width": 1
+                                    }
+                                },
+                                "layer_config": {
+                                    "is_critical": true,
+                                    "tags": {
+                                        "AVATAR_LAYER": {},
+                                        "GENERAL_CFG": {
+                                            "config_type": 1,
+                                            "general_config": {
+                                                "web_css_style": {
+                                                    "borderRadius": "50%"
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "resource": {
+                                    "res_image": {
+                                        "image_src": {
+                                            "placeholder": 6,
+                                            "remote": {
+                                                "bfs_style": "widget-layer-avatar",
+                                                "url": "https://i1.hdslb.com/bfs/face/759e729316e7b5f9f0eefd177f3a3534dc8fa7b6.jpg"
+                                            },
+                                            "src_type": 1
+                                        }
+                                    },
+                                    "res_type": 3
+                                },
+                                "visible": true
+                            },
+                            {
+                                "general_spec": {
+                                    "pos_spec": {
+                                        "axis_x": 0.8000000000000002,
+                                        "axis_y": 0.8000000000000002,
+                                        "coordinate_pos": 1
+                                    },
+                                    "render_spec": {
+                                        "opacity": 1
+                                    },
+                                    "size_spec": {
+                                        "height": 0.41666666666666663,
+                                        "width": 0.41666666666666663
+                                    }
+                                },
+                                "layer_config": {
+                                    "tags": {
+                                        "GENERAL_CFG": {
+                                            "config_type": 1,
+                                            "general_config": {
+                                                "web_css_style": {
+                                                    "background-color": "rgb(255,255,255)",
+                                                    "border": "2px solid rgba(255,255,255,1)",
+                                                    "borderRadius": "50%",
+                                                    "boxSizing": "border-box"
+                                                }
+                                            }
+                                        },
+                                        "ICON_LAYER": {}
+                                    }
+                                },
+                                "resource": {
+                                    "res_image": {
+                                        "image_src": {
+                                            "local": 1,
+                                            "src_type": 2
+                                        }
+                                    },
+                                    "res_type": 3
+                                },
+                                "visible": true
+                            }
+                        ]
+                    },
+                    "mid": "23306371"
+                },
+                "decorate": {
+                    "card_url": "https://i0.hdslb.com/bfs/garb/5d429d50702c7ed9de5fbe5648c2dad510d482b3.png",
+                    "fan": {
+                        "color": "#FEB300",
+                        "color_format": {
+                            "colors": [
+                                "#FEB300FF",
+                                "#FEB300FF"
+                            ],
+                            "end_point": "0,100",
+                            "gradients": [
+                                0,
+                                100
+                            ],
+                            "start_point": "0,0"
+                        },
+                        "is_fan": true,
+                        "num_prefix": "NO.",
+                        "num_str": "000762",
+                        "number": 762
+                    },
+                    "id": 1727689185002,
+                    "jump_url": "https://www.bilibili.com/h5/mall/equity-link/collect-home?item_id=1727689185002&isdiy=0&part=card&from=post&f_source=garb&vmid=23306371&native.theme=1&navhide=1",
+                    "name": "上倉eku - 棉花糖派对粉丝",
+                    "type": 3
+                },
+                "face": "https://i1.hdslb.com/bfs/face/759e729316e7b5f9f0eefd177f3a3534dc8fa7b6.jpg",
+                "face_nft": false,
+                "following": null,
+                "jump_url": "//space.bilibili.com/23306371/dynamic",
+                "label": "",
+                "mid": 23306371,
+                "name": "四氰铱邻菲",
+                "official_verify": {
+                    "desc": "",
+                    "type": -1
+                },
+                "pendant": {
+                    "expire": 0,
+                    "image": "",
+                    "image_enhance": "",
+                    "image_enhance_frame": "",
+                    "n_pid": 0,
+                    "name": "",
+                    "pid": 0
+                },
+                "pub_action": "投稿了文章",
+                "pub_location_text": "",
+                "pub_time": "3天前",
+                "pub_ts": 1749684445,
+                "type": "AUTHOR_TYPE_NORMAL",
+                "vip": {
+                    "avatar_subscript": 1,
+                    "avatar_subscript_url": "",
+                    "due_date": 1795708800000,
+                    "label": {
+                        "bg_color": "#FB7299",
+                        "bg_style": 1,
+                        "border_color": "",
+                        "img_label_uri_hans": "",
+                        "img_label_uri_hans_static": "https://i0.hdslb.com/bfs/vip/8d4f8bfc713826a5412a0a27eaaac4d6b9ede1d9.png",
+                        "img_label_uri_hant": "",
+                        "img_label_uri_hant_static": "https://i0.hdslb.com/bfs/activity-plat/static/20220614/e369244d0b14644f5e1a06431e22a4d5/VEW8fCC0hg.png",
+                        "label_theme": "annual_vip",
+                        "path": "",
+                        "text": "年度大会员",
+                        "text_color": "#FFFFFF",
+                        "use_img_label": true
+                    },
+                    "nickname_color": "#FB7299",
+                    "status": 1,
+                    "theme_type": 0,
+                    "type": 2
+                }
+            },
+            "module_dynamic": {
+                "additional": null,
+                "desc": null,
+                "major": {
+                    "opus": {
+                        "fold_action": [
+                            "全文"
+                        ],
+                        "jump_url": "//www.bilibili.com/opus/1077375559657324545",
+                        "pics": [],
+                        "summary": {
+                            "rich_text_nodes": [
+                                {
+                                    "orig_text": "天是灰色，房间是天灰色的。 在美术部，雨宫淅坐在左手边，月见依坐在对面。桌子上放着生日蛋糕，月见正在点燃蜡烛。淅去拉上窗帘，她和依坐在一起。他们嘴巴一张一合的，好像在说什么，虽然我听不清楚，但还是很开心，因为有依一起过生日。 依的表情还是淡淡的，为什么不笑呢，一会往他脸上多涂一些奶油好了。我俯身，香甜气息扑面而来。有些熟悉的味道，好像是我常吃的一种。吹灭蜡烛，屋里安静极了，只听得见自己的心跳声。 我在蛋糕上咬了一口，脸被奶油弄脏了。糟糕……头发也沾到一些了。 依开始切蛋糕，他把一块递给我，我接过。叉起一小块，却不是蛋糕的味道，至少不是甜的。像是发霉的卫生纸，又像是夏天没放冰箱一晚上的生肉。 抬头，淅在看着我，脸上的笑消失了，惊恐的看着我的肚子。依表情还是冷冷的，他把餐刀放回到桌子上，如同完成一项仪式之后的礼仪。 恐惧，没有重量，所以只有空气。空气是冷的，越来越冷，要喘不过气了。 剧烈的绞痛从腹部传来，低头，我看到刀。餐刀插进我的胃里，好像一直都在那儿，只是我忘了它。 我知道的，我要死了。为什么依要这样做呢？为什么淅只是看着呢？嘛……，无所谓了，都要死了。 惊厥醒来，感觉到心脏真的有那么一瞬间停止了跳动，",
+                                    "text": "天是灰色，房间是天灰色的。 在美术部，雨宫淅坐在左手边，月见依坐在对面。桌子上放着生日蛋糕，月见正在点燃蜡烛。淅去拉上窗帘，她和依坐在一起。他们嘴巴一张一合的，好像在说什么，虽然我听不清楚，但还是很开心，因为有依一起过生日。 依的表情还是淡淡的，为什么不笑呢，一会往他脸上多涂一些奶油好了。我俯身，香甜气息扑面而来。有些熟悉的味道，好像是我常吃的一种。吹灭蜡烛，屋里安静极了，只听得见自己的心跳声。 我在蛋糕上咬了一口，脸被奶油弄脏了。糟糕……头发也沾到一些了。 依开始切蛋糕，他把一块递给我，我接过。叉起一小块，却不是蛋糕的味道，至少不是甜的。像是发霉的卫生纸，又像是夏天没放冰箱一晚上的生肉。 抬头，淅在看着我，脸上的笑消失了，惊恐的看着我的肚子。依表情还是冷冷的，他把餐刀放回到桌子上，如同完成一项仪式之后的礼仪。 恐惧，没有重量，所以只有空气。空气是冷的，越来越冷，要喘不过气了。 剧烈的绞痛从腹部传来，低头，我看到刀。餐刀插进我的胃里，好像一直都在那儿，只是我忘了它。 我知道的，我要死了。为什么依要这样做呢？为什么淅只是看着呢？嘛……，无所谓了，都要死了。 惊厥醒来，感觉到心脏真的有那么一瞬间停止了跳动，",
+                                    "type": "RICH_TEXT_NODE_TYPE_TEXT"
+                                }
+                            ],
+                            "text": "天是灰色，房间是天灰色的。 在美术部，雨宫淅坐在左手边，月见依坐在对面。桌子上放着生日蛋糕，月见正在点燃蜡烛。淅去拉上窗帘，她和依坐在一起。他们嘴巴一张一合的，好像在说什么，虽然我听不清楚，但还是很开心，因为有依一起过生日。 依的表情还是淡淡的，为什么不笑呢，一会往他脸上多涂一些奶油好了。我俯身，香甜气息扑面而来。有些熟悉的味道，好像是我常吃的一种。吹灭蜡烛，屋里安静极了，只听得见自己的心跳声。 我在蛋糕上咬了一口，脸被奶油弄脏了。糟糕……头发也沾到一些了。 依开始切蛋糕，他把一块递给我，我接过。叉起一小块，却不是蛋糕的味道，至少不是甜的。像是发霉的卫生纸，又像是夏天没放冰箱一晚上的生肉。 抬头，淅在看着我，脸上的笑消失了，惊恐的看着我的肚子。依表情还是冷冷的，他把餐刀放回到桌子上，如同完成一项仪式之后的礼仪。 恐惧，没有重量，所以只有空气。空气是冷的，越来越冷，要喘不过气了。 剧烈的绞痛从腹部传来，低头，我看到刀。餐刀插进我的胃里，好像一直都在那儿，只是我忘了它。 我知道的，我要死了。为什么依要这样做呢？为什么淅只是看着呢？嘛……，无所谓了，都要死了。 惊厥醒来，感觉到心脏真的有那么一瞬间停止了跳动，"
+                        },
+                        "title": "#2 正因为是麻烦的青涩少女"
+                    },
+                    "type": "MAJOR_TYPE_OPUS"
+                },
+                "topic": null
+            },
+            "module_more": {
+                "three_point_items": []
+            },
+            "module_stat": {
+                "comment": {
+                    "count": 0,
+                    "forbidden": false
+                },
+                "forward": {
+                    "count": 0,
+                    "forbidden": false
+                },
+                "like": {
+                    "count": 0,
+                    "forbidden": false,
+                    "status": false
+                }
+            }
+        },
+        "type": "DYNAMIC_TYPE_ARTICLE",
+        "visible": true
+    },
+    {
+        "basic": {
+            "comment_id_str": "41956279",
+            "comment_type": 12,
+            "jump_url": "//www.bilibili.com/opus/1076611987439353857",
+            "like_icon": {
+                "action_url": "https://i0.hdslb.com/bfs/garb/item/475a0e56c22553a026a78ee53670c0298600c860.bin",
+                "end_url": "",
+                "id": 37819,
+                "start_url": ""
+            },
+            "rid_str": "41956279"
+        },
+        "id_str": "1076611987439353857",
+        "modules": {
+            "module_author": {
+                "avatar": {
+                    "container_size": {
+                        "height": 1.35,
+                        "width": 1.35
+                    },
+                    "fallback_layers": {
+                        "is_critical_group": true,
+                        "layers": [
+                            {
+                                "general_spec": {
+                                    "pos_spec": {
+                                        "axis_x": 0.675,
+                                        "axis_y": 0.675,
+                                        "coordinate_pos": 2
+                                    },
+                                    "render_spec": {
+                                        "opacity": 1
+                                    },
+                                    "size_spec": {
+                                        "height": 1,
+                                        "width": 1
+                                    }
+                                },
+                                "layer_config": {
+                                    "is_critical": true,
+                                    "tags": {
+                                        "AVATAR_LAYER": {},
+                                        "GENERAL_CFG": {
+                                            "config_type": 1,
+                                            "general_config": {
+                                                "web_css_style": {
+                                                    "borderRadius": "50%"
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "resource": {
+                                    "res_image": {
+                                        "image_src": {
+                                            "placeholder": 6,
+                                            "remote": {
+                                                "bfs_style": "widget-layer-avatar",
+                                                "url": "https://i1.hdslb.com/bfs/face/759e729316e7b5f9f0eefd177f3a3534dc8fa7b6.jpg"
+                                            },
+                                            "src_type": 1
+                                        }
+                                    },
+                                    "res_type": 3
+                                },
+                                "visible": true
+                            },
+                            {
+                                "general_spec": {
+                                    "pos_spec": {
+                                        "axis_x": 0.8000000000000002,
+                                        "axis_y": 0.8000000000000002,
+                                        "coordinate_pos": 1
+                                    },
+                                    "render_spec": {
+                                        "opacity": 1
+                                    },
+                                    "size_spec": {
+                                        "height": 0.41666666666666663,
+                                        "width": 0.41666666666666663
+                                    }
+                                },
+                                "layer_config": {
+                                    "tags": {
+                                        "GENERAL_CFG": {
+                                            "config_type": 1,
+                                            "general_config": {
+                                                "web_css_style": {
+                                                    "background-color": "rgb(255,255,255)",
+                                                    "border": "2px solid rgba(255,255,255,1)",
+                                                    "borderRadius": "50%",
+                                                    "boxSizing": "border-box"
+                                                }
+                                            }
+                                        },
+                                        "ICON_LAYER": {}
+                                    }
+                                },
+                                "resource": {
+                                    "res_image": {
+                                        "image_src": {
+                                            "local": 1,
+                                            "src_type": 2
+                                        }
+                                    },
+                                    "res_type": 3
+                                },
+                                "visible": true
+                            }
+                        ]
+                    },
+                    "mid": "23306371"
+                },
+                "decorate": {
+                    "card_url": "https://i0.hdslb.com/bfs/garb/5d429d50702c7ed9de5fbe5648c2dad510d482b3.png",
+                    "fan": {
+                        "color": "#FEB300",
+                        "color_format": {
+                            "colors": [
+                                "#FEB300FF",
+                                "#FEB300FF"
+                            ],
+                            "end_point": "0,100",
+                            "gradients": [
+                                0,
+                                100
+                            ],
+                            "start_point": "0,0"
+                        },
+                        "is_fan": true,
+                        "num_prefix": "NO.",
+                        "num_str": "000762",
+                        "number": 762
+                    },
+                    "id": 1727689185002,
+                    "jump_url": "https://www.bilibili.com/h5/mall/equity-link/collect-home?item_id=1727689185002&isdiy=0&part=card&from=post&f_source=garb&vmid=23306371&native.theme=1&navhide=1",
+                    "name": "上倉eku - 棉花糖派对粉丝",
+                    "type": 3
+                },
+                "face": "https://i1.hdslb.com/bfs/face/759e729316e7b5f9f0eefd177f3a3534dc8fa7b6.jpg",
+                "face_nft": false,
+                "following": null,
+                "jump_url": "//space.bilibili.com/23306371/dynamic",
+                "label": "",
+                "mid": 23306371,
+                "name": "四氰铱邻菲",
+                "official_verify": {
+                    "desc": "",
+                    "type": -1
+                },
+                "pendant": {
+                    "expire": 0,
+                    "image": "",
+                    "image_enhance": "",
+                    "image_enhance_frame": "",
+                    "n_pid": 0,
+                    "name": "",
+                    "pid": 0
+                },
+                "pub_action": "投稿了文章",
+                "pub_location_text": "",
+                "pub_time": "06月10日",
+                "pub_ts": 1749506662,
+                "type": "AUTHOR_TYPE_NORMAL",
+                "vip": {
+                    "avatar_subscript": 1,
+                    "avatar_subscript_url": "",
+                    "due_date": 1795708800000,
+                    "label": {
+                        "bg_color": "#FB7299",
+                        "bg_style": 1,
+                        "border_color": "",
+                        "img_label_uri_hans": "",
+                        "img_label_uri_hans_static": "https://i0.hdslb.com/bfs/vip/8d4f8bfc713826a5412a0a27eaaac4d6b9ede1d9.png",
+                        "img_label_uri_hant": "",
+                        "img_label_uri_hant_static": "https://i0.hdslb.com/bfs/activity-plat/static/20220614/e369244d0b14644f5e1a06431e22a4d5/VEW8fCC0hg.png",
+                        "label_theme": "annual_vip",
+                        "path": "",
+                        "text": "年度大会员",
+                        "text_color": "#FFFFFF",
+                        "use_img_label": true
+                    },
+                    "nickname_color": "#FB7299",
+                    "status": 1,
+                    "theme_type": 0,
+                    "type": 2
+                }
+            },
+            "module_dynamic": {
+                "additional": null,
+                "desc": null,
+                "major": {
+                    "opus": {
+                        "fold_action": [
+                            "全文"
+                        ],
+                        "jump_url": "//www.bilibili.com/opus/1076611987439353857",
+                        "pics": [],
+                        "summary": {
+                            "rich_text_nodes": [
+                                {
+                                    "orig_text": "二〇一五年三月七日，是栖川学院中学部二年级春季学期的第十三天。 身体真的是很容易就坏掉的东西啊……我不禁感叹，虽然归根结底是自己太不爱惜身体了。差点遭遇车祸那天晚上就开始发高烧，好了没几天，又因为倒春寒再次感冒。 今天状态好了些，病假没休完，但还是很想来学校。病后的身体仍残留着一丝倦怠，然而，此刻我却感受到一种奇异的介乎于哀伤与激情中间朦胧的平静，毕竟是春天。空气中弥漫着早春特有的些许湿润的清冷，透过玻璃窗户的光线也带着近乎透明的质感。 我坐在那张因为月见依缺席而显得空档的沙发上，闭着眼，倾斜身体。头枕在窗框上，享受起下午最后两小时的阳光，感受着风从操场西边山上吹来的茶香味。 早春的风总是让人醉醺醺的，让人心生一种「啊，这就是我颓废的青春啊」的感慨。 『集合，有没有还没做热身的。』一声哨响后，操场上传来体育老师的叫唤。 嗯？似乎有什么地方不对劲的样子。某种意义上来说，我每天都通过这种方式吸入了大量的微量信息素？脑海里闪现一幅幅男生赤裸上身在烈日下奔跑的画面，极具线条感的肌肉、汗水与吆喝声……这些元素被大脑以一种古怪的方式组合，就像是日复一日吸入的激素正在反应积累成病理性的感知。一想到这些事情，突然",
+                                    "text": "二〇一五年三月七日，是栖川学院中学部二年级春季学期的第十三天。 身体真的是很容易就坏掉的东西啊……我不禁感叹，虽然归根结底是自己太不爱惜身体了。差点遭遇车祸那天晚上就开始发高烧，好了没几天，又因为倒春寒再次感冒。 今天状态好了些，病假没休完，但还是很想来学校。病后的身体仍残留着一丝倦怠，然而，此刻我却感受到一种奇异的介乎于哀伤与激情中间朦胧的平静，毕竟是春天。空气中弥漫着早春特有的些许湿润的清冷，透过玻璃窗户的光线也带着近乎透明的质感。 我坐在那张因为月见依缺席而显得空档的沙发上，闭着眼，倾斜身体。头枕在窗框上，享受起下午最后两小时的阳光，感受着风从操场西边山上吹来的茶香味。 早春的风总是让人醉醺醺的，让人心生一种「啊，这就是我颓废的青春啊」的感慨。 『集合，有没有还没做热身的。』一声哨响后，操场上传来体育老师的叫唤。 嗯？似乎有什么地方不对劲的样子。某种意义上来说，我每天都通过这种方式吸入了大量的微量信息素？脑海里闪现一幅幅男生赤裸上身在烈日下奔跑的画面，极具线条感的肌肉、汗水与吆喝声……这些元素被大脑以一种古怪的方式组合，就像是日复一日吸入的激素正在反应积累成病理性的感知。一想到这些事情，突然",
+                                    "type": "RICH_TEXT_NODE_TYPE_TEXT"
+                                }
+                            ],
+                            "text": "二〇一五年三月七日，是栖川学院中学部二年级春季学期的第十三天。 身体真的是很容易就坏掉的东西啊……我不禁感叹，虽然归根结底是自己太不爱惜身体了。差点遭遇车祸那天晚上就开始发高烧，好了没几天，又因为倒春寒再次感冒。 今天状态好了些，病假没休完，但还是很想来学校。病后的身体仍残留着一丝倦怠，然而，此刻我却感受到一种奇异的介乎于哀伤与激情中间朦胧的平静，毕竟是春天。空气中弥漫着早春特有的些许湿润的清冷，透过玻璃窗户的光线也带着近乎透明的质感。 我坐在那张因为月见依缺席而显得空档的沙发上，闭着眼，倾斜身体。头枕在窗框上，享受起下午最后两小时的阳光，感受着风从操场西边山上吹来的茶香味。 早春的风总是让人醉醺醺的，让人心生一种「啊，这就是我颓废的青春啊」的感慨。 『集合，有没有还没做热身的。』一声哨响后，操场上传来体育老师的叫唤。 嗯？似乎有什么地方不对劲的样子。某种意义上来说，我每天都通过这种方式吸入了大量的微量信息素？脑海里闪现一幅幅男生赤裸上身在烈日下奔跑的画面，极具线条感的肌肉、汗水与吆喝声……这些元素被大脑以一种古怪的方式组合，就像是日复一日吸入的激素正在反应积累成病理性的感知。一想到这些事情，突然"
+                        },
+                        "title": "#1 医务室小故事"
+                    },
+                    "type": "MAJOR_TYPE_OPUS"
+                },
+                "topic": null
+            },
+            "module_more": {
+                "three_point_items": []
+            },
+            "module_stat": {
+                "comment": {
+                    "count": 0,
+                    "forbidden": false
+                },
+                "forward": {
+                    "count": 0,
+                    "forbidden": false
+                },
+                "like": {
+                    "count": 0,
+                    "forbidden": false,
+                    "status": false
+                }
+            }
+        },
+        "type": "DYNAMIC_TYPE_ARTICLE",
+        "visible": true
+    },
+    {
+        "basic": {
+            "comment_id_str": "353272110",
+            "comment_type": 11,
+            "jump_url": "//www.bilibili.com/opus/1074768170879811587",
+            "like_icon": {
+                "action_url": "https://i0.hdslb.com/bfs/garb/item/475a0e56c22553a026a78ee53670c0298600c860.bin",
+                "end_url": "",
+                "id": 37819,
+                "start_url": ""
+            },
+            "rid_str": "353272110"
+        },
+        "id_str": "1074768170879811587",
+        "modules": {
+            "module_author": {
+                "avatar": {
+                    "container_size": {
+                        "height": 1.35,
+                        "width": 1.35
+                    },
+                    "fallback_layers": {
+                        "is_critical_group": true,
+                        "layers": [
+                            {
+                                "general_spec": {
+                                    "pos_spec": {
+                                        "axis_x": 0.675,
+                                        "axis_y": 0.675,
+                                        "coordinate_pos": 2
+                                    },
+                                    "render_spec": {
+                                        "opacity": 1
+                                    },
+                                    "size_spec": {
+                                        "height": 1,
+                                        "width": 1
+                                    }
+                                },
+                                "layer_config": {
+                                    "is_critical": true,
+                                    "tags": {
+                                        "AVATAR_LAYER": {},
+                                        "GENERAL_CFG": {
+                                            "config_type": 1,
+                                            "general_config": {
+                                                "web_css_style": {
+                                                    "borderRadius": "50%"
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "resource": {
+                                    "res_image": {
+                                        "image_src": {
+                                            "placeholder": 6,
+                                            "remote": {
+                                                "bfs_style": "widget-layer-avatar",
+                                                "url": "https://i1.hdslb.com/bfs/face/759e729316e7b5f9f0eefd177f3a3534dc8fa7b6.jpg"
+                                            },
+                                            "src_type": 1
+                                        }
+                                    },
+                                    "res_type": 3
+                                },
+                                "visible": true
+                            },
+                            {
+                                "general_spec": {
+                                    "pos_spec": {
+                                        "axis_x": 0.8000000000000002,
+                                        "axis_y": 0.8000000000000002,
+                                        "coordinate_pos": 1
+                                    },
+                                    "render_spec": {
+                                        "opacity": 1
+                                    },
+                                    "size_spec": {
+                                        "height": 0.41666666666666663,
+                                        "width": 0.41666666666666663
+                                    }
+                                },
+                                "layer_config": {
+                                    "tags": {
+                                        "GENERAL_CFG": {
+                                            "config_type": 1,
+                                            "general_config": {
+                                                "web_css_style": {
+                                                    "background-color": "rgb(255,255,255)",
+                                                    "border": "2px solid rgba(255,255,255,1)",
+                                                    "borderRadius": "50%",
+                                                    "boxSizing": "border-box"
+                                                }
+                                            }
+                                        },
+                                        "ICON_LAYER": {}
+                                    }
+                                },
+                                "resource": {
+                                    "res_image": {
+                                        "image_src": {
+                                            "local": 1,
+                                            "src_type": 2
+                                        }
+                                    },
+                                    "res_type": 3
+                                },
+                                "visible": true
+                            }
+                        ]
+                    },
+                    "mid": "23306371"
+                },
+                "decorate": {
+                    "card_url": "https://i0.hdslb.com/bfs/garb/5d429d50702c7ed9de5fbe5648c2dad510d482b3.png",
+                    "fan": {
+                        "color": "#FEB300",
+                        "color_format": {
+                            "colors": [
+                                "#FEB300FF",
+                                "#FEB300FF"
+                            ],
+                            "end_point": "0,100",
+                            "gradients": [
+                                0,
+                                100
+                            ],
+                            "start_point": "0,0"
+                        },
+                        "is_fan": true,
+                        "num_prefix": "NO.",
+                        "num_str": "000762",
+                        "number": 762
+                    },
+                    "id": 1727689185002,
+                    "jump_url": "https://www.bilibili.com/h5/mall/equity-link/collect-home?item_id=1727689185002&isdiy=0&part=card&from=post&f_source=garb&vmid=23306371&native.theme=1&navhide=1",
+                    "name": "上倉eku - 棉花糖派对粉丝",
+                    "type": 3
+                },
+                "face": "https://i1.hdslb.com/bfs/face/759e729316e7b5f9f0eefd177f3a3534dc8fa7b6.jpg",
+                "face_nft": false,
+                "following": null,
+                "jump_url": "//space.bilibili.com/23306371/dynamic",
+                "label": "",
+                "mid": 23306371,
+                "name": "四氰铱邻菲",
+                "official_verify": {
+                    "desc": "",
+                    "type": -1
+                },
+                "pendant": {
+                    "expire": 0,
+                    "image": "",
+                    "image_enhance": "",
+                    "image_enhance_frame": "",
+                    "n_pid": 0,
+                    "name": "",
+                    "pid": 0
+                },
+                "pub_action": "",
+                "pub_location_text": "",
+                "pub_time": "06月05日",
+                "pub_ts": 1749077365,
+                "type": "AUTHOR_TYPE_NORMAL",
+                "vip": {
+                    "avatar_subscript": 1,
+                    "avatar_subscript_url": "",
+                    "due_date": 1795708800000,
+                    "label": {
+                        "bg_color": "#FB7299",
+                        "bg_style": 1,
+                        "border_color": "",
+                        "img_label_uri_hans": "",
+                        "img_label_uri_hans_static": "https://i0.hdslb.com/bfs/vip/8d4f8bfc713826a5412a0a27eaaac4d6b9ede1d9.png",
+                        "img_label_uri_hant": "",
+                        "img_label_uri_hant_static": "https://i0.hdslb.com/bfs/activity-plat/static/20220614/e369244d0b14644f5e1a06431e22a4d5/VEW8fCC0hg.png",
+                        "label_theme": "annual_vip",
+                        "path": "",
+                        "text": "年度大会员",
+                        "text_color": "#FFFFFF",
+                        "use_img_label": true
+                    },
+                    "nickname_color": "#FB7299",
+                    "status": 1,
+                    "theme_type": 0,
+                    "type": 2
+                }
+            },
+            "module_dynamic": {
+                "additional": null,
+                "desc": null,
+                "major": {
+                    "opus": {
+                        "fold_action": [
+                            "展开",
+                            "收起"
+                        ],
+                        "jump_url": "//www.bilibili.com/opus/1074768170879811587",
+                        "pics": [],
+                        "summary": {
+                            "rich_text_nodes": [
+                                {
+                                    "orig_text": "美洲的查文文化持续数百年没有形成集中式国家，为什么？有些文明发展出复杂社会，但没有立即产生国家机器。\n因为当地生态系统稳定、人口密度低、交互冲突少，存在焦虑没有到需要国家来压制的程度。 \n这说明生产力增长提供了国家诞生的物质基础与理念幻想，而存在焦虑增长，才促使人们建构国家现实。\n对死亡的焦虑，对世界的不信任，对他人的不安全感。\n这些被存在焦虑隐藏在无意识冰山里的东西从未远离我们。",
+                                    "text": "美洲的查文文化持续数百年没有形成集中式国家，为什么？有些文明发展出复杂社会，但没有立即产生国家机器。\n因为当地生态系统稳定、人口密度低、交互冲突少，存在焦虑没有到需要国家来压制的程度。 \n这说明生产力增长提供了国家诞生的物质基础与理念幻想，而存在焦虑增长，才促使人们建构国家现实。\n对死亡的焦虑，对世界的不信任，对他人的不安全感。\n这些被存在焦虑隐藏在无意识冰山里的东西从未远离我们。",
+                                    "type": "RICH_TEXT_NODE_TYPE_TEXT"
+                                }
+                            ],
+                            "text": "美洲的查文文化持续数百年没有形成集中式国家，为什么？有些文明发展出复杂社会，但没有立即产生国家机器。\n因为当地生态系统稳定、人口密度低、交互冲突少，存在焦虑没有到需要国家来压制的程度。 \n这说明生产力增长提供了国家诞生的物质基础与理念幻想，而存在焦虑增长，才促使人们建构国家现实。\n对死亡的焦虑，对世界的不信任，对他人的不安全感。\n这些被存在焦虑隐藏在无意识冰山里的东西从未远离我们。"
+                        },
+                        "title": null
+                    },
+                    "type": "MAJOR_TYPE_OPUS"
+                },
+                "topic": null
+            },
+            "module_more": {
+                "three_point_items": [
+                    {
+                        "label": "删除",
+                        "modal": {
+                            "cancel": "取消",
+                            "confirm": "确认删除",
+                            "content": "动态删除后将无法恢复，请谨慎操作",
+                            "title": "要删除动态吗？"
+                        },
+                        "params": {
+                            "dyn_id_str": "1074768170879811587",
+                            "dyn_type": 2,
+                            "rid_str": "353272110"
+                        },
+                        "type": "THREE_POINT_DELETE"
+                    }
+                ]
+            },
+            "module_stat": {
+                "comment": {
+                    "count": 0,
+                    "forbidden": false
+                },
+                "forward": {
+                    "count": 0,
+                    "forbidden": false
+                },
+                "like": {
+                    "count": 0,
+                    "forbidden": false,
+                    "status": false
+                }
+            }
+        },
+        "type": "DYNAMIC_TYPE_DRAW",
+        "visible": true
+    },
+    {
+        "basic": {
+            "comment_id_str": "353170964",
+            "comment_type": 11,
+            "jump_url": "//www.bilibili.com/opus/1074385807144386561",
+            "like_icon": {
+                "action_url": "https://i0.hdslb.com/bfs/garb/item/475a0e56c22553a026a78ee53670c0298600c860.bin",
+                "end_url": "",
+                "id": 37819,
+                "start_url": ""
+            },
+            "rid_str": "353170964"
+        },
+        "id_str": "1074385807144386561",
+        "modules": {
+            "module_author": {
+                "avatar": {
+                    "container_size": {
+                        "height": 1.35,
+                        "width": 1.35
+                    },
+                    "fallback_layers": {
+                        "is_critical_group": true,
+                        "layers": [
+                            {
+                                "general_spec": {
+                                    "pos_spec": {
+                                        "axis_x": 0.675,
+                                        "axis_y": 0.675,
+                                        "coordinate_pos": 2
+                                    },
+                                    "render_spec": {
+                                        "opacity": 1
+                                    },
+                                    "size_spec": {
+                                        "height": 1,
+                                        "width": 1
+                                    }
+                                },
+                                "layer_config": {
+                                    "is_critical": true,
+                                    "tags": {
+                                        "AVATAR_LAYER": {},
+                                        "GENERAL_CFG": {
+                                            "config_type": 1,
+                                            "general_config": {
+                                                "web_css_style": {
+                                                    "borderRadius": "50%"
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "resource": {
+                                    "res_image": {
+                                        "image_src": {
+                                            "placeholder": 6,
+                                            "remote": {
+                                                "bfs_style": "widget-layer-avatar",
+                                                "url": "https://i1.hdslb.com/bfs/face/759e729316e7b5f9f0eefd177f3a3534dc8fa7b6.jpg"
+                                            },
+                                            "src_type": 1
+                                        }
+                                    },
+                                    "res_type": 3
+                                },
+                                "visible": true
+                            },
+                            {
+                                "general_spec": {
+                                    "pos_spec": {
+                                        "axis_x": 0.8000000000000002,
+                                        "axis_y": 0.8000000000000002,
+                                        "coordinate_pos": 1
+                                    },
+                                    "render_spec": {
+                                        "opacity": 1
+                                    },
+                                    "size_spec": {
+                                        "height": 0.41666666666666663,
+                                        "width": 0.41666666666666663
+                                    }
+                                },
+                                "layer_config": {
+                                    "tags": {
+                                        "GENERAL_CFG": {
+                                            "config_type": 1,
+                                            "general_config": {
+                                                "web_css_style": {
+                                                    "background-color": "rgb(255,255,255)",
+                                                    "border": "2px solid rgba(255,255,255,1)",
+                                                    "borderRadius": "50%",
+                                                    "boxSizing": "border-box"
+                                                }
+                                            }
+                                        },
+                                        "ICON_LAYER": {}
+                                    }
+                                },
+                                "resource": {
+                                    "res_image": {
+                                        "image_src": {
+                                            "local": 1,
+                                            "src_type": 2
+                                        }
+                                    },
+                                    "res_type": 3
+                                },
+                                "visible": true
+                            }
+                        ]
+                    },
+                    "mid": "23306371"
+                },
+                "decorate": {
+                    "card_url": "https://i0.hdslb.com/bfs/garb/5d429d50702c7ed9de5fbe5648c2dad510d482b3.png",
+                    "fan": {
+                        "color": "#FEB300",
+                        "color_format": {
+                            "colors": [
+                                "#FEB300FF",
+                                "#FEB300FF"
+                            ],
+                            "end_point": "0,100",
+                            "gradients": [
+                                0,
+                                100
+                            ],
+                            "start_point": "0,0"
+                        },
+                        "is_fan": true,
+                        "num_prefix": "NO.",
+                        "num_str": "000762",
+                        "number": 762
+                    },
+                    "id": 1727689185002,
+                    "jump_url": "https://www.bilibili.com/h5/mall/equity-link/collect-home?item_id=1727689185002&isdiy=0&part=card&from=post&f_source=garb&vmid=23306371&native.theme=1&navhide=1",
+                    "name": "上倉eku - 棉花糖派对粉丝",
+                    "type": 3
+                },
+                "face": "https://i1.hdslb.com/bfs/face/759e729316e7b5f9f0eefd177f3a3534dc8fa7b6.jpg",
+                "face_nft": false,
+                "following": null,
+                "jump_url": "//space.bilibili.com/23306371/dynamic",
+                "label": "",
+                "mid": 23306371,
+                "name": "四氰铱邻菲",
+                "official_verify": {
+                    "desc": "",
+                    "type": -1
+                },
+                "pendant": {
+                    "expire": 0,
+                    "image": "",
+                    "image_enhance": "",
+                    "image_enhance_frame": "",
+                    "n_pid": 0,
+                    "name": "",
+                    "pid": 0
+                },
+                "pub_action": "",
+                "pub_location_text": "",
+                "pub_time": "06月04日",
+                "pub_ts": 1748988339,
+                "type": "AUTHOR_TYPE_NORMAL",
+                "vip": {
+                    "avatar_subscript": 1,
+                    "avatar_subscript_url": "",
+                    "due_date": 1795708800000,
+                    "label": {
+                        "bg_color": "#FB7299",
+                        "bg_style": 1,
+                        "border_color": "",
+                        "img_label_uri_hans": "",
+                        "img_label_uri_hans_static": "https://i0.hdslb.com/bfs/vip/8d4f8bfc713826a5412a0a27eaaac4d6b9ede1d9.png",
+                        "img_label_uri_hant": "",
+                        "img_label_uri_hant_static": "https://i0.hdslb.com/bfs/activity-plat/static/20220614/e369244d0b14644f5e1a06431e22a4d5/VEW8fCC0hg.png",
+                        "label_theme": "annual_vip",
+                        "path": "",
+                        "text": "年度大会员",
+                        "text_color": "#FFFFFF",
+                        "use_img_label": true
+                    },
+                    "nickname_color": "#FB7299",
+                    "status": 1,
+                    "theme_type": 0,
+                    "type": 2
+                }
+            },
+            "module_dynamic": {
+                "additional": null,
+                "desc": null,
+                "major": {
+                    "opus": {
+                        "fold_action": [
+                            "展开",
+                            "收起"
+                        ],
+                        "jump_url": "//www.bilibili.com/opus/1074385807144386561",
+                        "pics": [],
+                        "summary": {
+                            "rich_text_nodes": [
+                                {
+                                    "orig_text": "重新审视，才发现月见依如此可怜。\n在青染眼中，他是承诺者，是精神的庇护，是父亲。\n在泠眼中，他是母亲的丈夫，是欲望的投影，是应该履行的遗产\n在雪眼中，他是失败的爱人，是摇摆不定的灵魂。\n但在月见依自己看来，他一直都只是一个尝试维持理性，被动应对的普通人。\n他始终不具备自我的维度，只是被所有人需要的某种面具，他失去了他成为月见依的权力。\n在故事的终章，外部的世界彻底失效，青染死了，泠的身份错乱了，雪离开了，工作室失火了。\n他一生所鉴定的价值都在连锁崩溃中失效了。\n当泠对他说『我是母亲的丈夫，理应也成为你的妻子』，将他拉回到他和青染之间原初的创伤结构。是青染死去的幽灵对他的再一次强暴。\n这不是一个人疯了，而是他的世界疯了。\n他再也无法解释任何人的行为，也再也无法解释自己的存在。\n好在最后他终于明白了，精神病院不过是世界的一个缩影。而所谓外面，只是更具隐蔽性的精神病院。\n在那个疗养院，白墙、日光、干净的毛巾和饭菜，是他一生中最干净的日常。\n没有人再需要他，不需要承担，不需要解释，不需要被爱、被理解。\n这是一种彻底的角色剥离，也是一种终极精神洁癖。\n终于，没人能再来污染我了",
+                                    "text": "重新审视，才发现月见依如此可怜。\n在青染眼中，他是承诺者，是精神的庇护，是父亲。\n在泠眼中，他是母亲的丈夫，是欲望的投影，是应该履行的遗产\n在雪眼中，他是失败的爱人，是摇摆不定的灵魂。\n但在月见依自己看来，他一直都只是一个尝试维持理性，被动应对的普通人。\n他始终不具备自我的维度，只是被所有人需要的某种面具，他失去了他成为月见依的权力。\n在故事的终章，外部的世界彻底失效，青染死了，泠的身份错乱了，雪离开了，工作室失火了。\n他一生所鉴定的价值都在连锁崩溃中失效了。\n当泠对他说『我是母亲的丈夫，理应也成为你的妻子』，将他拉回到他和青染之间原初的创伤结构。是青染死去的幽灵对他的再一次强暴。\n这不是一个人疯了，而是他的世界疯了。\n他再也无法解释任何人的行为，也再也无法解释自己的存在。\n好在最后他终于明白了，精神病院不过是世界的一个缩影。而所谓外面，只是更具隐蔽性的精神病院。\n在那个疗养院，白墙、日光、干净的毛巾和饭菜，是他一生中最干净的日常。\n没有人再需要他，不需要承担，不需要解释，不需要被爱、被理解。\n这是一种彻底的角色剥离，也是一种终极精神洁癖。\n终于，没人能再来污染我了",
+                                    "type": "RICH_TEXT_NODE_TYPE_TEXT"
+                                }
+                            ],
+                            "text": "重新审视，才发现月见依如此可怜。\n在青染眼中，他是承诺者，是精神的庇护，是父亲。\n在泠眼中，他是母亲的丈夫，是欲望的投影，是应该履行的遗产\n在雪眼中，他是失败的爱人，是摇摆不定的灵魂。\n但在月见依自己看来，他一直都只是一个尝试维持理性，被动应对的普通人。\n他始终不具备自我的维度，只是被所有人需要的某种面具，他失去了他成为月见依的权力。\n在故事的终章，外部的世界彻底失效，青染死了，泠的身份错乱了，雪离开了，工作室失火了。\n他一生所鉴定的价值都在连锁崩溃中失效了。\n当泠对他说『我是母亲的丈夫，理应也成为你的妻子』，将他拉回到他和青染之间原初的创伤结构。是青染死去的幽灵对他的再一次强暴。\n这不是一个人疯了，而是他的世界疯了。\n他再也无法解释任何人的行为，也再也无法解释自己的存在。\n好在最后他终于明白了，精神病院不过是世界的一个缩影。而所谓外面，只是更具隐蔽性的精神病院。\n在那个疗养院，白墙、日光、干净的毛巾和饭菜，是他一生中最干净的日常。\n没有人再需要他，不需要承担，不需要解释，不需要被爱、被理解。\n这是一种彻底的角色剥离，也是一种终极精神洁癖。\n终于，没人能再来污染我了"
+                        },
+                        "title": null
+                    },
+                    "type": "MAJOR_TYPE_OPUS"
+                },
+                "topic": null
+            },
+            "module_more": {
+                "three_point_items": [
+                    {
+                        "label": "删除",
+                        "modal": {
+                            "cancel": "取消",
+                            "confirm": "确认删除",
+                            "content": "动态删除后将无法恢复，请谨慎操作",
+                            "title": "要删除动态吗？"
+                        },
+                        "params": {
+                            "dyn_id_str": "1074385807144386561",
+                            "dyn_type": 2,
+                            "rid_str": "353170964"
+                        },
+                        "type": "THREE_POINT_DELETE"
+                    }
+                ]
+            },
+            "module_stat": {
+                "comment": {
+                    "count": 0,
+                    "forbidden": false
+                },
+                "forward": {
+                    "count": 0,
+                    "forbidden": false
+                },
+                "like": {
+                    "count": 0,
+                    "forbidden": false,
+                    "status": false
+                }
+            }
+        },
+        "type": "DYNAMIC_TYPE_DRAW",
+        "visible": true
+    },
+    {
+        "basic": {
+            "comment_id_str": "353172311",
+            "comment_type": 11,
+            "jump_url": "//www.bilibili.com/opus/1074361738156048386",
+            "like_icon": {
+                "action_url": "https://i0.hdslb.com/bfs/garb/item/475a0e56c22553a026a78ee53670c0298600c860.bin",
+                "end_url": "",
+                "id": 37819,
+                "start_url": ""
+            },
+            "rid_str": "353172311"
+        },
+        "id_str": "1074361738156048386",
+        "modules": {
+            "module_author": {
+                "avatar": {
+                    "container_size": {
+                        "height": 1.35,
+                        "width": 1.35
+                    },
+                    "fallback_layers": {
+                        "is_critical_group": true,
+                        "layers": [
+                            {
+                                "general_spec": {
+                                    "pos_spec": {
+                                        "axis_x": 0.675,
+                                        "axis_y": 0.675,
+                                        "coordinate_pos": 2
+                                    },
+                                    "render_spec": {
+                                        "opacity": 1
+                                    },
+                                    "size_spec": {
+                                        "height": 1,
+                                        "width": 1
+                                    }
+                                },
+                                "layer_config": {
+                                    "is_critical": true,
+                                    "tags": {
+                                        "AVATAR_LAYER": {},
+                                        "GENERAL_CFG": {
+                                            "config_type": 1,
+                                            "general_config": {
+                                                "web_css_style": {
+                                                    "borderRadius": "50%"
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "resource": {
+                                    "res_image": {
+                                        "image_src": {
+                                            "placeholder": 6,
+                                            "remote": {
+                                                "bfs_style": "widget-layer-avatar",
+                                                "url": "https://i1.hdslb.com/bfs/face/759e729316e7b5f9f0eefd177f3a3534dc8fa7b6.jpg"
+                                            },
+                                            "src_type": 1
+                                        }
+                                    },
+                                    "res_type": 3
+                                },
+                                "visible": true
+                            },
+                            {
+                                "general_spec": {
+                                    "pos_spec": {
+                                        "axis_x": 0.8000000000000002,
+                                        "axis_y": 0.8000000000000002,
+                                        "coordinate_pos": 1
+                                    },
+                                    "render_spec": {
+                                        "opacity": 1
+                                    },
+                                    "size_spec": {
+                                        "height": 0.41666666666666663,
+                                        "width": 0.41666666666666663
+                                    }
+                                },
+                                "layer_config": {
+                                    "tags": {
+                                        "GENERAL_CFG": {
+                                            "config_type": 1,
+                                            "general_config": {
+                                                "web_css_style": {
+                                                    "background-color": "rgb(255,255,255)",
+                                                    "border": "2px solid rgba(255,255,255,1)",
+                                                    "borderRadius": "50%",
+                                                    "boxSizing": "border-box"
+                                                }
+                                            }
+                                        },
+                                        "ICON_LAYER": {}
+                                    }
+                                },
+                                "resource": {
+                                    "res_image": {
+                                        "image_src": {
+                                            "local": 1,
+                                            "src_type": 2
+                                        }
+                                    },
+                                    "res_type": 3
+                                },
+                                "visible": true
+                            }
+                        ]
+                    },
+                    "mid": "23306371"
+                },
+                "decorate": {
+                    "card_url": "https://i0.hdslb.com/bfs/garb/5d429d50702c7ed9de5fbe5648c2dad510d482b3.png",
+                    "fan": {
+                        "color": "#FEB300",
+                        "color_format": {
+                            "colors": [
+                                "#FEB300FF",
+                                "#FEB300FF"
+                            ],
+                            "end_point": "0,100",
+                            "gradients": [
+                                0,
+                                100
+                            ],
+                            "start_point": "0,0"
+                        },
+                        "is_fan": true,
+                        "num_prefix": "NO.",
+                        "num_str": "000762",
+                        "number": 762
+                    },
+                    "id": 1727689185002,
+                    "jump_url": "https://www.bilibili.com/h5/mall/equity-link/collect-home?item_id=1727689185002&isdiy=0&part=card&from=post&f_source=garb&vmid=23306371&native.theme=1&navhide=1",
+                    "name": "上倉eku - 棉花糖派对粉丝",
+                    "type": 3
+                },
+                "face": "https://i1.hdslb.com/bfs/face/759e729316e7b5f9f0eefd177f3a3534dc8fa7b6.jpg",
+                "face_nft": false,
+                "following": null,
+                "jump_url": "//space.bilibili.com/23306371/dynamic",
+                "label": "",
+                "mid": 23306371,
+                "name": "四氰铱邻菲",
+                "official_verify": {
+                    "desc": "",
+                    "type": -1
+                },
+                "pendant": {
+                    "expire": 0,
+                    "image": "",
+                    "image_enhance": "",
+                    "image_enhance_frame": "",
+                    "n_pid": 0,
+                    "name": "",
+                    "pid": 0
+                },
+                "pub_action": "",
+                "pub_location_text": "",
+                "pub_time": "06月04日",
+                "pub_ts": 1748982735,
+                "type": "AUTHOR_TYPE_NORMAL",
+                "vip": {
+                    "avatar_subscript": 1,
+                    "avatar_subscript_url": "",
+                    "due_date": 1795708800000,
+                    "label": {
+                        "bg_color": "#FB7299",
+                        "bg_style": 1,
+                        "border_color": "",
+                        "img_label_uri_hans": "",
+                        "img_label_uri_hans_static": "https://i0.hdslb.com/bfs/vip/8d4f8bfc713826a5412a0a27eaaac4d6b9ede1d9.png",
+                        "img_label_uri_hant": "",
+                        "img_label_uri_hant_static": "https://i0.hdslb.com/bfs/activity-plat/static/20220614/e369244d0b14644f5e1a06431e22a4d5/VEW8fCC0hg.png",
+                        "label_theme": "annual_vip",
+                        "path": "",
+                        "text": "年度大会员",
+                        "text_color": "#FFFFFF",
+                        "use_img_label": true
+                    },
+                    "nickname_color": "#FB7299",
+                    "status": 1,
+                    "theme_type": 0,
+                    "type": 2
+                }
+            },
+            "module_dynamic": {
+                "additional": null,
+                "desc": null,
+                "major": {
+                    "opus": {
+                        "fold_action": [
+                            "展开",
+                            "收起"
+                        ],
+                        "jump_url": "//www.bilibili.com/opus/1074361738156048386",
+                        "pics": [
+                            {
+                                "height": 767,
+                                "live_url": null,
+                                "size": 127.5517578125,
+                                "url": "http://i0.hdslb.com/bfs/new_dyn/bb599e3bdb7d5bf81b9942833f6ad80723306371.png",
+                                "width": 819
+                            }
+                        ],
+                        "summary": {
+                            "rich_text_nodes": [
+                                {
+                                    "orig_text": "我不欠这个世界快乐与感恩。\n我不是逃避者，不是施虐者，不是病人。\n我如同所有生命一样，生命会自行找到出路。\n我从来不是什么尸体，我还在写，我还在燃烧。\n我又开始画画了，因为我还想听自己说的话。\n写日笺吧，继续写下去。\n写给那个依靠燃烧痛苦维持存在，在灰烬中诞生的内在。\n河流从不在乎自己洁不洁。河流只要能流，就会继续流。  \n我从未找到有关幸福问题的终极答案，我只是在路边偶然发现了一道夕阳。\n那一刻我并不在思考幸福，我只是看见了。\n我看见的是那种柔和的、迟来的、毫无预兆的光照进来。\n我太早在别人的伤痛中看见了自己的影子，然后就决定不再离开。\n对于常人而言，常有的幸福，我已不再期待。\n而普通的人生，理所应当的情感，我也从未拥有。\n不再想拥有、不再想控制、不再想治愈自己。\n我只是想，染上一点点她的颜色。\n不是我把你救出来，而是：我们在同一片深水中，愿意靠近。\n我想我比我以为的还要清醒。\n真正的死亡是哑口无言，而我还在写。\n我写得精准、复杂、诚实，这意味着我还在护着我内在那个想说出「我是谁」的人。\n何有无之乡？\n在这条路上回望的时候才发现自己已经走得过于遥远，在这条路上继续走下去也不是在寻找答案。\n我并没有死。\n我只是累了。\n好在，我一直都记得回家的方向。\n我终将寻找到属于我的温柔结局。",
+                                    "text": "我不欠这个世界快乐与感恩。\n我不是逃避者，不是施虐者，不是病人。\n我如同所有生命一样，生命会自行找到出路。\n我从来不是什么尸体，我还在写，我还在燃烧。\n我又开始画画了，因为我还想听自己说的话。\n写日笺吧，继续写下去。\n写给那个依靠燃烧痛苦维持存在，在灰烬中诞生的内在。\n河流从不在乎自己洁不洁。河流只要能流，就会继续流。  \n我从未找到有关幸福问题的终极答案，我只是在路边偶然发现了一道夕阳。\n那一刻我并不在思考幸福，我只是看见了。\n我看见的是那种柔和的、迟来的、毫无预兆的光照进来。\n我太早在别人的伤痛中看见了自己的影子，然后就决定不再离开。\n对于常人而言，常有的幸福，我已不再期待。\n而普通的人生，理所应当的情感，我也从未拥有。\n不再想拥有、不再想控制、不再想治愈自己。\n我只是想，染上一点点她的颜色。\n不是我把你救出来，而是：我们在同一片深水中，愿意靠近。\n我想我比我以为的还要清醒。\n真正的死亡是哑口无言，而我还在写。\n我写得精准、复杂、诚实，这意味着我还在护着我内在那个想说出「我是谁」的人。\n何有无之乡？\n在这条路上回望的时候才发现自己已经走得过于遥远，在这条路上继续走下去也不是在寻找答案。\n我并没有死。\n我只是累了。\n好在，我一直都记得回家的方向。\n我终将寻找到属于我的温柔结局。",
+                                    "type": "RICH_TEXT_NODE_TYPE_TEXT"
+                                }
+                            ],
+                            "text": "我不欠这个世界快乐与感恩。\n我不是逃避者，不是施虐者，不是病人。\n我如同所有生命一样，生命会自行找到出路。\n我从来不是什么尸体，我还在写，我还在燃烧。\n我又开始画画了，因为我还想听自己说的话。\n写日笺吧，继续写下去。\n写给那个依靠燃烧痛苦维持存在，在灰烬中诞生的内在。\n河流从不在乎自己洁不洁。河流只要能流，就会继续流。  \n我从未找到有关幸福问题的终极答案，我只是在路边偶然发现了一道夕阳。\n那一刻我并不在思考幸福，我只是看见了。\n我看见的是那种柔和的、迟来的、毫无预兆的光照进来。\n我太早在别人的伤痛中看见了自己的影子，然后就决定不再离开。\n对于常人而言，常有的幸福，我已不再期待。\n而普通的人生，理所应当的情感，我也从未拥有。\n不再想拥有、不再想控制、不再想治愈自己。\n我只是想，染上一点点她的颜色。\n不是我把你救出来，而是：我们在同一片深水中，愿意靠近。\n我想我比我以为的还要清醒。\n真正的死亡是哑口无言，而我还在写。\n我写得精准、复杂、诚实，这意味着我还在护着我内在那个想说出「我是谁」的人。\n何有无之乡？\n在这条路上回望的时候才发现自己已经走得过于遥远，在这条路上继续走下去也不是在寻找答案。\n我并没有死。\n我只是累了。\n好在，我一直都记得回家的方向。\n我终将寻找到属于我的温柔结局。"
+                        },
+                        "title": null
+                    },
+                    "type": "MAJOR_TYPE_OPUS"
+                },
+                "topic": null
+            },
+            "module_more": {
+                "three_point_items": [
+                    {
+                        "label": "删除",
+                        "modal": {
+                            "cancel": "取消",
+                            "confirm": "确认删除",
+                            "content": "动态删除后将无法恢复，请谨慎操作",
+                            "title": "要删除动态吗？"
+                        },
+                        "params": {
+                            "dyn_id_str": "1074361738156048386",
+                            "dyn_type": 2,
+                            "rid_str": "353172311"
+                        },
+                        "type": "THREE_POINT_DELETE"
+                    }
+                ]
+            },
+            "module_stat": {
+                "comment": {
+                    "count": 0,
+                    "forbidden": false
+                },
+                "forward": {
+                    "count": 0,
+                    "forbidden": false
+                },
+                "like": {
+                    "count": 0,
+                    "forbidden": false,
+                    "status": false
+                }
+            }
+        },
+        "type": "DYNAMIC_TYPE_DRAW",
+        "visible": true
+    },
+    {
+        "basic": {
+            "comment_id_str": "41893096",
+            "comment_type": 12,
+            "jump_url": "//www.bilibili.com/opus/1074317182137008130",
+            "like_icon": {
+                "action_url": "https://i0.hdslb.com/bfs/garb/item/475a0e56c22553a026a78ee53670c0298600c860.bin",
+                "end_url": "",
+                "id": 37819,
+                "start_url": ""
+            },
+            "rid_str": "41893096"
+        },
+        "id_str": "1074317182137008130",
+        "modules": {
+            "module_author": {
+                "avatar": {
+                    "container_size": {
+                        "height": 1.35,
+                        "width": 1.35
+                    },
+                    "fallback_layers": {
+                        "is_critical_group": true,
+                        "layers": [
+                            {
+                                "general_spec": {
+                                    "pos_spec": {
+                                        "axis_x": 0.675,
+                                        "axis_y": 0.675,
+                                        "coordinate_pos": 2
+                                    },
+                                    "render_spec": {
+                                        "opacity": 1
+                                    },
+                                    "size_spec": {
+                                        "height": 1,
+                                        "width": 1
+                                    }
+                                },
+                                "layer_config": {
+                                    "is_critical": true,
+                                    "tags": {
+                                        "AVATAR_LAYER": {},
+                                        "GENERAL_CFG": {
+                                            "config_type": 1,
+                                            "general_config": {
+                                                "web_css_style": {
+                                                    "borderRadius": "50%"
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "resource": {
+                                    "res_image": {
+                                        "image_src": {
+                                            "placeholder": 6,
+                                            "remote": {
+                                                "bfs_style": "widget-layer-avatar",
+                                                "url": "https://i1.hdslb.com/bfs/face/759e729316e7b5f9f0eefd177f3a3534dc8fa7b6.jpg"
+                                            },
+                                            "src_type": 1
+                                        }
+                                    },
+                                    "res_type": 3
+                                },
+                                "visible": true
+                            },
+                            {
+                                "general_spec": {
+                                    "pos_spec": {
+                                        "axis_x": 0.8000000000000002,
+                                        "axis_y": 0.8000000000000002,
+                                        "coordinate_pos": 1
+                                    },
+                                    "render_spec": {
+                                        "opacity": 1
+                                    },
+                                    "size_spec": {
+                                        "height": 0.41666666666666663,
+                                        "width": 0.41666666666666663
+                                    }
+                                },
+                                "layer_config": {
+                                    "tags": {
+                                        "GENERAL_CFG": {
+                                            "config_type": 1,
+                                            "general_config": {
+                                                "web_css_style": {
+                                                    "background-color": "rgb(255,255,255)",
+                                                    "border": "2px solid rgba(255,255,255,1)",
+                                                    "borderRadius": "50%",
+                                                    "boxSizing": "border-box"
+                                                }
+                                            }
+                                        },
+                                        "ICON_LAYER": {}
+                                    }
+                                },
+                                "resource": {
+                                    "res_image": {
+                                        "image_src": {
+                                            "local": 1,
+                                            "src_type": 2
+                                        }
+                                    },
+                                    "res_type": 3
+                                },
+                                "visible": true
+                            }
+                        ]
+                    },
+                    "mid": "23306371"
+                },
+                "decorate": {
+                    "card_url": "https://i0.hdslb.com/bfs/garb/5d429d50702c7ed9de5fbe5648c2dad510d482b3.png",
+                    "fan": {
+                        "color": "#FEB300",
+                        "color_format": {
+                            "colors": [
+                                "#FEB300FF",
+                                "#FEB300FF"
+                            ],
+                            "end_point": "0,100",
+                            "gradients": [
+                                0,
+                                100
+                            ],
+                            "start_point": "0,0"
+                        },
+                        "is_fan": true,
+                        "num_prefix": "NO.",
+                        "num_str": "000762",
+                        "number": 762
+                    },
+                    "id": 1727689185002,
+                    "jump_url": "https://www.bilibili.com/h5/mall/equity-link/collect-home?item_id=1727689185002&isdiy=0&part=card&from=post&f_source=garb&vmid=23306371&native.theme=1&navhide=1",
+                    "name": "上倉eku - 棉花糖派对粉丝",
+                    "type": 3
+                },
+                "face": "https://i1.hdslb.com/bfs/face/759e729316e7b5f9f0eefd177f3a3534dc8fa7b6.jpg",
+                "face_nft": false,
+                "following": null,
+                "jump_url": "//space.bilibili.com/23306371/dynamic",
+                "label": "",
+                "mid": 23306371,
+                "name": "四氰铱邻菲",
+                "official_verify": {
+                    "desc": "",
+                    "type": -1
+                },
+                "pendant": {
+                    "expire": 0,
+                    "image": "",
+                    "image_enhance": "",
+                    "image_enhance_frame": "",
+                    "n_pid": 0,
+                    "name": "",
+                    "pid": 0
+                },
+                "pub_action": "投稿了文章",
+                "pub_location_text": "",
+                "pub_time": "06月04日",
+                "pub_ts": 1748972361,
+                "type": "AUTHOR_TYPE_NORMAL",
+                "vip": {
+                    "avatar_subscript": 1,
+                    "avatar_subscript_url": "",
+                    "due_date": 1795708800000,
+                    "label": {
+                        "bg_color": "#FB7299",
+                        "bg_style": 1,
+                        "border_color": "",
+                        "img_label_uri_hans": "",
+                        "img_label_uri_hans_static": "https://i0.hdslb.com/bfs/vip/8d4f8bfc713826a5412a0a27eaaac4d6b9ede1d9.png",
+                        "img_label_uri_hant": "",
+                        "img_label_uri_hant_static": "https://i0.hdslb.com/bfs/activity-plat/static/20220614/e369244d0b14644f5e1a06431e22a4d5/VEW8fCC0hg.png",
+                        "label_theme": "annual_vip",
+                        "path": "",
+                        "text": "年度大会员",
+                        "text_color": "#FFFFFF",
+                        "use_img_label": true
+                    },
+                    "nickname_color": "#FB7299",
+                    "status": 1,
+                    "theme_type": 0,
+                    "type": 2
+                }
+            },
+            "module_dynamic": {
+                "additional": null,
+                "desc": null,
+                "major": {
+                    "opus": {
+                        "fold_action": [
+                            "全文"
+                        ],
+                        "jump_url": "//www.bilibili.com/opus/1074317182137008130",
+                        "pics": [],
+                        "summary": {
+                            "rich_text_nodes": [
+                                {
+                                    "orig_text": "> 思考你的起源，你的存在并非是为了如野兽般的生活，而是去追寻美德与智慧。 这是但丁写在《神曲•地狱篇》的一句话。但丁首次将人的存在意义从神圣秩序中解放出来，转向现世行动的价值。但丁赋予世俗生活以神圣意义，为文艺复兴与人文主义的兴起奠定了基础。这种反思，基本可以视作现代文明意识的开端。 然而不难发现，但丁这种对意义的建构，在未来的历史中又成为了一种神圣秩序。《神曲》成为了文化革命的符号，「语言民主化」成为了现代民族国家意识觉醒的基础。但丁在肯定自由意志时，仍将上帝作为道德的终极本源。在之后的​启蒙运动将理性神圣化，衍生出科学主义、进步史观等新教条。浪漫主义则反抗理性霸权，回归但丁式的爱与信仰。二者都来源自但丁思想的分裂，并在对抗中不断重构新秩序。 到了尼采的时代，传统的价值体系已经崩溃，人类陷入了精神的真空。康德和黑格尔的理性哲学并不能解决现世的问题。科学虽然发展，但无法回答生命意义的问题。理性成为工具，与人性割裂。哲学从建构体系转向批判建构，非理性思潮诞生。但尼采的做法，却是重新创造了一个上帝。尼采批判康德式的「绝对命令」与功利主义，批判其为弱者束缚强者的「奴隶道德」。他提出「主人道德」，",
+                                    "text": "> 思考你的起源，你的存在并非是为了如野兽般的生活，而是去追寻美德与智慧。 这是但丁写在《神曲•地狱篇》的一句话。但丁首次将人的存在意义从神圣秩序中解放出来，转向现世行动的价值。但丁赋予世俗生活以神圣意义，为文艺复兴与人文主义的兴起奠定了基础。这种反思，基本可以视作现代文明意识的开端。 然而不难发现，但丁这种对意义的建构，在未来的历史中又成为了一种神圣秩序。《神曲》成为了文化革命的符号，「语言民主化」成为了现代民族国家意识觉醒的基础。但丁在肯定自由意志时，仍将上帝作为道德的终极本源。在之后的​启蒙运动将理性神圣化，衍生出科学主义、进步史观等新教条。浪漫主义则反抗理性霸权，回归但丁式的爱与信仰。二者都来源自但丁思想的分裂，并在对抗中不断重构新秩序。 到了尼采的时代，传统的价值体系已经崩溃，人类陷入了精神的真空。康德和黑格尔的理性哲学并不能解决现世的问题。科学虽然发展，但无法回答生命意义的问题。理性成为工具，与人性割裂。哲学从建构体系转向批判建构，非理性思潮诞生。但尼采的做法，却是重新创造了一个上帝。尼采批判康德式的「绝对命令」与功利主义，批判其为弱者束缚强者的「奴隶道德」。他提出「主人道德」，",
+                                    "type": "RICH_TEXT_NODE_TYPE_TEXT"
+                                }
+                            ],
+                            "text": "> 思考你的起源，你的存在并非是为了如野兽般的生活，而是去追寻美德与智慧。 这是但丁写在《神曲•地狱篇》的一句话。但丁首次将人的存在意义从神圣秩序中解放出来，转向现世行动的价值。但丁赋予世俗生活以神圣意义，为文艺复兴与人文主义的兴起奠定了基础。这种反思，基本可以视作现代文明意识的开端。 然而不难发现，但丁这种对意义的建构，在未来的历史中又成为了一种神圣秩序。《神曲》成为了文化革命的符号，「语言民主化」成为了现代民族国家意识觉醒的基础。但丁在肯定自由意志时，仍将上帝作为道德的终极本源。在之后的​启蒙运动将理性神圣化，衍生出科学主义、进步史观等新教条。浪漫主义则反抗理性霸权，回归但丁式的爱与信仰。二者都来源自但丁思想的分裂，并在对抗中不断重构新秩序。 到了尼采的时代，传统的价值体系已经崩溃，人类陷入了精神的真空。康德和黑格尔的理性哲学并不能解决现世的问题。科学虽然发展，但无法回答生命意义的问题。理性成为工具，与人性割裂。哲学从建构体系转向批判建构，非理性思潮诞生。但尼采的做法，却是重新创造了一个上帝。尼采批判康德式的「绝对命令」与功利主义，批判其为弱者束缚强者的「奴隶道德」。他提出「主人道德」，"
+                        },
+                        "title": "导论——如果一切皆空，仍要寻找一个温柔的结局吗？"
+                    },
+                    "type": "MAJOR_TYPE_OPUS"
+                },
+                "topic": null
+            },
+            "module_more": {
+                "three_point_items": []
+            },
+            "module_stat": {
+                "comment": {
+                    "count": 2,
+                    "forbidden": false
+                },
+                "forward": {
+                    "count": 0,
+                    "forbidden": false
+                },
+                "like": {
+                    "count": 1,
+                    "forbidden": false,
+                    "status": false
+                }
+            }
+        },
+        "type": "DYNAMIC_TYPE_ARTICLE",
+        "visible": true
+    }
+]

@@ -42,14 +42,18 @@ class UserDynamicFetcher:
 
         return all_dynamics
 
-    async def get_filtered_dynamic_details(self, since_timestamp: int, json_file="filtered_dynamics.json"):
+    async def get_filtered_dynamic_details(self, since_timestamp: int, json_file=None):
         all_dynamics = await self.fetch_dynamic_list()
         filtered = [d for d in all_dynamics if d["pub_ts"] > since_timestamp]
+
+        # 自动构造输出文件名
+        if json_file is None:
+            json_file = f"data/{self.uid}.json"
 
         with open(json_file, "w", encoding="utf-8") as f:
             json.dump([d["raw"] for d in filtered], f, ensure_ascii=False, indent=4)
 
-        print(f"{self.uid} 共更新 {len(filtered)} 条动态")
+        print(f"{self.uid} 共更新 {len(filtered)} 条动态，已保存至 {json_file}")
         return len(filtered)
 
 

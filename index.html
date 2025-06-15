@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>动态页示例</title>
+<style>
+  body {
+    font-family: "微软雅黑", sans-serif;
+    max-width: 720px;
+    margin: auto;
+    padding: 1rem;
+    background: #fafafa;
+  }
+  .post {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 0 8px #ddd;
+    margin-bottom: 1.5rem;
+    padding: 1rem 1.2rem;
+  }
+  .author {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.6rem;
+  }
+  .avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 0.8rem;
+    flex-shrink: 0;
+  }
+  .avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .author-info {
+    flex-grow: 1;
+  }
+  .author-name {
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: #333;
+    display: flex;
+    align-items: center;
+  }
+  .vip-badge {
+    width: 16px;
+    height: 16px;
+    margin-left: 6px;
+  }
+  .post-content {
+    white-space: pre-wrap;
+    color: #444;
+    line-height: 1.5;
+    margin-bottom: 0.8rem;
+  }
+  .post-time {
+    font-size: 0.85rem;
+    color: #999;
+  }
+  a.jump-link {
+    text-decoration: none;
+    color: #0066cc;
+    font-size: 0.9rem;
+  }
+</style>
+</head>
+<body>
+  <h1>动态列表</h1>
+  <div id="posts"></div>
+
+  <script>
+    fetch('data/23306371.json')
+      .then(res => res.json())
+      .then(data => {
+        const container = document.getElementById('posts');
+
+        data.forEach(item => {
+          const author = item.modules.module_author;
+          const dynamic = item.modules.module_dynamic.major.opus;
+          const pub_time = author.pub_time;
+          const jump_url = author.jump_url.startsWith('//') ? 'https:' + author.jump_url : author.jump_url;
+
+          // 创建帖子元素
+          const postDiv = document.createElement('div');
+          postDiv.className = 'post';
+
+          // VIP徽章图片链接（如果有）
+          const vipBadge = author.vip && author.vip.label && author.vip.label.img_label_uri_hans_static
+            ? `<img class="vip-badge" src="${author.vip.label.img_label_uri_hans_static}" alt="VIP" title="${author.vip.label.text}" />`
+            : '';
+
+          postDiv.innerHTML = `
+            <div class="author">
+              <div class="avatar">
+                <img src="${author.face}" alt="${author.name}" />
+              </div>
+              <div class="author-info">
+                <div class="author-name">${author.name} ${vipBadge}</div>
+                <a class="jump-link" href="${jump_url}" target="_blank" rel="noopener noreferrer">访问动态</a>
+              </div>
+            </div>
+            <div class="post-content">${dynamic.summary.text.replace(/\n/g, '<br>')}</div>
+            <div class="post-time">${pub_time}</div>
+          `;
+
+          container.appendChild(postDiv);
+        });
+      })
+      .catch(err => {
+        document.getElementById('posts').textContent = '加载动态失败，请检查 JSON 文件路径及格式';
+        console.error(err);
+      });
+  </script>
+</body>
+</html>

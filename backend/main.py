@@ -2,30 +2,24 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from backend.api import posts, subscriptions
+from backend.utils.logger import setup_logger
+from backend.tasks.runner import setup_tasks
 
-app = FastAPI(title="IrPhen_RSSCenter Backend")
+setup_tasks()
+app = FastAPI(title="IrPhen RSS Center")
 
-# CORS（跨域资源共享）配置
-origins = [
-    "http://localhost",
-    "http://localhost:8000",  # Default for Vue/Vite dev server
-    "http://127.0.0.1:8000",
-]
+# 注册路由
+app.include_router(posts.router, prefix="/api/posts")
+app.include_router(subscriptions.router, prefix="/api/subscriptions")
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=origins,
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+# 启动初始化
+@app.on_event("startup")
+async def startup_event():
+    setup_logger()
+    print("Server started.")
 
-# Include API routers
-app.include_router(posts.router)
-app.include_router(subscriptions.router)
+@app.on_event("shutdown")
+async def shutdown_event():
+    print("Server shutting down.")
 
-@app.get("/")
-async def read_root():
-    return {"message": "已进入IrPhen_RSSCenter后端！"}
-
-# 稍后将包括来自api的路由器
+    
