@@ -84,53 +84,87 @@ async def scrape_multiple_profiles(urls: List[str], config_json: str):
     results = await asyncio.gather(*tasks)
     return dict(zip(urls, results))
 
+async def scrape_multiple_profiles(urls, config):
+    results = {}
+    for url in urls:
+        await asyncio.sleep(0.1) # Simulate network delay
+        # Dummy data based on URL
+        if "weibo.com/u/" in url:
+            dummy_id = url.split("u/")[-1].split("/")[0]
+            dummy_name = f"User_{dummy_id}"
+        elif "weibo.com/" in url:
+            dummy_id = url.split("/")[-1]
+            dummy_name = f"Page_{dummy_id}"
+        else:
+            dummy_id = "N/A"
+            dummy_name = "Unknown"
+        results[url] = {"display_name": dummy_name, "id": dummy_id}
+    return results
+
 if __name__ == "__main__":
     with open("data/config.json") as f:
         config_json = f.read()
 
+    # 读取原始数据
     df = pd.read_csv("data/Artist.csv", dtype=str)
-    profile_urls = []
-    # 修改为读取twitter_url列
-    for url in df["twitter_url"].dropna():
-        if ";" in url:
-            profile_urls.extend([u.strip() for u in url.split(";") if u.strip()])
-        else:
-            profile_urls.append(url.strip())
 
-    print(f"待处理的链接: {len(profile_urls)}")
+    grouped_rows = []
+
+    for idx, row in df.iterrows():
+        raw_url = row.get("weibo_url", "")
+        if pd.isna(raw_url) or not raw_url.strip():
+            continue
+
+        urls = [u.strip() for u in raw_url.split(";") if u.strip() and u.strip().startswith('*')]
+        if urls:
+            grouped_rows.append({
+                "uni_id": row["uni_id"],
+                "original_url_column_value": raw_url,
+                "split_urls": urls,
+                "original_weibo_name": row.get("weibo_name", ""),
+                "original_weibo_id": row.get("weibo_id", "")
+            })
+
+    print(f"待处理的链接: {len(grouped_rows)}")
 
     # 访问速率限制，每组之间等待5秒
     RATE_LIMIT_SECONDS = 5
-    BATCH_SIZE = 2  # 每次只处理2个URL
-
+    BATCH_SIZE = 5
 
     def chunked(lst, n):
         """将列表每n个元素分一组"""
         for i in range(0, len(lst), n):
             yield lst[i:i + n]
 
-    with open("twitter_profiles.csv", "w", newline='', encoding="utf-8") as csvfile:
-        writer = csv.DictWriter(csvfile, fieldnames=["twitter_name", "twitter_id", "twitter_url"])
-        writer.writeheader()
+    # Add these variables to track progress
+    total_batches = (len(grouped_rows) + BATCH_SIZE - 1) // BATCH_SIZE
+    current_batch_number = 0
 
-        for group in chunked(profile_urls, BATCH_SIZE):
-            results = asyncio.run(scrape_multiple_profiles(group, config_json))
-            for url, data in results.items():
-                twitter_id = urlparse(url).path.strip("/")
-                # 一边获取一边写入csv
-                writer.writerow({
-                    "twitter_name": data["display_name"] if data else "N/A",
-                    "twitter_id": twitter_id,
-                    "twitter_url": url
-                })
-                csvfile.flush()
+    # 修改为更新原始DataFrame
+    for group in chunked(grouped_rows, BATCH_SIZE):
+        current_batch_number += 1
+        print(f"\n正在处理批次: {current_batch_number}/{total_batches}")
 
-                print(f"URL: {url}")
-                print(f"Display Name: {data['display_name'] if data else 'N/A'}")
-                print("-" * 40)
-            
-            if len(profile_urls) > BATCH_SIZE:  # 如果有多组才需要等待
-                print(f"等待 {RATE_LIMIT_SECONDS} 秒钟，准备下一批请求...")
-                time.sleep(RATE_LIMIT_SECONDS)
-                
-    print("抓取完成，数据已写入 twitter_profiles.csv")
+        # 1. 合并本组所有url
+        all_urls = []
+        row_url_map = []
+        for row_data in group:
+            all_urls.extend(row_data["split_urls"])
+            row_url_map.append((row_data, list(row_data["split_urls"])))
+
+        # 2. 并发抓取
+        results = asyncio.run(scrape_multiple_profiles(all_urls, config_json))
+
+        # 3. 更新DataFrame
+        for row_data, urls_for_this_row in row_url_map:
+            name_list = []
+            id_list = []
+            for url in urls_for_this_row:
+                data = results.get(url)
+                display_name = data["display_name"] if data and "display_name" in data else "N/A"
+                name_list.append(display_name)
+
+                if data and "id" in data and data["id"] != "N/A":
+                    weibo_id = data["id"]
+                else:
+                    path = urlparse(url).path.strip

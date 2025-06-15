@@ -37,7 +37,7 @@ async def scrape_bilibili_profile_async(url: str, config_json: str) -> Optional[
         logger.info(f"使用User-Agent: {user_agent}")
 
         async with async_playwright() as p:
-            browser = await p.chromium.launch(headless=True)
+            browser = await p.chromium.launch(headless=False)
             context = await browser.new_context(user_agent=user_agent)
             page = await context.new_page()
 
@@ -82,20 +82,22 @@ if __name__ == "__main__":
     with open("data/config.json") as f:
         config_json = f.read()
 
-    df = pd.read_csv("data/Artist.csv", dtype=str)
-    profile_urls = []
-    # 修改为读取bilibili_url列
-    for url in df["bili_url"].dropna():
-        if ";" in url:
-            profile_urls.extend([u.strip() for u in url.split(";") if u.strip()])
-        else:
-            profile_urls.append(url.strip())
-
-    print(f"待处理的链接: {len(profile_urls)}")
+    df = pd.read_csv("data/Artist.csv", dtype=str)  # 请确保文件路径和文件名正确
     
+    grouped_rows = []
+
+    for idx, raw_url in df["bili_url"].dropna().items():
+        urls = [u.strip() for u in raw_url.split(";") if u.strip()]
+        grouped_rows.append({
+            "original_url": raw_url,
+            "split_urls": urls
+        })
+
+    print(f"待处理的链接: {len(grouped_rows)}")
+
     # Bilibili反爬较严格，降低频率
     RATE_LIMIT_SECONDS = 8  # 每组之间等待8秒
-    BATCH_SIZE = 2  # 每次只处理2个URL
+    BATCH_SIZE = 3  # 每次只处理2个URL
 
     def chunked(lst, n):
         """将列表每n个元素分一组"""
@@ -107,29 +109,41 @@ if __name__ == "__main__":
         writer = csv.DictWriter(csvfile, fieldnames=["bili_name", "bili_id", "bili_url"])
         writer.writeheader()
 
-        for group in chunked(profile_urls, BATCH_SIZE):
-            results = asyncio.run(scrape_multiple_profiles(group, config_json))
-            for url, data in results.items():
-                # 从URL中提取ID（B站ID是数字）
-                path = urlparse(url).path.strip("/")
-                # 处理多种URL格式：space.bilibili.com/123456 或 www.bilibili.com/video/BV...
-                bilibili_id = path.split('/')[-1] if not path.startswith('video') else "N/A"
-                
-                # 一边获取一边写入csv
+        for group in chunked(grouped_rows, BATCH_SIZE):
+            # 1. 合并本组所有url
+            all_urls = []
+            row_url_map = []
+            for row in group:
+                all_urls.extend(row["split_urls"])
+                row_url_map.append((row, list(row["split_urls"])))  # 保留每行的url列表
+
+            # 2. 并发抓取
+            results = asyncio.run(scrape_multiple_profiles(all_urls, config_json))
+
+            # 3. 按原始行写入
+            for row, urls in row_url_map:
+                name_list = []
+                id_list = []
+                for url in urls:
+                    data = results.get(url)
+                    display_name = data["display_name"] if data else "N/A"
+                    name_list.append(display_name)
+                    path = urlparse(url).path.strip("/")
+                    bilibili_id = path.split('/')[-1] if not path.startswith('video') else "N/A"
+                    id_list.append(bilibili_id)
+                    print(f"URL: {url}")
+                    print(f"Display Name: {display_name}")
+                    print(f"Bilibili ID: {bilibili_id}")
+                    print("-" * 40)
                 writer.writerow({
-                    "bili_name": data["display_name"] if data else "N/A",
-                    "bili_id": bilibili_id,
-                    "bili_url": url
+                    "bili_name": ";".join(name_list),
+                    "bili_id": ";".join(id_list),
+                    "bili_url": row["original_url"]
                 })
                 csvfile.flush()
 
-                print(f"URL: {url}")
-                print(f"Display Name: {data['display_name'] if data else 'N/A'}")
-                print(f"Bilibili ID: {bilibili_id}")
-                print("-" * 40)
-            
-            if len(profile_urls) > BATCH_SIZE:  # 如果有多组才需要等待
+            if len(grouped_rows) > 1:
                 print(f"等待 {RATE_LIMIT_SECONDS} 秒钟，准备下一批请求...")
                 time.sleep(RATE_LIMIT_SECONDS)
 
-    print("抓取完成，数据已写入 bilibili_profiles.csv")
+print("抓取完成，数据已写入 bilibili_profiles.csv")

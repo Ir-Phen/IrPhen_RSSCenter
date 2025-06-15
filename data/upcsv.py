@@ -30,7 +30,7 @@ df = df[df['name'].notna()].copy()  # 去除空行
 def generate_urls(row):
     def make_url(base, ids):
         if pd.isna(ids): return ""
-        return ";".join([f"{base}{i.strip()}" for i in str(ids).split(";") if i.strip()])
+        return ";".join([f"*{base}{i.strip()}" for i in str(ids).split(";") if i.strip()])
 
     row["pixiv_url"] = make_url("https://www.pixiv.net/users/", row.get("pixiv_id"))
     row["twitter_url"] = make_url("https://x.com/", row.get("twitter_id"))
@@ -80,8 +80,9 @@ artist_df = pd.read_csv("data/Artist.csv", dtype=str)  # 强制为字符串，�
 # 按 name 字段进行外连接（可修改为 inner/left/right 根据需求）
 merged_df = pd.concat([artist_df, df], ignore_index=True)
 
-# 去重（可选，根据 name 去重）
-merged_df.drop_duplicates(subset=["name"], keep="first", inplace=True)
+# 去除 name 为空或全为 NaN 的行
+merged_df = merged_df.dropna(how="all")
+
 
 # ===== 写入新文件 =====
 merged_df.to_csv("data/Artist_updata.csv", index=False, encoding="utf-8-sig")
