@@ -1,0 +1,10 @@
+{
+    "proxy_pool": [
+        {"http": "http://127.0.0.1:1429"},
+        {"https": "https://127.0.0.1:1429"}
+    ],
+    "user_agents": [
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Edge/100.0.100.0 Safari/537.36"
+    ],
+    "webdriver_path": "./backend/tools/edgedriver_win64/msedgedriver.exe"
+}
