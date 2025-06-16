@@ -155,8 +155,11 @@ class SocialProfileScraper:
             "twitter": 'div[data-testid="UserName"] span:first-child',
             "bilibili": 'span#h-name'
         }
+        self.browser = None
+        self.context = None
 
-    async def _scrape_single(self, platform: str, url: str, config_json: str) -> Optional[Dict[str, Optional[str]]]:
+    async def initialize_browser(self, config_json: str):
+        """初始化浏览器实例"""
         try:
             config = json.loads(config_json)
             user_agents = config.get("user_agents", [])
@@ -164,40 +167,54 @@ class SocialProfileScraper:
 
             if not user_agents:
                 logger.error("必须提供至少一个 User-Agent")
-                return None
+                return False
 
-            user_agent = user_agents[0]  # 可随机选
+            user_agent = user_agents[0]
             proxy = proxy_pool[0] if proxy_pool else None
-            selector = self.selectors.get(platform)
-
-            if not selector:
-                logger.error(f"不支持的平台: {platform}")
-                return None
-
-            logger.info(f"[{platform}] 访问: {url}")
-            logger.info(f"使用User-Agent: {user_agent}")
-            if proxy:
-                logger.info(f"使用代理: {proxy}")
 
             async with async_playwright() as p:
-                browser = await p.chromium.launch(headless=True, proxy={
-                    "server": proxy.get("http") or proxy.get("https")
-                } if proxy and platform == "twitter" else None)
+                self.browser = await p.chromium.launch(
+                    headless=True,
+                    proxy={
+                        "server": proxy.get("http") or proxy.get("https")
+                    } if proxy else None
+                )
+                self.context = await self.browser.new_context(user_agent=user_agent)
+                return True
+        except Exception as e:
+            logger.exception(f"浏览器初始化异常: {e}")
+            return False
 
-                context = await browser.new_context(user_agent=user_agent)
-                page = await context.new_page()
+    async def close_browser(self):
+        """关闭浏览器实例"""
+        if self.context:
+            await self.context.close()
+        if self.browser:
+            await self.browser.close()
+        self.browser = None
+        self.context = None
 
-                response = await page.goto(url, timeout=30000)
-                if not response or not response.ok:
-                    logger.error(f"[{platform}] 页面加载失败: {response.status if response else '无响应'}")
-                    return None
+    async def _scrape_single(self, platform: str, url: str) -> Optional[Dict[str, Optional[str]]]:
+        """使用已初始化的浏览器实例抓取单个页面"""
+        if not self.context:
+            logger.error("浏览器未初始化")
+            return None
 
-                # It's better to wait for network idle or a specific element to be visible
-                # await page.wait_for_load_state('networkidle') # Consider this for more robust waiting
-                await page.wait_for_selector(selector, timeout=30000)
-                html = await page.content()
-                await context.close()
-                await browser.close()
+        try:
+            page = await self.context.new_page()
+            selector = self.selectors.get(platform)
+            
+            logger.info(f"[{platform}] 访问: {url}")
+            response = await page.goto(url, timeout=30000)
+            
+            if not response or not response.ok:
+                logger.error(f"[{platform}] 页面加载失败: {response.status if response else '无响应'}")
+                await page.close()
+                return None
+
+            await page.wait_for_selector(selector, timeout=30000)
+            html = await page.content()
+            await page.close()
 
             soup = BeautifulSoup(html, 'html.parser')
             elem = soup.select_one(selector)
@@ -215,19 +232,39 @@ class SocialProfileScraper:
 
         except Exception as e:
             logger.exception(f"[{platform}] 抓取异常: {e}")
+            if 'page' in locals():
+                await page.close()
             return None
 
-    async def scrape_multiple_profiles(self, platform: str, urls: List[str], config_json: str) -> Dict[str, Dict[str, Optional[str]]]:
-        tasks = [self._scrape_single(platform, url, config_json) for url in urls]
-        results = await asyncio.gather(*tasks)
-        return dict(zip(urls, results))
-    
-if __name__ == "__main__":
+    async def scrape_multiple_profiles(self, platform: str, urls: List[str]) -> Dict[str, Dict[str, Optional[str]]]:
+        """使用已初始化的浏览器实例抓取多个页面"""
+        if not self.context:
+            logger.error("浏览器未初始化")
+            return {url: {"display_name": "N/A", "id": "N/A"} for url in urls}
 
-    async def main1():
-        scraper = SocialProfileScraper()
-        async def weibo_scrape_function(urls, config_json):
-            return await scraper.scrape_multiple_profiles("weibo", urls, config_json)
+        results = {}
+        for url in urls:
+            result = await self._scrape_single(platform, url)
+            results[url] = result if result else {
+                "display_name": "N/A",
+                "id": "N/A"
+            }
+        return results
+
+async def main():
+    # 初始化浏览器
+    scraper = SocialProfileScraper()
+    with open("data/config.json", "r", encoding="utf-8") as f:
+        config_json = f.read()
+    
+    if not await scraper.initialize_browser(config_json):
+        logger.error("无法初始化浏览器，程序退出")
+        return
+
+    try:
+        # 处理微博
+        async def weibo_scrape_function(urls, _):
+            return await scraper.scrape_multiple_profiles("weibo", urls)
 
         await process_social_platform_profiles(
             platform="weibo",
@@ -237,33 +274,38 @@ if __name__ == "__main__":
             batch_size=5,
             rate_limit_seconds=5
         )
-    async def main2():
-        scraper = SocialProfileScraper()
-        async def weibo_scrape_function(urls, config_json):
-            return await scraper.scrape_multiple_profiles("twitter", urls, config_json)
+
+        # 处理Twitter
+        async def twitter_scrape_function(urls, _):
+            return await scraper.scrape_multiple_profiles("twitter", urls)
 
         await process_social_platform_profiles(
             platform="twitter",
             csv_path="data/Artist.csv",
             config_path="data/config.json",
-            scrape_function=weibo_scrape_function,
+            scrape_function=twitter_scrape_function,
             batch_size=5,
             rate_limit_seconds=5
         )
-    async def main3():
-        scraper = SocialProfileScraper()
-        async def weibo_scrape_function(urls, config_json):
-            return await scraper.scrape_multiple_profiles("bilibili", urls, config_json)
+
+        # 处理Bilibili
+        async def bilibili_scrape_function(urls, _):
+            return await scraper.scrape_multiple_profiles("bilibili", urls)
 
         await process_social_platform_profiles(
             platform="bilibili",
             csv_path="data/Artist.csv",
             config_path="data/config.json",
-            scrape_function=weibo_scrape_function,
+            scrape_function=bilibili_scrape_function,
             batch_size=5,
             rate_limit_seconds=5
         )
 
-    asyncio.run(main1())
-    asyncio.run(main2())
-    asyncio.run(main3())
+    finally:
+        # 确保浏览器被关闭
+        await scraper.close_browser()
+
+if __name__ == "__main__":
+    logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+    logger = logging.getLogger(__name__)
+    asyncio.run(main())

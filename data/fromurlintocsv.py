@@ -1,8 +1,8 @@
 import pandas as pd
 
 # 读取两个CSV文件
-artist_df = pd.read_csv('data/Artist.csv')
-namecheck_df = pd.read_csv('data/namecheck.csv')
+artist_df = pd.read_csv('data/Artist.csv', dtype=str)
+namecheck_df = pd.read_csv('data/namecheck.csv', dtype=str)
 
 # 创建一个字典，以name为键，存储namecheck中的URL信息
 namecheck_dict = {}
