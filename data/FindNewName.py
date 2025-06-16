@@ -224,7 +224,7 @@ class SocialProfileScraper:
     
 if __name__ == "__main__":
 
-    async def main():
+    async def main1():
         scraper = SocialProfileScraper()
         async def weibo_scrape_function(urls, config_json):
             return await scraper.scrape_multiple_profiles("weibo", urls, config_json)
@@ -237,5 +237,33 @@ if __name__ == "__main__":
             batch_size=5,
             rate_limit_seconds=5
         )
+    async def main2():
+        scraper = SocialProfileScraper()
+        async def weibo_scrape_function(urls, config_json):
+            return await scraper.scrape_multiple_profiles("twitter", urls, config_json)
 
-    asyncio.run(main())
+        await process_social_platform_profiles(
+            platform="twitter",
+            csv_path="data/Artist.csv",
+            config_path="data/config.json",
+            scrape_function=weibo_scrape_function,
+            batch_size=5,
+            rate_limit_seconds=5
+        )
+    async def main3():
+        scraper = SocialProfileScraper()
+        async def weibo_scrape_function(urls, config_json):
+            return await scraper.scrape_multiple_profiles("bilibili", urls, config_json)
+
+        await process_social_platform_profiles(
+            platform="bilibili",
+            csv_path="data/Artist.csv",
+            config_path="data/config.json",
+            scrape_function=weibo_scrape_function,
+            batch_size=5,
+            rate_limit_seconds=5
+        )
+
+    asyncio.run(main1())
+    asyncio.run(main2())
+    asyncio.run(main3())
