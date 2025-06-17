@@ -1,0 +1,659 @@
+<!-- bilibili 的动态页 -->
+<!-- 待实现：瀑布流、远程图片渲染 -->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>B站用户动态预览</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            padding: 30px 0;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        header h1 {
+            font-size: 2.8rem;
+            color: #00a1d6;
+            margin-bottom: 10px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        header p {
+            font-size: 1.2rem;
+            color: #555;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .user-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            padding: 25px;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .user-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #00a1d6;
+            margin-right: 25px;
+        }
+        
+        .user-info {
+            flex: 1;
+        }
+        
+        .user-name {
+            font-size: 1.8rem;
+            color: #222;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .vip-badge {
+            background: linear-gradient(45deg, #fb7299, #ff3860);
+            color: white;
+            font-size: 0.8rem;
+            padding: 3px 10px;
+            border-radius: 12px;
+            margin-left: 12px;
+        }
+        
+        .user-sign {
+            font-style: italic;
+            color: #666;
+            margin-bottom: 15px;
+            border-left: 3px solid #00a1d6;
+            padding-left: 12px;
+        }
+        
+        .stats {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .stat-item {
+            background: #f0f7ff;
+            padding: 8px 15px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+        }
+        
+        .controls {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .search-box {
+            flex: 1;
+            position: relative;
+        }
+        
+        .search-box input {
+            width: 100%;
+            padding: 14px 20px 14px 50px;
+            border: 2px solid #e1e8ed;
+            border-radius: 50px;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        
+        .search-box input:focus {
+            border-color: #00a1d6;
+        }
+        
+        .search-box i {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #99a2aa;
+            font-size: 1.2rem;
+        }
+        
+        .filter-btn {
+            background: white;
+            border: 2px solid #e1e8ed;
+            padding: 0 25px;
+            border-radius: 50px;
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+        
+        .filter-btn:hover {
+            border-color: #00a1d6;
+            color: #00a1d6;
+        }
+        
+        .dynamic-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+        }
+        
+        .dynamic-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+        
+        .dynamic-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+        }
+        
+        .card-header {
+            padding: 20px;
+            border-bottom: 1px solid #f0f2f3;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .dynamic-type {
+            background: #f0f7ff;
+            color: #00a1d6;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        
+        .time {
+            color: #99a2aa;
+            font-size: 0.9rem;
+        }
+        
+        .card-content {
+            padding: 20px;
+        }
+        
+        .dynamic-text {
+            font-size: 1rem;
+            color: #222;
+            margin-bottom: 15px;
+            line-height: 1.7;
+            white-space: pre-line;
+        }
+        
+        .dynamic-image {
+            width: 100%;
+            border-radius: 10px;
+            margin-top: 15px;
+            display: block;
+        }
+        
+        .video-card {
+            padding: 20px;
+            border-top: 1px solid #f0f2f3;
+        }
+        
+        .video-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #222;
+        }
+        
+        .video-thumb {
+            width: 100%;
+            border-radius: 10px;
+            margin-top: 10px;
+        }
+        
+        .stats-bar {
+            padding: 15px 20px;
+            border-top: 1px solid #f0f2f3;
+            display: flex;
+            gap: 20px;
+            color: #99a2aa;
+            font-size: 0.9rem;
+        }
+        
+        .stat {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 40px;
+            padding-bottom: 30px;
+        }
+        
+        .page-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: none;
+            background: white;
+            color: #555;
+            font-weight: 500;
+            cursor: pointer;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s;
+        }
+        
+        .page-btn.active {
+            background: #00a1d6;
+            color: white;
+        }
+        
+        .page-btn:hover:not(.active) {
+            background: #f0f7ff;
+            color: #00a1d6;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 50px;
+            font-size: 1.2rem;
+            color: #555;
+        }
+        
+        @media (max-width: 768px) {
+            .dynamic-list {
+                grid-template-columns: 1fr;
+            }
+            
+            .controls {
+                flex-direction: column;
+            }
+            
+            .user-card {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .avatar {
+                margin-right: 0;
+                margin-bottom: 20px;
+            }
+            
+            .stats {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>B站用户动态预览</h1>
+            <p>以美观的方式展示用户动态数据，包含文本、图片和视频内容</p>
+        </header>
+        
+        <div class="user-card">
+            <img id="user-avatar" src="" alt="用户头像" class="avatar">
+            <div class="user-info">
+                <h2 class="user-name" id="username">加载中... <span class="vip-badge" id="vip-badge"></span></h2>
+                <p class="user-sign" id="user-sign"></p>
+                <div class="stats">
+                    <div class="stat-item"><i class="fas fa-user"></i> <span id="user-level"></span></div>
+                    <div class="stat-item"><i class="fas fa-map-marker-alt"></i> <span id="user-rank"></span></div>
+                    <div class="stat-item"><i class="fas fa-calendar"></i> <span id="vip-date"></span></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="controls">
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" id="search-input" placeholder="搜索动态内容..." onkeyup="filterDynamics()">
+            </div>
+            <button class="filter-btn" onclick="toggleFilters()">
+                <i class="fas fa-filter"></i> 筛选动态
+            </button>
+        </div>
+        
+        <div id="filter-panel" style="display: none; background: white; padding: 15px; border-radius: 10px; margin-bottom: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+            <div style="margin-bottom: 10px;">
+                <label style="margin-right: 10px;">动态类型:</label>
+                <label><input type="checkbox" name="type-filter" value="2" checked> 文本动态</label>
+                <label style="margin-left: 15px;"><input type="checkbox" name="type-filter" value="8" checked> 视频动态</label>
+            </div>
+            <div>
+                <label style="margin-right: 10px;">排序方式:</label>
+                <select id="sort-select" onchange="sortDynamics()">
+                    <option value="newest">最新发布</option>
+                    <option value="oldest">最早发布</option>
+                    <option value="most-views">最多浏览</option>
+                    <option value="most-comments">最多评论</option>
+                </select>
+            </div>
+        </div>
+        
+        <div id="loading" class="loading">
+            <i class="fas fa-spinner fa-spin"></i> 正在加载动态数据...
+        </div>
+        
+        <div id="dynamic-list" class="dynamic-list">
+            <!-- 动态内容将通过JavaScript动态加载 -->
+        </div>
+        
+        <div class="pagination" id="pagination">
+            <!-- 分页按钮将通过JavaScript动态生成 -->
+        </div>
+    </div>
+
+    <script>
+        // 全局变量存储动态数据
+        let dynamicsData = [];
+        let filteredDynamics = [];
+        const itemsPerPage = 6;
+        let currentPage = 1;
+        
+        // 页面加载时获取数据
+        document.addEventListener('DOMContentLoaded', function() {
+            loadDynamicsData();
+        });
+        
+        // 加载JSON数据
+        function loadDynamicsData() {
+            // 这里假设JSON文件名为23306371_dynamics.json，与HTML同目录
+            fetch('23306371_dynamics.json')
+                .then(response => response.json())
+                .then(data => {
+                    dynamicsData = data;
+                    filteredDynamics = [...data];
+                    
+                    // 更新用户信息
+                    updateUserInfo(data[0]);
+                    
+                    // 渲染动态
+                    renderDynamics();
+                    
+                    // 隐藏加载提示
+                    document.getElementById('loading').style.display = 'none';
+                })
+                .catch(error => {
+                    console.error('加载数据失败:', error);
+                    document.getElementById('loading').innerHTML = 
+                        '<p style="color: red;">加载数据失败，请检查JSON文件是否存在</p>';
+                });
+        }
+        
+        // 更新用户信息
+        function updateUserInfo(firstDynamic) {
+            const userProfile = firstDynamic.raw_data.desc.user_profile;
+            
+            document.getElementById('user-avatar').src = userProfile.info.face;
+            document.getElementById('username').innerHTML = 
+                userProfile.info.uname + 
+                (userProfile.vip.vipStatus ? 
+                 ' <span class="vip-badge">' + userProfile.vip.label.text + '</span>' : 
+                 '');
+            
+            document.getElementById('user-sign').textContent = userProfile.sign;
+            document.getElementById('user-level').textContent = 'Lv' + userProfile.level_info.current_level;
+            document.getElementById('user-rank').textContent = userProfile.rank + '名';
+            
+            if (userProfile.vip.vipStatus) {
+                const dueDate = new Date(userProfile.vip.vipDueDate);
+                document.getElementById('vip-date').textContent = 
+                    '会员至' + dueDate.getFullYear() + '-' + 
+                    (dueDate.getMonth() + 1).toString().padStart(2, '0') + '-' + 
+                    dueDate.getDate().toString().padStart(2, '0');
+            } else {
+                document.getElementById('vip-date').textContent = '非大会员';
+            }
+        }
+        
+        // 渲染动态列表
+        function renderDynamics() {
+            const dynamicList = document.getElementById('dynamic-list');
+            dynamicList.innerHTML = '';
+            
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const endIndex = startIndex + itemsPerPage;
+            const currentDynamics = filteredDynamics.slice(startIndex, endIndex);
+            
+            if (currentDynamics.length === 0) {
+                dynamicList.innerHTML = '<p style="grid-column: 1 / -1; text-align: center; padding: 50px;">没有找到匹配的动态</p>';
+                return;
+            }
+            
+            currentDynamics.forEach(dynamic => {
+                const dynamicCard = createDynamicCard(dynamic);
+                dynamicList.appendChild(dynamicCard);
+            });
+            
+            renderPagination();
+        }
+        
+        // 创建单个动态卡片
+        function createDynamicCard(dynamic) {
+            const card = document.createElement('div');
+            card.className = 'dynamic-card';
+            
+            // 解析时间戳
+            const timestamp = dynamic.raw_data.desc.timestamp;
+            const date = new Date(timestamp * 1000);
+            const formattedDate = date.getFullYear() + '-' + 
+                                (date.getMonth() + 1).toString().padStart(2, '0') + '-' + 
+                                date.getDate().toString().padStart(2, '0') + ' ' + 
+                                date.getHours().toString().padStart(2, '0') + ':' + 
+                                date.getMinutes().toString().padStart(2, '0');
+            
+            // 动态类型
+            let typeText = '未知类型';
+            if (dynamic.type === 2) typeText = '文本动态';
+            if (dynamic.type === 8) typeText = '视频动态';
+            
+            // 创建卡片头部
+            const cardHeader = document.createElement('div');
+            cardHeader.className = 'card-header';
+            cardHeader.innerHTML = `
+                <span class="dynamic-type">${typeText}</span>
+                <span class="time">${formattedDate}</span>
+            `;
+            card.appendChild(cardHeader);
+            
+            // 创建卡片内容
+            const cardContent = document.createElement('div');
+            cardContent.className = 'card-content';
+            
+            if (dynamic.type === 2) {
+                // 文本动态
+                const description = dynamic.raw_data.card.item.description;
+                const textElement = document.createElement('p');
+                textElement.className = 'dynamic-text';
+                textElement.textContent = description;
+                cardContent.appendChild(textElement);
+                
+                // 如果有图片
+                if (dynamic.raw_data.card.item.pictures && dynamic.raw_data.card.item.pictures.length > 0) {
+                    const imgElement = document.createElement('img');
+                    imgElement.className = 'dynamic-image';
+                    imgElement.src = dynamic.raw_data.card.item.pictures[0].img_src;
+                    imgElement.alt = '动态图片';
+                    cardContent.appendChild(imgElement);
+                }
+            } else if (dynamic.type === 8) {
+                // 视频动态
+                const videoCard = document.createElement('div');
+                videoCard.className = 'video-card';
+                videoCard.innerHTML = `
+                    <div class="video-title">${dynamic.raw_data.card.title}</div>
+                    <p class="dynamic-text">${dynamic.raw_data.card.desc}</p>
+                    <img src="${dynamic.raw_data.card.pic}" alt="视频封面" class="video-thumb">
+                `;
+                cardContent.appendChild(videoCard);
+            }
+            
+            card.appendChild(cardContent);
+            
+            // 创建统计栏
+            const statsBar = document.createElement('div');
+            statsBar.className = 'stats-bar';
+            statsBar.innerHTML = `
+                <div class="stat"><i class="far fa-eye"></i> ${dynamic.raw_data.desc.view}</div>
+                <div class="stat"><i class="far fa-comment"></i> ${dynamic.raw_data.desc.comment}</div>
+                <div class="stat"><i class="far fa-heart"></i> ${dynamic.raw_data.desc.like}</div>
+            `;
+            card.appendChild(statsBar);
+            
+            return card;
+        }
+        
+        // 渲染分页
+        function renderPagination() {
+            const pagination = document.getElementById('pagination');
+            pagination.innerHTML = '';
+            
+            const totalPages = Math.ceil(filteredDynamics.length / itemsPerPage);
+            
+            if (totalPages <= 1) return;
+            
+            // 上一页按钮
+            if (currentPage > 1) {
+                const prevBtn = document.createElement('button');
+                prevBtn.className = 'page-btn';
+                prevBtn.innerHTML = '<i class="fas fa-chevron-left"></i>';
+                prevBtn.onclick = () => {
+                    currentPage--;
+                    renderDynamics();
+                    window.scrollTo({top: 0, behavior: 'smooth'});
+                };
+                pagination.appendChild(prevBtn);
+            }
+            
+            // 页码按钮
+            for (let i = 1; i <= totalPages; i++) {
+                const pageBtn = document.createElement('button');
+                pageBtn.className = `page-btn ${i === currentPage ? 'active' : ''}`;
+                pageBtn.textContent = i;
+                pageBtn.onclick = () => {
+                    currentPage = i;
+                    renderDynamics();
+                    window.scrollTo({top: 0, behavior: 'smooth'});
+                };
+                pagination.appendChild(pageBtn);
+            }
+            
+            // 下一页按钮
+            if (currentPage < totalPages) {
+                const nextBtn = document.createElement('button');
+                nextBtn.className = 'page-btn';
+                nextBtn.innerHTML = '<i class="fas fa-chevron-right"></i>';
+                nextBtn.onclick = () => {
+                    currentPage++;
+                    renderDynamics();
+                    window.scrollTo({top: 0, behavior: 'smooth'});
+                };
+                pagination.appendChild(nextBtn);
+            }
+        }
+        
+        // 筛选动态
+        function filterDynamics() {
+            const searchTerm = document.getElementById('search-input').value.toLowerCase();
+            
+            filteredDynamics = dynamicsData.filter(dynamic => {
+                // 检查类型筛选
+                const typeCheckboxes = document.querySelectorAll('input[name="type-filter"]:checked');
+                const allowedTypes = Array.from(typeCheckboxes).map(cb => parseInt(cb.value));
+                if (!allowedTypes.includes(dynamic.type)) return false;
+                
+                // 检查搜索词
+                if (!searchTerm) return true;
+                
+                if (dynamic.type === 2) {
+                    // 文本动态
+                    return dynamic.raw_data.card.item.description.toLowerCase().includes(searchTerm);
+                } else if (dynamic.type === 8) {
+                    // 视频动态
+                    return dynamic.raw_data.card.title.toLowerCase().includes(searchTerm) || 
+                           dynamic.raw_data.card.desc.toLowerCase().includes(searchTerm);
+                }
+                return true;
+            });
+            
+            currentPage = 1;
+            renderDynamics();
+        }
+        
+        // 排序动态
+        function sortDynamics() {
+            const sortMethod = document.getElementById('sort-select').value;
+            
+            filteredDynamics.sort((a, b) => {
+                const aData = a.raw_data.desc;
+                const bData = b.raw_data.desc;
+                
+                switch (sortMethod) {
+                    case 'newest':
+                        return bData.timestamp - aData.timestamp;
+                    case 'oldest':
+                        return aData.timestamp - bData.timestamp;
+                    case 'most-views':
+                        return bData.view - aData.view;
+                    case 'most-comments':
+                        return bData.comment - aData.comment;
+                    default:
+                        return 0;
+                }
+            });
+            
+            currentPage = 1;
+            renderDynamics();
+        }
+        
+        // 显示/隐藏筛选面板
+        function toggleFilters() {
+            const panel = document.getElementById('filter-panel');
+            panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
+        }
+    </script>
+</body>
+</html>
