@@ -1,8 +1,3 @@
-# warning：专栏下载未实现！！！！
-# warning：专栏下载未实现！！！！
-# warning：专栏下载未实现！！！！
-# warning：专栏下载未实现！！！！
-# warning：专栏下载未实现！！！！
 '''
 下载需要做随机延迟，减少并发
 '''
@@ -255,11 +250,6 @@ class BilibiliContentDownloader:
             with open(md_file, 'w', encoding='utf-8') as f:
                 f.write(content)
             
-            # 保存元数据
-            meta_file = os.path.join(dynamic_dir, f"{dynamic_id}_meta.json")
-            with open(meta_file, 'w', encoding='utf-8') as f:
-                json.dump(info, f, ensure_ascii=False, indent=2)
-            
             logging.info(f"动态 {dynamic_id} 内容已保存到 {md_file}")
             return True
         except Exception as e:
@@ -292,13 +282,13 @@ class BilibiliContentDownloader:
 async def main():
     # 配置认证信息（根据需要）
     credential = Credential(
-        sessdata="4dc2b669%2C1765665307%2Cad643%2A62CjCBAnpKFve4UwGUXpGEWYUNTCgROqnVUW8Ii8CFzlvPsQnBA85Nwyz_H3wkme8yiLQSVnVLNkZ1U1F6Q21zUE9XR21ENXNPbFNWU3oyNDVWdU94dHdXZmttTU5PM0VTYy1JOTJadDI4T2VQOER0ZVlvMnRfcjVoN1JlNk1rYVJiNlVjWlhQMzZ3IIEC",
-        bili_jct="d0436276e559a5da35f7a0ee7a0aaeca",
-        buvid3="your_bu67727345-8BA8-E479-5FD1-64450BB5A1A485280infocid3"
+        sessdata="c306115b%2C1766193167%2C417d7%2A62CjBXxCWPU-j_xq-svOOUhsIBW0pDqtwE-vKQlPTZbsI2H0AlA-lNHaU4HBrjco3gR5sSVjcxWEJLbVVBb0NUaVdoUy1FeUVrandCOTd2TGs2bnNOdmROS1Rjd2IySXZoSkNvc3QxYnVYS1A3WHdyb3FJQnZnclNnVWFpMU9sU0VXVWF3VDc0aVZBIIEC",
+        bili_jct="19e0dc04a030715a19a99fe7f863990c",
+        buvid3="67727345-8BA8-E479-5FD1-64450BB5A1A485280infoc"
     )
     
     # 目标用户UID和时间戳（例如：获取2023年1月1日之后的数据）
-    target_uid = 23306371
+    target_uid = 32200784
     since_ts = 0000000000
     
     # 创建Fetcher并传入时间戳

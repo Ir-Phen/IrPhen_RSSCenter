@@ -53,4 +53,4 @@ def process_directory(directory, output_file):
     print(f"结果已保存到: {output_file}")
 
 if __name__ == "__main__":
-    process_directory('opus_converted', 'output_links.txt')
+    process_directory(r'data\bilibili\userdata\downloads\32200784', r'data\bilibili\userdata')
