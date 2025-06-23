@@ -1,0 +1,230 @@
+以下是根据您需求整理的 **B站动态轮询程序设计文档**，采用标准技术文档格式，包含完整的设计要素和实现规范：
+
+---
+
+# B站动态轮询系统设计文档
+
+## 1. 系统概述
+### 1.1 功能目标
+- 定时轮询指定B站用户的图文/专栏动态
+- 增量获取新动态内容并持久化存储
+- 支持异常恢复与断点续轮询
+
+### 1.2 技术栈
+| 组件          | 选型                |
+|---------------|---------------------|
+| 开发语言      | Python 3.8+         |
+| 异步框架      | asyncio             |
+| B站API SDK    | bilibili-api-python |
+| 数据存储      | SQLite + JSON文件   |
+| 任务调度      | APScheduler         |
+
+## 2. 核心模块设计
+### 2.1 类关系图
+```mermaid
+classDiagram
+    class DynamicFetcher{
+        +uid: int
+        +credential: Credential
+        +fetch_dynamics() List[Dynamic]
+        +save_to_json()
+    }
+    
+    class ContentDownloader{
+        +download_opus()
+        +download_article()
+        +batch_download()
+    }
+    
+    class StateManager{
+        -db_conn: SQLite3.Connection
+        +get_last_timestamp()
+        +update_state()
+        +recover_failed_tasks()
+    }
+    
+    DynamicFetcher --> StateManager : 查询时间戳
+    ContentDownloader --> StateManager : 报告状态
+```
+
+### 2.2 状态管理设计
+#### 数据库schema
+```sql
+CREATE TABLE user_state (
+    uid INTEGER PRIMARY KEY,
+    last_timestamp INTEGER NOT NULL,
+    last_success_time TEXT,
+    priority INTEGER DEFAULT 1
+);
+
+CREATE TABLE pending_tasks (
+    task_id TEXT PRIMARY KEY,
+    uid INTEGER,
+    dynamic_id INTEGER,
+    retry_count INTEGER DEFAULT 0,
+    created_time TEXT DEFAULT CURRENT_TIMESTAMP
+);
+```
+
+#### 状态恢复流程
+```python
+async def initialize():
+    # 从数据库加载所有监控用户
+    users = StateManager.get_monitored_users()
+    
+    for uid in users:
+        last_ts = StateManager.get_last_timestamp(uid)
+        fetcher = DynamicFetcher(uid, since_timestamp=last_ts)
+        
+        # 恢复未完成任务
+        if tasks := StateManager.get_pending_tasks(uid):
+            ContentDownloader.recover_tasks(tasks)
+```
+
+## 3. 关键业务流程
+### 3.1 主轮询流程
+```mermaid
+sequenceDiagram
+    participant Scheduler
+    participant Fetcher
+    participant Downloader
+    participant StateDB
+    
+    Scheduler->>Fetcher: 触发轮询(uid)
+    Fetcher->>StateDB: 获取last_timestamp
+    StateDB-->>Fetcher: 返回时间戳
+    Fetcher->>B站API: 获取动态列表(since=ts)
+    B站API-->>Fetcher: 返回新动态
+    Fetcher->>Downloader: 提交下载任务
+    Downloader->>StateDB: 锁定任务状态
+    Downloader->>B站API: 获取动态详情
+    alt 成功
+        Downloader->>StateDB: 更新last_timestamp
+        Downloader->>LocalStorage: 保存内容
+    else 失败
+        Downloader->>StateDB: 记录重试次数
+    end
+```
+
+### 3.2 异常处理流程
+```python
+def handle_error(task, exception):
+    task.retry_count += 1
+    
+    if task.retry_count > MAX_RETRY:
+        StateManager.log_failure(task, str(exception))
+        alert_admin(f"任务永久失败: {task.dynamic_id}")
+    else:
+        # 指数退避重试
+        delay = min(2 ** task.retry_count, 300)
+        Scheduler.retry_later(task, delay_seconds=delay)
+```
+
+## 4. 数据规范
+### 4.1 动态数据JSON结构
+```javascript
+{
+  "version": "1.0",
+  "dynamics": [
+    {
+      "id": "动态ID",
+      "type": 2,
+      "timestamp": 1690000000,
+      "content": {
+        "text": "动态正文",
+        "images": ["url1", "url2"],
+        "videos": [
+          {
+            "bvid": "BVxxx",
+            "cover": "封面URL"
+          }
+        ]
+      },
+      "stats": {
+        "view": 1000,
+        "like": 50
+      },
+      "_raw": "原始API响应数据"
+    }
+  ]
+}
+```
+
+### 4.2 状态文件示例
+`state.db` (SQLite):
+```sql
+-- user_state 表示例数据
+uid | last_timestamp | last_success_time     | priority
+----|----------------|-----------------------|---------
+123 | 1690000000     | 2023-06-20 12:00:00   | 2
+```
+
+## 5. 部署架构
+### 5.1 组件拓扑
+```
+[定时触发器] → [任务队列] → [动态获取Worker] 
+                     ↓
+              [内容下载Worker] ←→ [状态数据库]
+                     ↓
+              [本地存储/NAS]
+```
+
+### 5.2 目录结构
+```
+bili_poller/
+├── core/
+│   ├── fetcher.py       # DynamicFetcher实现
+│   └── downloader.py    # ContentDownloader实现
+├── storage/
+│   ├── state.db         # SQLite数据库
+│   └── dynamics/        # 动态内容存储
+├── config.yaml          # 监控用户配置
+└── scheduler.py         # 主调度程序
+```
+
+## 6. 监控与维护
+### 6.1 健康检查项
+| 检查点               | 阈值          | 恢复措施                     |
+|----------------------|---------------|------------------------------|
+| API调用成功率        | <95% (5分钟)  | 自动降低请求频率             |
+| 存储剩余空间         | <10GB         | 触发旧数据归档               |
+| 单任务重试次数       | >3次          | 移入死信队列人工处理         |
+
+### 6.2 日志规范
+```python
+logging.basicConfig(
+    format='%(asctime)s | %(levelname)-8s | %(name)s:%(lineno)d - %(message)s',
+    handlers=[
+        RotatingFileHandler('logs/runtime.log', maxBytes=10MB),
+        SysLogHandler()
+    ]
+)
+```
+
+## 7. 扩展设计
+### 7.1 插件接口
+```python
+class ContentProcessor:
+    @abstractmethod
+    def process(self, dynamic_data):
+        """实现自定义处理逻辑"""
+        
+# 示例：敏感词过滤插件
+class SensitiveWordFilter(ContentProcessor):
+    def process(self, data):
+        if contains_sensitive_words(data.text):
+            data.add_flag("needs_review")
+```
+
+### 7.2 性能优化项
+- **请求合并**：相同用户的连续动态批量获取
+- **本地缓存**：静态资源（如用户头像）CDN缓存
+- **压缩存储**：对_raw数据使用zstd压缩
+
+---
+
+**附录A：异常代码表**  
+**附录B：API限流策略**  
+**附录C：压力测试方案**
+
+该文档可直接用于开发实施，建议配合版本控制系统（如Git）进行迭代更新。关键设计要点已用图表和示例代码清晰展示，工程师可快速理解系统全貌。
