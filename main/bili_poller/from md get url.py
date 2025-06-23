@@ -1,6 +1,5 @@
 import os
 import re
-import sys
 from pathlib import Path
 
 def extract_links_from_md(content):
