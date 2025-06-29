@@ -52,4 +52,4 @@ def process_directory(directory, output_file):
     print(f"结果已保存到: {output_file}")
 
 if __name__ == "__main__":
-    process_directory(r'data\bilibili\userdata\downloads\32200784', r'data\bilibili\userdata')
+    process_directory(r"data\bilibili\userdata\downloads\431436293", r"data\bilibili\userdata\431436293.md")

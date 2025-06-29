@@ -81,11 +81,14 @@ class BilibiliDynamicFetcher:
                 if not has_older:
                     logging.info(f"遇到旧动态(<= {self.since_timestamp})，停止翻页")
                     break
-                    
-                # 更新offset为最后一条动态的ID
+                
+                # 更新offset为最后一条动态的ID，防止死循环
                 if cards:
-                    last_dynamic_id = cards[-1].get("desc", {}).get("dynamic_id", 0)
-                    offset = last_dynamic_id if last_dynamic_id > offset else offset + 1
+                    new_offset = cards[-1].get("desc", {}).get("dynamic_id", 0)
+                    if new_offset == offset:
+                        logging.warning(f"offset未变化({offset})，可能到达末尾，停止翻页")
+                        break
+                    offset = new_offset
                 
             except Exception as e:
                 logging.error(f"获取动态第 {page} 页出错: {str(e)}")
@@ -282,13 +285,13 @@ class BilibiliContentDownloader:
 async def main():
     # 配置认证信息（根据需要）
     credential = Credential(
-        sessdata="c306115b%2C1766193167%2C417d7%2A62CjBXxCWPU-j_xq-svOOUhsIBW0pDqtwE-vKQlPTZbsI2H0AlA-lNHaU4HBrjco3gR5sSVjcxWEJLbVVBb0NUaVdoUy1FeUVrandCOTd2TGs2bnNOdmROS1Rjd2IySXZoSkNvc3QxYnVYS1A3WHdyb3FJQnZnclNnVWFpMU9sU0VXVWF3VDc0aVZBIIEC",
-        bili_jct="19e0dc04a030715a19a99fe7f863990c",
-        buvid3="67727345-8BA8-E479-5FD1-64450BB5A1A485280infoc"
+        sessdata="3a84a2b9%2C1766711892%2C9714b%2A62CjDRA09DniT-5vxbwV64m-Z-Os7ZufCYw7gAHHJO1i0uIhJUHOOA63cmdFACuVUGil0SVkxrc21JZE9MZWJoak9ubkYxTjBYWkQ2TXFKemoyYldXcU1hVy01SC1Tb2Rub2JScU5qM1ZzZFI2NERnLUl1OGVocnRzYTdCbjdnRmVxaW9Wc3BtM0lnIIEC",
+        bili_jct="32b3aafa92e44eee2a5dfe5785561e6d",
+        buvid3="67727345-8BA8-E479-5FD1-64450BB5A1A485280infocs"
     )
     
     # 目标用户UID和时间戳（例如：获取2023年1月1日之后的数据）
-    target_uid = 32200784
+    target_uid = 431436293
     since_ts = 0000000000
     
     # 创建Fetcher并传入时间戳

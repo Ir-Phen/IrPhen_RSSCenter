@@ -92,11 +92,10 @@ class OpusToArticleConverter:
 async def main():
     # 配置认证信息（可选）
     credential = Credential(
-        sessdata="4dc2b669%2C1765665307%2Cad643%2A62CjCBAnpKFve4UwGUXpGEWYUNTCgROqnVUW8Ii8CFzlvPsQnBA85Nwyz_H3wkme8yiLQSVnVLNkZ1U1F6Q21zUE9XR21ENXNPbFNWU3oyNDVWdU94dHdXZmttTU5PM0VTYy1JOTJadDI4T2VQOER0ZVlvMnRfcjVoN1JlNk1rYVJiNlVjWlhQMzZ3IIEC",
-        bili_jct="d0436276e559a5da35f7a0ee7a0aaeca",
-        buvid3="your_bu67727345-8BA8-E479-5FD1-64450BB5A1A485280infocid3"
+        sessdata="3a84a2b9%2C1766711892%2C9714b%2A62CjDRA09DniT-5vxbwV64m-Z-Os7ZufCYw7gAHHJO1i0uIhJUHOOA63cmdFACuVUGil0SVkxrc21JZE9MZWJoak9ubkYxTjBYWkQ2TXFKemoyYldXcU1hVy01SC1Tb2Rub2JScU5qM1ZzZFI2NERnLUl1OGVocnRzYTdCbjdnRmVxaW9Wc3BtM0lnIIEC",
+        bili_jct="32b3aafa92e44eee2a5dfe5785561e6d",
+        buvid3="67727345-8BA8-E479-5FD1-64450BB5A1A485280infocs"
     )
-    
     # 要转换的图文动态ID列表
     opus_ids = []
     
