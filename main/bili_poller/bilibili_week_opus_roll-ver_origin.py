@@ -1,66 +1,95 @@
+"""
+Bilibili 图文动态批量轮询与图片下载脚本
+=====================================
+
+【使用说明】
+1. 配置好 data/Artist.csv，包含要轮询的 B 站用户信息（bilibili_id、bilibili_name、bilibili_url、bilibili_roll_time 等字段）。
+2. 在 main() 函数中填写有效的 B 站 Cookie 信息（sessdata、bili_jct、buvid3）。
+3. 运行本脚本，将自动分组轮询用户的图文动态，下载图片到 data/bilibili/downloads/，并自动更新 CSV 中的轮询时间。
+4. 支持断点续传，失败信息会在终端输出。
+
+【主要代码逻辑说明】
+- Preprocessor：负责读取和分组 CSV 用户数据，处理轮询时间。
+- BilibiliDynamicFetcher：异步获取指定用户的图文动态，支持分页和时间过滤。
+- BilibiliContentDownloader：提取动态中的图片链接并下载，支持多种动态结构和图片字段，带并发限制。
+- Postprocessor：处理轮询后用户的轮询时间更新，写回 CSV。
+- process_users：串行处理每组用户，下载图片并更新轮询时间。
+- main：主入口，配置认证、读取用户、分组、依次处理。
+
+依赖：bilibili_api、pandas、requests、asyncio、logging
+"""
+
 import asyncio
 import json
 import os
 import logging
-import csv
-import time
 import random
 from datetime import datetime, timedelta
 from bilibili_api import user, opus, Credential, article
+import pandas as pd
 
-# 配置日志
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(levelname)s - %(message)s',
-    handlers=[logging.StreamHandler()]
+# 配置详细日志，输出到控制台和文件
+log_dir = os.path.join(os.path.dirname(__file__), 'logs')
+os.makedirs(log_dir, exist_ok=True)
+log_file = os.path.join(log_dir, f"bili_poller_{datetime.now().strftime('%Y%m%d')}.log")
+
+log_formatter = logging.Formatter(
+    '%(asctime)s - %(levelname)s - %(filename)s:%(lineno)d - %(funcName)s - %(message)s'
 )
+
+file_handler = logging.FileHandler(log_file, encoding='utf-8')
+file_handler.setLevel(logging.INFO)
+file_handler.setFormatter(log_formatter)
+
+console_handler = logging.StreamHandler()
+console_handler.setLevel(logging.INFO)
+console_handler.setFormatter(log_formatter)
+
+logging.basicConfig(level=logging.INFO, handlers=[file_handler, console_handler])
 
 class Preprocessor:
     """前处理类：读取CSV文件并准备数据"""
     
-    def __init__(self, csv_file="data/Artist.csv"):
+    def __init__(self, csv_file=None):
         self.csv_file = csv_file
         self.users = []
     
-    def read_users(self):
-        """读取CSV文件中的用户信息"""
-        if not os.path.exists(self.csv_file):
+    def read_users(self, csv_file=None):
+        """使用pandas读取CSV文件，所有字段强制为字符串"""
+        if csv_file is not None:
+            self.csv_file = csv_file
+        if not self.csv_file or not os.path.exists(self.csv_file):
             logging.error(f"CSV文件不存在: {self.csv_file}")
             return []
-        
+        df = pd.read_csv(self.csv_file, dtype=str).fillna('')
         users = []
-        with open(self.csv_file, 'r', encoding='utf-8') as f:
-            reader = csv.DictReader(f)
-            for row in reader:
-                if row.get('bilibili_id') and row['bilibili_id'].isdigit():
-                    # 转换轮询时间
-                    roll_time = self.convert_roll_time(row.get('bilibili_roll_time', ''))
-                    
-                    users.append({
-                        'name': row.get('bilibili_name', ''),
-                        'id': int(row['bilibili_id']),
-                        'url': row.get('bilibili_url', ''),
-                        'roll_time': roll_time,
-                        'original_roll_time': row.get('bilibili_roll_time', '')
-                    })
-        
+        for _, row in df.iterrows():
+            # 只处理bilibili_id不为空的行
+            if not row.get('bilibili_id', '').strip():
+                continue
+            # 转换轮询时间
+            roll_time = self.convert_roll_time(row.get('bilibili_roll_time', ''))
+            users.append({
+                'name': row.get('bilibili_name', ''),
+                'id': int(row['bilibili_id']),
+                'url': row.get('bilibili_url', ''),
+                'roll_time': roll_time,
+                'original_roll_time': row.get('bilibili_roll_time', '')
+            })
         logging.info(f"从CSV读取到 {len(users)} 个有效B站用户")
         self.users = users
         return users
     
     def convert_roll_time(self, time_str):
         """将YYYY:MM:DD格式转换为前一日的零点时间戳"""
-        if not time_str:
-            return 0
-        
         try:
             # 解析日期并减去一天
             dt = datetime.strptime(time_str, "%Y:%m:%d") - timedelta(days=1)
             # 获取前一天零点的时间戳
             return int(dt.replace(hour=0, minute=0, second=0).timestamp())
         except ValueError:
-            logging.warning(f"无效的时间格式: {time_str}, 使用默认值0")
-            return 0
+            logging.error(f"无效的时间格式: {time_str}，程序即将退出")
+            exit(1)
     
     def get_user_groups(self, group_size=5):
         """将用户分组，每组最多5个"""
@@ -115,8 +144,8 @@ class BilibiliDynamicFetcher:
                         logging.info(f"用户 {name} 遇到旧动态(<= {since_timestamp})，停止翻页")
                         return all_dynamics
                     
-                    # 只处理图文动态 (类型2) 和专栏动态 (类型8)
-                    if dyn_type in [2, 8]:
+                    # 只处理图文动态 (类型2)
+                    if dyn_type == 2:
                         dynamic_id = desc.get("dynamic_id")
                         all_dynamics.append({
                             "user_id": uid,
@@ -148,8 +177,9 @@ class BilibiliContentDownloader:
         self.credential = credential
         self.base_dir = base_dir
         os.makedirs(base_dir, exist_ok=True)
+        self.failed_info = []  # 记录失败的(id, user_name)
 
-    async def download_opus(self, opus_id):
+    async def download_opus(self, opus_id, user_name=None):
         """下载图文动态内容，仅下载图片，不处理md内容"""
         try:
             # 随机延迟
@@ -172,28 +202,12 @@ class BilibiliContentDownloader:
             return None, None
         except Exception as e:
             logging.error(f"下载图文动态 {opus_id} 失败: {str(e)}")
+            self.failed_info.append((opus_id, user_name or ""))
             try:
                 images = await op_instance.get_images_raw_info()
                 logging.error(f"原始图片数据: {images}")
             except Exception:
                 pass
-            return None, None
-
-    async def download_article(self, cv_id):
-        """下载专栏内容，仅保留图片下载功能，不处理md内容"""
-        try:
-            await asyncio.sleep(random.uniform(0.5, 1.5))
-            art = article.Article(cvid=cv_id, credential=self.credential)
-            content = await art.get_content()
-            image_urls = []
-            for item in content:
-                if item["type"] == 1:  # 图片
-                    image_urls.append(item["url"])
-            if image_urls:
-                return image_urls, None
-            return None, None
-        except Exception as e:
-            logging.error(f"下载专栏 cv{cv_id} 失败: {str(e)}")
             return None, None
 
     def download_images(self, user_name, dynamic_id, image_urls):
@@ -284,28 +298,59 @@ class BilibiliContentDownloader:
             url = card_obj["first_frame"]
             if isinstance(url, str) and url.startswith("http"):
                 image_urls.append(url)
-        # 5. 若仍未找到，打印card结构
+        # 5. 若仍未找到，打印card结构并正则兜底
         if not image_urls:
             card_preview = card if isinstance(card, str) else json.dumps(card, ensure_ascii=False) if card else None
             logging.warning(f"未提取到图片，card字段预览: {str(card_preview)[:500]}")
+            import re
+            if card_preview:
+                pattern = r"https?://[^'\"\s>]+?\.(?:jpg|jpeg|png|webp|gif|bmp|svg|tif|tiff|avif|jfif|ico|apng|heic|heif)"
+                found_urls = re.findall(pattern, card_preview, re.IGNORECASE)
+                # 过滤掉头像、VIP标签等无关图片
+                filtered_urls = [
+                    url for url in found_urls
+                    if not re.search(r"/(face|vip|avatar|icon|head_|logo|badge|emoticon|emotion|level|medal|rank|pendant|frame|background|cover|banner|label|watermark|stamp|gift|guard|fans|medal|card|skin|bubble|title|tag|sign|mark|corner|flag|mask|border|effect|decorate|decoration|screenshot|preview|thumb|small|mini|tiny|profile|system|default|temp|test|testimg|testpic|testimage|testphoto|testicon|testface|testavatar|testlogo|testcover|testbanner|testbadge|testmedal|testframe|testpendant|testbubble|testtitle|testtag|testsign|testmark|testcorner|testflag|testmask|testborder|testeffect|testdecorate|testdecoration|testscreenshot|testpreview|testthumb|testsmall|testmini|testtiny|testprofile|testsystem|testdefault|testtemp)/",
+                        url, re.IGNORECASE)
+                ]
+                if filtered_urls:
+                    logging.info(f"正则强制提取到内容图片链接: {filtered_urls}")
+                    image_urls.extend(filtered_urls)
+                if found_urls and not filtered_urls:
+                    logging.info(f"正则提取到的图片均为无关图片（如头像、VIP标签等），已全部过滤: {found_urls}")
+                elif found_urls and filtered_urls and len(filtered_urls) < len(found_urls):
+                    filtered_out = [url for url in found_urls if url not in filtered_urls]
+                    logging.info(f"部分无关图片已过滤: {filtered_out}")
         return image_urls
 
+    # 限制同时下载图片的数量
+    _download_semaphore = asyncio.Semaphore(5)  # 最多同时下载5个动态的图片
+
     async def download_dynamic(self, dynamic_data):
-        """递归查找所有图片链接并下载"""
+        """递归查找所有图片链接并下载，添加请求延迟和并发限制"""
         dynamic_id = dynamic_data["id"]
         user_name = dynamic_data.get("user_name", "unknown")
         raw_data = dynamic_data.get("raw_data", {})
         image_urls = self.extract_image_urls(raw_data)
         if image_urls:
-            return self.download_images(user_name, dynamic_id, list(set(image_urls))), None
+            # 并发限制
+            async with self._download_semaphore:
+                # 随机延迟，防止高并发
+                await asyncio.sleep(random.uniform(0.5, 2.0))
+                loop = asyncio.get_event_loop()
+                # 用线程池避免阻塞
+                result = await loop.run_in_executor(
+                    None, self.download_images, user_name, dynamic_id, list(set(image_urls))
+                )
+                return result, None
         else:
             logging.info(f"动态 {dynamic_id} 未找到图片")
+            self.failed_info.append((dynamic_id, user_name))
             return None, None
 
 class Postprocessor:
     """后处理类：更新CSV文件"""
     
-    def __init__(self, csv_file="data/Artist.csv"):
+    def __init__(self, csv_file=None):
         self.csv_file = csv_file
         self.updated_users = {}
     
@@ -313,76 +358,98 @@ class Postprocessor:
         """添加需要更新的用户"""
         self.updated_users[user_id] = new_roll_time
     
-    def update_csv(self):
-        """更新CSV文件中的轮询时间"""
-        if not os.path.exists(self.csv_file):
+    def update_csv(self, csv_file=None):
+        """使用pandas更新CSV文件中的轮询时间，所有字段强制为字符串"""
+        if csv_file is not None:
+            self.csv_file = csv_file
+        if not self.csv_file or not os.path.exists(self.csv_file):
             logging.error(f"CSV文件不存在: {self.csv_file}")
             return
-        
-        # 读取CSV数据
-        rows = []
-        with open(self.csv_file, 'r', encoding='utf-8') as f:
-            reader = csv.DictReader(f)
-            fieldnames = reader.fieldnames
-            for row in reader:
-                user_id = row.get('bilibili_id')
-                if user_id and user_id.isdigit() and int(user_id) in self.updated_users:
-                    row['bilibili_roll_time'] = self.updated_users[int(user_id)]
-                rows.append(row)
-        
-        # 写回CSV文件
-        with open(self.csv_file, 'w', encoding='utf-8', newline='') as f:
-            writer = csv.DictWriter(f, fieldnames=fieldnames)
-            writer.writeheader()
-            writer.writerows(rows)
-        
+        df = pd.read_csv(self.csv_file, dtype=str).fillna('')
+        for idx, row in df.iterrows():
+            user_id = row.get('bilibili_id')
+            if user_id and user_id.isdigit() and int(user_id) in self.updated_users:
+                df.at[idx, 'bilibili_roll_time'] = str(self.updated_users[int(user_id)])
+        # 强制所有列为字符串
+        df = df.astype(str)
+        df.to_csv(self.csv_file, index=False, encoding='utf-8')
         logging.info(f"已更新 {len(self.updated_users)} 个用户的轮询时间")
 
-async def process_users(user_group, credential):
+async def process_users(user_group, credential, csv_file):
     """处理一组用户"""
     fetcher = BilibiliDynamicFetcher(credential)
     downloader = BilibiliContentDownloader(credential)
-    postprocessor = Postprocessor()
+    postprocessor = Postprocessor(csv_file)
     
-    # 获取当前日期的零点时间戳（用于更新轮询时间）
     now = datetime.now()
     today_zero = datetime(now.year, now.month, now.day)
     new_roll_time = today_zero.strftime("%Y:%m:%d")
-    
+    total = 0
+    filtered_count = 0  # 新增：被完全过滤的动态数
+    filtered_failed = []  # 新增：被完全过滤的动态id和用户名
     for user_info in user_group:
-        # 获取用户动态
         dynamics = await fetcher.fetch_user_dynamics(user_info)
         if not dynamics:
             continue
-        
-        # 下载动态内容
+        total += len(dynamics)
         for dynamic in dynamics:
             content, info = await downloader.download_dynamic(dynamic)
-            if content:
-                downloader.save_content(
-                    user_info['name'], 
-                    dynamic['id'], 
-                    content
-                )
-        
-        # 记录需要更新的用户
+            # 检查是否因过滤无关图片导致无图片
+            if not content:
+                # 检查extract_image_urls日志中是否有“正则提取到的图片均为无关图片”
+                # 这里直接根据图片链接为空且desc type=2判断
+                raw = dynamic.get('raw_data', {})
+                card = raw.get('card')
+                card_obj = None
+                if card:
+                    try:
+                        card_obj = json.loads(card) if isinstance(card, str) else card
+                    except Exception:
+                        pass
+                filtered = False
+                if card_obj:
+                    # 若item.pictures为None且正则提取到的图片均为无关图片
+                    item = card_obj.get('item')
+                    if item and (item.get('pictures') is None or item.get('pictures_count', 0) == 0):
+                        filtered = True
+                if filtered:
+                    filtered_count += 1
+                    filtered_failed.append((dynamic['id'], dynamic.get('user_name', '')))
         postprocessor.add_updated_user(user_info['id'], new_roll_time)
-    
-    # 更新CSV文件
     postprocessor.update_csv()
+    failed = downloader.failed_info
+    failed_count = len(failed)
+    real_failed = failed_count - filtered_count
+    if real_failed > 0:
+        print(f"下载失败 {real_failed}/{total-filtered_count} ：{failed if real_failed>0 else ''}")
+    print(f"全部下载成功，共{total-filtered_count}条")
+    if filtered_count > 0:
+        print(f"已完全过滤无关图片的动态 {filtered_count} 条：{filtered_failed}")
 
 async def main():
     # 配置认证信息
+    cookies_path = r"userdata/bilibili-cookies.json"
+    with open(cookies_path, 'r', encoding='utf-8') as f:
+        cookies = json.load(f)
+    # 提取关键字段
+    def get_cookie_value(name):
+        for c in cookies:
+            if c.get('name', '').lower() == name.lower():
+                return c.get('value', '')
+        return ''
     credential = Credential(
-        sessdata="3a84a2b9%2C1766711892%2C9714b%2A62CjDRA09DniT-5vxbwV64m-Z-Os7ZufCYw7gAHHJO1i0uIhJUHOOA63cmdFACuVUGil0SVkxrc21JZE9MZWJoak9ubkYxTjBYWkQ2TXFKemoyYldXcU1hVy01SC1Tb2Rub2JScU5qM1ZzZFI2NERnLUl1OGVocnRzYTdCbjdnRmVxaW9Wc3BtM0lnIIEC",
-        bili_jct="32b3aafa92e44eee2a5dfe5785561e6d",
-        buvid3="67727345-8BA8-E479-5FD1-64450BB5A1A485280infocs"
+        sessdata=get_cookie_value('SESSDATA'),
+        bili_jct=get_cookie_value('bili_jct'),
+        buvid3=get_cookie_value('buvid3')
     )
-    
+
+    csv_file = "data/Artist.csv" 
+
     # 1. 前处理
     preprocessor = Preprocessor()
-    users = preprocessor.read_users()
+    users = preprocessor.read_users(csv_file)
     if not users:
+        logging.warning("未找到有效用户")
         return
     
     # 2. 分组处理用户
@@ -391,9 +458,31 @@ async def main():
     
     # 3. 处理每组用户
     for group in user_groups:
-        await process_users(group, credential)
+        await process_users(group, credential, csv_file)
         # 组间延迟
         await asyncio.sleep(random.uniform(5, 10))
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    # asyncio.run(main())
+    # 测试：仅处理CSV中前三个用户
+    # 用法：将下方if True改为if __name__ == "__main__"并注释掉主流程，即可只测试前三个用户
+    if True:  # 改为True以启用测试，仅处理前三个用户
+        async def test_first_three():
+            pre = Preprocessor()
+            users = pre.read_users("data/Artist.csv")
+            test_users = users[:3]
+            cookies_path = r"userdata/bilibili-cookies.json"
+            with open(cookies_path, 'r', encoding='utf-8') as f:
+                cookies = json.load(f)
+            def get_cookie_value(name):
+                for c in cookies:
+                    if c.get('name', '').lower() == name.lower():
+                        return c.get('value', '')
+                return ''
+            credential = Credential(
+                sessdata=get_cookie_value('SESSDATA'),
+                bili_jct=get_cookie_value('bili_jct'),
+                buvid3=get_cookie_value('buvid3')
+            )
+            await process_users(test_users, credential, "data/Artist.csv")
+        asyncio.run(test_first_three())

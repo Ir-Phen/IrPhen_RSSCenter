@@ -1,3 +1,0 @@
-检查bilibili画师订阅
-从数据库读取bilibiliurl生成
-bilibili/user/dynamic/artist
