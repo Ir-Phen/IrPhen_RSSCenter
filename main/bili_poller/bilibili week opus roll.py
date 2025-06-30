@@ -331,9 +331,9 @@ async def process_users(user_group, credential):
 async def main():
     # 配置认证信息
     credential = Credential(
-        sessdata="YOUR_SESSDATA",
-        bili_jct="YOUR_BILI_JCT",
-        buvid3="YOUR_BUVID3"
+        sessdata="3a84a2b9%2C1766711892%2C9714b%2A62CjDRA09DniT-5vxbwV64m-Z-Os7ZufCYw7gAHHJO1i0uIhJUHOOA63cmdFACuVUGil0SVkxrc21JZE9MZWJoak9ubkYxTjBYWkQ2TXFKemoyYldXcU1hVy01SC1Tb2Rub2JScU5qM1ZzZFI2NERnLUl1OGVocnRzYTdCbjdnRmVxaW9Wc3BtM0lnIIEC",
+        bili_jct="32b3aafa92e44eee2a5dfe5785561e6d",
+        buvid3="67727345-8BA8-E479-5FD1-64450BB5A1A485280infocs"
     )
     
     # 1. 前处理
@@ -353,4 +353,34 @@ async def main():
         await asyncio.sleep(random.uniform(5, 10))
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    # asyncio.run(main())
+    pre = Preprocessor(csv_file="data/Artist.csv")
+    users = pre.read_users()
+    print(f"读取到 {len(users)} 个用户：")
+    # for u in users:
+    #     print(u)
+
+    async def test_download_and_save_dynamic():
+        credential = Credential(
+            sessdata="3a84a2b9%2C1766711892%2C9714b%2A62CjDRA09DniT-5vxbwV64m-Z-Os7ZufCYw7gAHHJO1i0uIhJUHOOA63cmdFACuVUGil0SVkxrc21JZE9MZWJoak9ubkYxTjBYWkQ2TXFKemoyYldXcU1hVy01SC1Tb2Rub2JScU5qM1ZzZFI2NERnLUl1OGVocnRzYTdCbjdnRmVxaW9Wc3BtM0lnIIEC",
+            bili_jct="32b3aafa92e44eee2a5dfe5785561e6d",
+            buvid3="67727345-8BA8-E479-5FD1-64450BB5A1A485280infocs"
+        )
+        fetcher = BilibiliDynamicFetcher(credential)
+        downloader = BilibiliContentDownloader(credential)
+        for u in users[:3]:
+            print(f"测试用户：{u['name']}")
+            dynamics = await fetcher.fetch_user_dynamics(u)
+            if not dynamics:
+                print("未能读取到动态内容")
+                continue
+            print(f"成功读取到动态内容：{len(dynamics)} 条，开始下载与保存……")
+            for dynamic in dynamics:
+                content, info = await downloader.download_dynamic(dynamic)
+                if content:
+                    saved = downloader.save_content(u['name'], dynamic['id'], content)
+                    print(f"动态 {dynamic['id']} 保存结果: {saved}")
+                else:
+                    print(f"动态 {dynamic['id']} 下载失败")
+    # 取消下方注释以运行下载与保存测试
+    asyncio.run(test_download_and_save_dynamic())
