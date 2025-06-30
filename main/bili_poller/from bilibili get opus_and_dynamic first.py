@@ -291,8 +291,8 @@ async def main():
     )
     
     # 目标用户UID和时间戳（例如：获取2023年1月1日之后的数据）
-    target_uid = 431436293
-    since_ts = 0000000000
+    target_uid = 9125673
+    since_ts = 1748534400
     
     # 创建Fetcher并传入时间戳
     fetcher = BilibiliDynamicFetcher(target_uid, credential, since_timestamp=since_ts)

@@ -148,116 +148,159 @@ class BilibiliContentDownloader:
         self.credential = credential
         self.base_dir = base_dir
         os.makedirs(base_dir, exist_ok=True)
-    
+
     async def download_opus(self, opus_id):
-        """下载图文动态内容"""
+        """下载图文动态内容，仅下载图片，不处理md内容"""
         try:
             # 随机延迟
             await asyncio.sleep(random.uniform(0.5, 1.5))
-            
             op_instance = opus.Opus(opus_id=opus_id, credential=self.credential)
-            info = await op_instance.get_info()
-            text = await op_instance.markdown()
-            
-            # 构建Markdown内容
-            md_lines = [f"# {info.get('title', f'Opus {opus_id}')}", "", text, ""]
-            
-            # 添加图片
-            images = await op_instance.get_images_raw_info()
+            # 只处理图片下载
+            try:
+                images = await op_instance.get_images_raw_info()
+            except Exception as e:
+                logging.error(f"获取图文动态 {opus_id} 图片信息失败: {str(e)}")
+                images = []
+            image_urls = []
             for img in images:
                 url = img.get("url") or img.get("image_url")
-                alt = img.get("desc", "")
-                md_lines.append(f"![{alt}]({url})")
-            
-            return "\n".join(md_lines), info
+                if url:
+                    image_urls.append(url)
+            if image_urls:
+                # 这里无法获取user_name和dynamic_id，调用方需传递
+                return image_urls, None
+            return None, None
         except Exception as e:
             logging.error(f"下载图文动态 {opus_id} 失败: {str(e)}")
+            try:
+                images = await op_instance.get_images_raw_info()
+                logging.error(f"原始图片数据: {images}")
+            except Exception:
+                pass
             return None, None
-    
+
     async def download_article(self, cv_id):
-        """下载专栏内容"""
+        """下载专栏内容，仅保留图片下载功能，不处理md内容"""
         try:
-            # 随机延迟
             await asyncio.sleep(random.uniform(0.5, 1.5))
-            
             art = article.Article(cvid=cv_id, credential=self.credential)
-            info = await art.get_info()
             content = await art.get_content()
-            
-            # 构建Markdown内容
-            md_lines = [
-                f"# {info.get('title', f'专栏 {cv_id}')}",
-                "",
-                f"**作者**: {info.get('author', {}).get('name', '未知')}",
-                f"**发布时间**: {datetime.fromtimestamp(info.get('publish_time', 0)).strftime('%Y-%m-%d %H:%M:%S')}",
-                f"**阅读量**: {info.get('stats', {}).get('view', 0)}",
-                "",
-                "## 正文",
-                ""
-            ]
-            
-            # 处理正文内容
+            image_urls = []
             for item in content:
-                if item["type"] == 0:  # 文本
-                    text = item["content"].replace("\u2028", "\n")
-                    md_lines.append(text)
-                elif item["type"] == 1:  # 图片
-                    md_lines.append(f"![{item.get('alt', '图片')}]({item['url']})")
-                elif item["type"] == 2:  # 视频
-                    md_lines.append(f"[视频 BV{item['bvid']}](https://www.bilibili.com/video/{item['bvid']})")
-            
-            return "\n".join(md_lines), info
+                if item["type"] == 1:  # 图片
+                    image_urls.append(item["url"])
+            if image_urls:
+                return image_urls, None
+            return None, None
         except Exception as e:
             logging.error(f"下载专栏 cv{cv_id} 失败: {str(e)}")
             return None, None
-    
-    async def download_dynamic(self, dynamic_data):
-        """下载动态内容"""
-        dynamic_id = dynamic_data["id"]
-        dynamic_type = dynamic_data["type"]
-        
-        if dynamic_type == 2:  # 图文动态
-            return await self.download_opus(dynamic_id)
-        elif dynamic_type == 8:  # 专栏文章
-            raw_data = dynamic_data.get("raw_data", {})
-            card_data = raw_data.get("card", {})
-            
-            if isinstance(card_data, str):
-                try:
-                    card_data = json.loads(card_data)
-                except json.JSONDecodeError:
-                    logging.error(f"无法解析专栏动态卡片数据: {card_data}")
-                    return None, None
-            
-            cv_id = card_data.get("id") or card_data.get("article", {}).get("id")
-            return await self.download_article(cv_id) if cv_id else (None, None)
-        else:
-            return None, None
-    
-    def save_content(self, user_name, dynamic_id, content):
-        """保存内容到文件"""
-        if not content:
+
+    def download_images(self, user_name, dynamic_id, image_urls):
+        """下载图片到指定目录，命名为name_动态id_序号"""
+        if not image_urls:
             return False
-        
         try:
-            # 创建用户专属目录
+            import requests
             user_dir = os.path.join(self.base_dir, user_name)
             os.makedirs(user_dir, exist_ok=True)
-            
-            # 创建动态专属目录
             dynamic_dir = os.path.join(user_dir, str(dynamic_id))
             os.makedirs(dynamic_dir, exist_ok=True)
-            
-            # 保存Markdown内容
-            md_file = os.path.join(dynamic_dir, f"{dynamic_id}.md")
-            with open(md_file, 'w', encoding='utf-8') as f:
-                f.write(content)
-            
-            logging.info(f"动态 {dynamic_id} 内容已保存到 {md_file}")
+            for idx, url in enumerate(image_urls, 1):
+                ext = os.path.splitext(url)[1].split('?')[0] or '.jpg'
+                safe_name = user_name.replace('/', '_').replace('\\', '_')
+                img_path = os.path.join(dynamic_dir, f"{safe_name}_{dynamic_id}_{idx}{ext}")
+                try:
+                    resp = requests.get(url, timeout=10)
+                    if resp.status_code == 200:
+                        with open(img_path, 'wb') as f:
+                            f.write(resp.content)
+                        logging.info(f"图片已保存: {img_path}")
+                    else:
+                        logging.warning(f"下载图片失败: {url} 状态码: {resp.status_code}")
+                except Exception as e:
+                    logging.error(f"下载图片异常: {url} 错误: {str(e)}")
             return True
         except Exception as e:
-            logging.error(f"保存动态 {dynamic_id} 内容失败: {str(e)}")
+            logging.error(f"保存图片失败: {str(e)}")
             return False
+
+    def extract_image_urls(self, obj, path=None):
+        """
+        针对B站动态结构，优先解析card字段（如为字符串则json.loads），
+        查找常见图片字段（如item.pictures、item.pictures[].img_src、pictures、image_urls等），
+        兼容display字段下的图片。
+        若未找到，打印card字段结构。
+        """
+        image_urls = []
+        # 1. 解析card字段
+        card = obj.get("card")
+        card_obj = None
+        if card:
+            if isinstance(card, str):
+                try:
+                    card_obj = json.loads(card)
+                except Exception as e:
+                    logging.warning(f"card字段json解析失败: {e}")
+            elif isinstance(card, dict):
+                card_obj = card
+        # 2. 常见图片字段提取
+        if card_obj:
+            # 动态图文
+            item = card_obj.get("item")
+            if item:
+                # 图文图片
+                if "pictures" in item and isinstance(item["pictures"], list):
+                    for pic in item["pictures"]:
+                        url = pic.get("img_src") or pic.get("imgUrl") or pic.get("url")
+                        if url:
+                            image_urls.append(url)
+                # 单图
+                if "pictures" not in item and "picture" in item:
+                    url = item.get("picture")
+                    if url:
+                        image_urls.append(url)
+            # 专栏图片
+            if "image_urls" in card_obj and isinstance(card_obj["image_urls"], list):
+                image_urls.extend(card_obj["image_urls"])
+            # 其他常见字段
+            if "pictures" in card_obj and isinstance(card_obj["pictures"], list):
+                for pic in card_obj["pictures"]:
+                    url = pic.get("img_src") or pic.get("imgUrl") or pic.get("url")
+                    if url:
+                        image_urls.append(url)
+        # 3. display字段兼容
+        display = obj.get("display")
+        if display and isinstance(display, dict):
+            if "origin" in display and isinstance(display["origin"], dict):
+                origin = display["origin"]
+                if "pictures" in origin and isinstance(origin["pictures"], list):
+                    for pic in origin["pictures"]:
+                        url = pic.get("img_src") or pic.get("imgUrl") or pic.get("url")
+                        if url:
+                            image_urls.append(url)
+        # 4. 若未找到，尝试first_frame字段（视频首帧）
+        if card_obj and "first_frame" in card_obj:
+            url = card_obj["first_frame"]
+            if isinstance(url, str) and url.startswith("http"):
+                image_urls.append(url)
+        # 5. 若仍未找到，打印card结构
+        if not image_urls:
+            card_preview = card if isinstance(card, str) else json.dumps(card, ensure_ascii=False) if card else None
+            logging.warning(f"未提取到图片，card字段预览: {str(card_preview)[:500]}")
+        return image_urls
+
+    async def download_dynamic(self, dynamic_data):
+        """递归查找所有图片链接并下载"""
+        dynamic_id = dynamic_data["id"]
+        user_name = dynamic_data.get("user_name", "unknown")
+        raw_data = dynamic_data.get("raw_data", {})
+        image_urls = self.extract_image_urls(raw_data)
+        if image_urls:
+            return self.download_images(user_name, dynamic_id, list(set(image_urls))), None
+        else:
+            logging.info(f"动态 {dynamic_id} 未找到图片")
+            return None, None
 
 class Postprocessor:
     """后处理类：更新CSV文件"""
@@ -353,34 +396,4 @@ async def main():
         await asyncio.sleep(random.uniform(5, 10))
 
 if __name__ == "__main__":
-    # asyncio.run(main())
-    pre = Preprocessor(csv_file="data/Artist.csv")
-    users = pre.read_users()
-    print(f"读取到 {len(users)} 个用户：")
-    # for u in users:
-    #     print(u)
-
-    async def test_download_and_save_dynamic():
-        credential = Credential(
-            sessdata="3a84a2b9%2C1766711892%2C9714b%2A62CjDRA09DniT-5vxbwV64m-Z-Os7ZufCYw7gAHHJO1i0uIhJUHOOA63cmdFACuVUGil0SVkxrc21JZE9MZWJoak9ubkYxTjBYWkQ2TXFKemoyYldXcU1hVy01SC1Tb2Rub2JScU5qM1ZzZFI2NERnLUl1OGVocnRzYTdCbjdnRmVxaW9Wc3BtM0lnIIEC",
-            bili_jct="32b3aafa92e44eee2a5dfe5785561e6d",
-            buvid3="67727345-8BA8-E479-5FD1-64450BB5A1A485280infocs"
-        )
-        fetcher = BilibiliDynamicFetcher(credential)
-        downloader = BilibiliContentDownloader(credential)
-        for u in users[:3]:
-            print(f"测试用户：{u['name']}")
-            dynamics = await fetcher.fetch_user_dynamics(u)
-            if not dynamics:
-                print("未能读取到动态内容")
-                continue
-            print(f"成功读取到动态内容：{len(dynamics)} 条，开始下载与保存……")
-            for dynamic in dynamics:
-                content, info = await downloader.download_dynamic(dynamic)
-                if content:
-                    saved = downloader.save_content(u['name'], dynamic['id'], content)
-                    print(f"动态 {dynamic['id']} 保存结果: {saved}")
-                else:
-                    print(f"动态 {dynamic['id']} 下载失败")
-    # 取消下方注释以运行下载与保存测试
-    asyncio.run(test_download_and_save_dynamic())
+    asyncio.run(main())
