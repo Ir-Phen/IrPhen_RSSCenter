@@ -97,7 +97,7 @@ async def main():
         buvid3="67727345-8BA8-E479-5FD1-64450BB5A1A485280infocs"
     )
     # 要转换的图文动态ID列表
-    opus_ids = []
+    opus_ids = ["1081635484320399362","10841033295423078456"]
     
     # 创建转换器
     converter = OpusToArticleConverter(
