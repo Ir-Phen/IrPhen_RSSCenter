@@ -476,27 +476,4 @@ async def main():
     await run_bili_poller()
 
 if __name__ == "__main__":
-    # asyncio.run(main())
-    # 测试：仅处理CSV中前三个用户
-    if True:  # 改为True以启用测试，仅处理前三个用户
-        async def test_first_three():
-            pre = Preprocessor()
-            users = pre.read_users("data/Artist.csv")
-            test_users = users[:3]
-            # 认证
-            cookies_path = r"userdata/bilibili-cookies.json"
-            with open(cookies_path, 'r', encoding='utf-8') as f:
-                cookies = json.load(f)
-            def get_cookie_value(name):
-                for c in cookies:
-                    if c.get('name', '').lower() == name.lower():
-                        return c.get('value', '')
-                return ''
-            credential = Credential(
-                sessdata=get_cookie_value('SESSDATA'),
-                bili_jct=get_cookie_value('bili_jct'),
-                buvid3=get_cookie_value('buvid3')
-            )
-            # 只处理前三个用户，支持回调
-            await run_bili_poller(user_groups=[test_users], credential=credential, csv_file="data/Artist.csv")
-        asyncio.run(test_first_three())
+    asyncio.run(main())
