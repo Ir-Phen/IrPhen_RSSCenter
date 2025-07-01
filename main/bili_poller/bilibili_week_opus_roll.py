@@ -392,6 +392,7 @@ async def process_users(user_group, credential, csv_file, callback=None):
         if not dynamics:
             continue
         total += len(dynamics)
+        has_new_content = False  # 标记本用户是否有新动态且有图片下载成功
         for dynamic in dynamics:
             content, info = await downloader.download_dynamic(dynamic)
             # 回调处理
@@ -418,7 +419,10 @@ async def process_users(user_group, credential, csv_file, callback=None):
                 if filtered:
                     filtered_count += 1
                     filtered_failed.append((dynamic['id'], dynamic.get('user_name', '')))
-        postprocessor.add_updated_user(user_info['id'], new_roll_time)
+            else:
+                has_new_content = True  # 有图片下载成功
+        if has_new_content:
+            postprocessor.add_updated_user(user_info['id'], new_roll_time)
     postprocessor.update_csv()
     failed = downloader.failed_info
     failed_count = len(failed)
