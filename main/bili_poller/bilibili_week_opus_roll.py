@@ -109,8 +109,8 @@ class BilibiliDynamicFetcher:
         uid = user_info['id']
         since_timestamp = user_info['roll_time']
         name = user_info['name']
-        
-        logging.info(f"开始获取用户 {name}({uid}) 的动态，起始时间: {since_timestamp}")
+        since_str = datetime.fromtimestamp(since_timestamp).strftime("%Y-%m-%d %H:%M:%S")
+        logging.info(f"开始获取用户 {name}({uid}) 的动态，起始时间: {since_str} (timestamp: {since_timestamp})")
         
         u = user.User(uid, credential=self.credential)
         all_dynamics = []
@@ -138,10 +138,10 @@ class BilibiliDynamicFetcher:
                     desc = card.get("desc", {})
                     dyn_type = desc.get("type")
                     timestamp = desc.get("timestamp", 0)
-                    
+                    timestamp_str = datetime.fromtimestamp(timestamp).strftime("%Y-%m-%d %H:%M:%S") if timestamp else ""
                     # 如果动态时间早于起始时间，停止翻页
                     if timestamp <= since_timestamp:
-                        logging.info(f"用户 {name} 遇到旧动态(<= {since_timestamp})，停止翻页")
+                        logging.info(f"用户 {name} 遇到旧动态(<= {since_str})，动态时间: {timestamp_str} (timestamp: {timestamp})，停止翻页")
                         return all_dynamics
                     
                     # 只处理图文动态 (类型2)

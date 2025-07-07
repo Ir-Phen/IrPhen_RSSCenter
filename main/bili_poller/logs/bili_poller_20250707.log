@@ -503,3 +503,116 @@
 2025-07-07 09:58:00,406 - INFO - bilibili_week_opus_roll.py:135 - fetch_user_dynamics - 用户 Szi_f 第 1 页获取到 20 条动态
 2025-07-07 09:58:00,406 - INFO - bilibili_week_opus_roll.py:144 - fetch_user_dynamics - 用户 Szi_f 遇到旧动态(<= 1751212800)，停止翻页
 2025-07-07 09:58:00,446 - INFO - bilibili_week_opus_roll.py:376 - update_csv - 已更新 1 个用户的轮询时间
+2025-07-07 10:28:23,059 - INFO - bilibili_week_opus_roll.py:113 - fetch_user_dynamics - 开始获取用户 ナイチンゲール-NaN(383355826) 的动态，起始时间: 20250630
+2025-07-07 10:28:25,181 - INFO - bilibili_week_opus_roll.py:127 - fetch_user_dynamics - 请求用户 ナイチンゲール-NaN 第 1 页动态，offset=0
+2025-07-07 10:28:26,623 - INFO - _client.py:1740 - _send_single_request - HTTP Request: GET https://api.bilibili.com/x/frontend/finger/spi "HTTP/1.1 200 OK"
+2025-07-07 10:28:26,675 - INFO - _client.py:1740 - _send_single_request - HTTP Request: POST https://api.bilibili.com/x/internal/gaia-gateway/ExClimbWuzhi "HTTP/1.1 200 OK"
+2025-07-07 10:28:26,782 - INFO - _client.py:1740 - _send_single_request - HTTP Request: GET https://api.vc.bilibili.com/dynamic_svr/v1/dynamic_svr/space_history?host_uid=383355826&offset_dynamic_id=0&need_top=0 "HTTP/1.1 200 OK"
+2025-07-07 10:28:26,786 - INFO - bilibili_week_opus_roll.py:135 - fetch_user_dynamics - 用户 ナイチンゲール-NaN 第 1 页获取到 20 条动态
+2025-07-07 10:28:42,542 - INFO - bilibili_week_opus_roll.py:113 - fetch_user_dynamics - 开始获取用户 ナイチンゲール-NaN(383355826) 的动态，起始时间: 20250630
+2025-07-07 10:28:43,720 - INFO - bilibili_week_opus_roll.py:127 - fetch_user_dynamics - 请求用户 ナイチンゲール-NaN 第 1 页动态，offset=0
+2025-07-07 10:28:45,042 - INFO - _client.py:1740 - _send_single_request - HTTP Request: GET https://api.bilibili.com/x/frontend/finger/spi "HTTP/1.1 200 OK"
+2025-07-07 10:28:45,102 - INFO - _client.py:1740 - _send_single_request - HTTP Request: POST https://api.bilibili.com/x/internal/gaia-gateway/ExClimbWuzhi "HTTP/1.1 200 OK"
+2025-07-07 10:28:45,207 - INFO - _client.py:1740 - _send_single_request - HTTP Request: GET https://api.vc.bilibili.com/dynamic_svr/v1/dynamic_svr/space_history?host_uid=383355826&offset_dynamic_id=0&need_top=0 "HTTP/1.1 200 OK"
+2025-07-07 10:28:45,208 - INFO - bilibili_week_opus_roll.py:135 - fetch_user_dynamics - 用户 ナイチンゲール-NaN 第 1 页获取到 20 条动态
+2025-07-07 10:28:46,899 - INFO - bilibili_week_opus_roll.py:127 - fetch_user_dynamics - 请求用户 ナイチンゲール-NaN 第 2 页动态，offset=1067524472343363600
+2025-07-07 10:28:46,964 - INFO - _client.py:1740 - _send_single_request - HTTP Request: GET https://api.vc.bilibili.com/dynamic_svr/v1/dynamic_svr/space_history?host_uid=383355826&offset_dynamic_id=1067524472343363600&need_top=0 "HTTP/1.1 200 OK"
+2025-07-07 10:28:46,967 - INFO - bilibili_week_opus_roll.py:135 - fetch_user_dynamics - 用户 ナイチンゲール-NaN 第 2 页获取到 20 条动态
+2025-07-07 10:28:48,363 - INFO - bilibili_week_opus_roll.py:127 - fetch_user_dynamics - 请求用户 ナイチンゲール-NaN 第 3 页动态，offset=1053342314216292377
+2025-07-07 10:28:48,429 - INFO - _client.py:1740 - _send_single_request - HTTP Request: GET https://api.vc.bilibili.com/dynamic_svr/v1/dynamic_svr/space_history?host_uid=383355826&offset_dynamic_id=1053342314216292377&need_top=0 "HTTP/1.1 200 OK"
+2025-07-07 10:28:48,431 - INFO - bilibili_week_opus_roll.py:135 - fetch_user_dynamics - 用户 ナイチンゲール-NaN 第 3 页获取到 20 条动态
+2025-07-07 10:28:50,749 - INFO - bilibili_week_opus_roll.py:127 - fetch_user_dynamics - 请求用户 ナイチンゲール-NaN 第 4 页动态，offset=1041249932559777830
+2025-07-07 10:28:50,795 - INFO - _client.py:1740 - _send_single_request - HTTP Request: GET https://api.vc.bilibili.com/dynamic_svr/v1/dynamic_svr/space_history?host_uid=383355826&offset_dynamic_id=1041249932559777830&need_top=0 "HTTP/1.1 200 OK"
+2025-07-07 10:28:50,796 - INFO - bilibili_week_opus_roll.py:131 - fetch_user_dynamics - 用户 ナイチンゲール-NaN 第 4 页无数据，停止翻页
+2025-07-07 10:28:50,796 - INFO - bilibili_week_opus_roll.py:170 - fetch_user_dynamics - 用户 ナイチンゲール-NaN 共获取到 12 条新动态
+2025-07-07 10:28:52,568 - INFO - bilibili_week_opus_roll.py:232 - download_images - 图片已保存: data/bilibili/downloads\ナイチンゲール-NaN\1078619450903625733\ナイチンゲール-NaN_1078619450903625733_1.png
+2025-07-07 10:28:52,736 - INFO - bilibili_week_opus_roll.py:232 - download_images - 图片已保存: data/bilibili/downloads\ナイチンゲール-NaN\1078619450903625733\ナイチンゲール-NaN_1078619450903625733_2.png
+2025-07-07 10:28:52,863 - INFO - bilibili_week_opus_roll.py:232 - download_images - 图片已保存: data/bilibili/downloads\ナイチンゲール-NaN\1078619450903625733\ナイチンゲール-NaN_1078619450903625733_3.png
+2025-07-07 10:28:52,988 - INFO - bilibili_week_opus_roll.py:232 - download_images - 图片已保存: data/bilibili/downloads\ナイチンゲール-NaN\1078619450903625733\ナイチンゲール-NaN_1078619450903625733_4.png
+2025-07-07 10:28:53,124 - INFO - bilibili_week_opus_roll.py:232 - download_images - 图片已保存: data/bilibili/downloads\ナイチンゲール-NaN\1078619450903625733\ナイチンゲール-NaN_1078619450903625733_5.png
+2025-07-07 10:28:53,307 - INFO - bilibili_week_opus_roll.py:232 - download_images - 图片已保存: data/bilibili/downloads\ナイチンゲール-NaN\1078619450903625733\ナイチンゲール-NaN_1078619450903625733_6.png
+2025-07-07 10:28:53,406 - INFO - bilibili_week_opus_roll.py:232 - download_images - 图片已保存: data/bilibili/downloads\ナイチンゲール-NaN\1078619450903625733\ナイチンゲール-NaN_1078619450903625733_7.png
+2025-07-07 10:28:53,535 - INFO - bilibili_week_opus_roll.py:232 - download_images - 图片已保存: data/bilibili/downloads\ナイチンゲール-NaN\1078619450903625733\ナイチンゲール-NaN_1078619450903625733_8.png
+2025-07-07 10:28:53,681 - INFO - bilibili_week_opus_roll.py:232 - download_images - 图片已保存: data/bilibili/downloads\ナイチンゲール-NaN\1078619450903625733\ナイチンゲール-NaN_1078619450903625733_9.png
+2025-07-07 10:28:54,726 - INFO - bilibili_week_opus_roll.py:232 - download_images - 图片已保存: data/bilibili/downloads\ナイチンゲール-NaN\1074598455242915842\ナイチンゲール-NaN_1074598455242915842_1.png
+2025-07-07 10:28:54,964 - INFO - bilibili_week_opus_roll.py:232 - download_images - 图片已保存: data/bilibili/downloads\ナイチンゲール-NaN\1074598455242915842\ナイチンゲール-NaN_1074598455242915842_2.png
+2025-07-07 10:28:55,475 - INFO - bilibili_week_opus_roll.py:232 - download_images - 图片已保存: data/bilibili/downloads\ナイチンゲール-NaN\1074598455242915842\ナイチンゲール-NaN_1074598455242915842_3.png
+2025-07-07 10:28:55,623 - INFO - bilibili_week_opus_roll.py:232 - download_images - 图片已保存: data/bilibili/downloads\ナイチンゲール-NaN\1074598455242915842\ナイチンゲール-NaN_1074598455242915842_4.png
+2025-07-07 10:28:55,784 - INFO - bilibili_week_opus_roll.py:232 - download_images - 图片已保存: data/bilibili/downloads\ナイチンゲール-NaN\1074598455242915842\ナイチンゲール-NaN_1074598455242915842_5.png
+2025-07-07 10:28:55,942 - INFO - bilibili_week_opus_roll.py:232 - download_images - 图片已保存: data/bilibili/downloads\ナイチンゲール-NaN\1074598455242915842\ナイチンゲール-NaN_1074598455242915842_6.png
+2025-07-07 10:28:56,354 - INFO - bilibili_week_opus_roll.py:232 - download_images - 图片已保存: data/bilibili/downloads\ナイチンゲール-NaN\1074598455242915842\ナイチンゲール-NaN_1074598455242915842_7.png
+2025-07-07 10:28:56,515 - INFO - bilibili_week_opus_roll.py:232 - download_images - 图片已保存: data/bilibili/downloads\ナイチンゲール-NaN\1074598455242915842\ナイチンゲール-NaN_1074598455242915842_8.png
+2025-07-07 10:28:56,655 - INFO - bilibili_week_opus_roll.py:232 - download_images - 图片已保存: data/bilibili/downloads\ナイチンゲール-NaN\1074598455242915842\ナイチンゲール-NaN_1074598455242915842_9.png
+2025-07-07 10:28:57,105 - INFO - bilibili_week_opus_roll.py:232 - download_images - 图片已保存: data/bilibili/downloads\ナイチンゲール-NaN\1074598455242915842\ナイチンゲール-NaN_1074598455242915842_10.png
+2025-07-07 10:28:58,621 - INFO - bilibili_week_opus_roll.py:232 - download_images - 图片已保存: data/bilibili/downloads\ナイチンゲール-NaN\1072641955913007129\ナイチンゲール-NaN_1072641955913007129_1.png
+2025-07-07 10:28:58,788 - INFO - bilibili_week_opus_roll.py:232 - download_images - 图片已保存: data/bilibili/downloads\ナイチンゲール-NaN\1072641955913007129\ナイチンゲール-NaN_1072641955913007129_2.png
+2025-07-07 10:28:59,051 - INFO - bilibili_week_opus_roll.py:232 - download_images - 图片已保存: data/bilibili/downloads\ナイチンゲール-NaN\1072641955913007129\ナイチンゲール-NaN_1072641955913007129_3.png
+2025-07-07 10:28:59,215 - INFO - bilibili_week_opus_roll.py:232 - download_images - 图片已保存: data/bilibili/downloads\ナイチンゲール-NaN\1072641955913007129\ナイチンゲール-NaN_1072641955913007129_4.png
+2025-07-07 10:28:59,368 - INFO - bilibili_week_opus_roll.py:232 - download_images - 图片已保存: data/bilibili/downloads\ナイチンゲール-NaN\1072641955913007129\ナイチンゲール-NaN_1072641955913007129_5.png
+2025-07-07 10:28:59,597 - INFO - bilibili_week_opus_roll.py:232 - download_images - 图片已保存: data/bilibili/downloads\ナイチンゲール-NaN\1072641955913007129\ナイチンゲール-NaN_1072641955913007129_6.png
+2025-07-07 10:28:59,778 - INFO - bilibili_week_opus_roll.py:232 - download_images - 图片已保存: data/bilibili/downloads\ナイチンゲール-NaN\1072641955913007129\ナイチンゲール-NaN_1072641955913007129_7.png
+2025-07-07 10:28:59,951 - INFO - bilibili_week_opus_roll.py:232 - download_images - 图片已保存: data/bilibili/downloads\ナイチンゲール-NaN\1072641955913007129\ナイチンゲール-NaN_1072641955913007129_8.png
+2025-07-07 10:29:00,113 - INFO - bilibili_week_opus_roll.py:232 - download_images - 图片已保存: data/bilibili/downloads\ナイチンゲール-NaN\1072641955913007129\ナイチンゲール-NaN_1072641955913007129_9.png
+2025-07-07 10:29:00,984 - INFO - bilibili_week_opus_roll.py:232 - download_images - 图片已保存: data/bilibili/downloads\ナイチンゲール-NaN\1069041630885969928\ナイチンゲール-NaN_1069041630885969928_1.png
+2025-07-07 10:29:01,135 - INFO - bilibili_week_opus_roll.py:232 - download_images - 图片已保存: data/bilibili/downloads\ナイチンゲール-NaN\1069041630885969928\ナイチンゲール-NaN_1069041630885969928_2.png
+2025-07-07 10:29:01,288 - INFO - bilibili_week_opus_roll.py:232 - download_images - 图片已保存: data/bilibili/downloads\ナイチンゲール-NaN\1069041630885969928\ナイチンゲール-NaN_1069041630885969928_3.png
+2025-07-07 10:29:01,436 - INFO - bilibili_week_opus_roll.py:232 - download_images - 图片已保存: data/bilibili/downloads\ナイチンゲール-NaN\1069041630885969928\ナイチンゲール-NaN_1069041630885969928_4.png
+2025-07-07 10:29:01,647 - INFO - bilibili_week_opus_roll.py:232 - download_images - 图片已保存: data/bilibili/downloads\ナイチンゲール-NaN\1069041630885969928\ナイチンゲール-NaN_1069041630885969928_5.png
+2025-07-07 10:29:01,801 - INFO - bilibili_week_opus_roll.py:232 - download_images - 图片已保存: data/bilibili/downloads\ナイチンゲール-NaN\1069041630885969928\ナイチンゲール-NaN_1069041630885969928_6.png
+2025-07-07 10:29:01,958 - INFO - bilibili_week_opus_roll.py:232 - download_images - 图片已保存: data/bilibili/downloads\ナイチンゲール-NaN\1069041630885969928\ナイチンゲール-NaN_1069041630885969928_7.png
+2025-07-07 10:29:02,174 - INFO - bilibili_week_opus_roll.py:232 - download_images - 图片已保存: data/bilibili/downloads\ナイチンゲール-NaN\1069041630885969928\ナイチンゲール-NaN_1069041630885969928_8.png
+2025-07-07 10:29:02,322 - INFO - bilibili_week_opus_roll.py:232 - download_images - 图片已保存: data/bilibili/downloads\ナイチンゲール-NaN\1069041630885969928\ナイチンゲール-NaN_1069041630885969928_9.png
+2025-07-07 10:29:03,986 - INFO - bilibili_week_opus_roll.py:232 - download_images - 图片已保存: data/bilibili/downloads\ナイチンゲール-NaN\1067510921680650259\ナイチンゲール-NaN_1067510921680650259_1.png
+2025-07-07 10:29:04,498 - INFO - bilibili_week_opus_roll.py:232 - download_images - 图片已保存: data/bilibili/downloads\ナイチンゲール-NaN\1067510921680650259\ナイチンゲール-NaN_1067510921680650259_2.png
+2025-07-07 10:29:04,930 - INFO - bilibili_week_opus_roll.py:232 - download_images - 图片已保存: data/bilibili/downloads\ナイチンゲール-NaN\1067510921680650259\ナイチンゲール-NaN_1067510921680650259_3.png
+2025-07-07 10:29:05,106 - INFO - bilibili_week_opus_roll.py:232 - download_images - 图片已保存: data/bilibili/downloads\ナイチンゲール-NaN\1067510921680650259\ナイチンゲール-NaN_1067510921680650259_4.png
+2025-07-07 10:29:05,234 - INFO - bilibili_week_opus_roll.py:232 - download_images - 图片已保存: data/bilibili/downloads\ナイチンゲール-NaN\1067510921680650259\ナイチンゲール-NaN_1067510921680650259_5.png
+2025-07-07 10:29:05,653 - INFO - bilibili_week_opus_roll.py:232 - download_images - 图片已保存: data/bilibili/downloads\ナイチンゲール-NaN\1067510921680650259\ナイチンゲール-NaN_1067510921680650259_6.png
+2025-07-07 10:29:05,978 - INFO - bilibili_week_opus_roll.py:232 - download_images - 图片已保存: data/bilibili/downloads\ナイチンゲール-NaN\1067510921680650259\ナイチンゲール-NaN_1067510921680650259_7.png
+2025-07-07 10:29:06,445 - INFO - bilibili_week_opus_roll.py:232 - download_images - 图片已保存: data/bilibili/downloads\ナイチンゲール-NaN\1067510921680650259\ナイチンゲール-NaN_1067510921680650259_8.png
+2025-07-07 10:29:06,579 - INFO - bilibili_week_opus_roll.py:232 - download_images - 图片已保存: data/bilibili/downloads\ナイチンゲール-NaN\1067510921680650259\ナイチンゲール-NaN_1067510921680650259_9.png
+2025-07-07 10:29:06,975 - INFO - bilibili_week_opus_roll.py:232 - download_images - 图片已保存: data/bilibili/downloads\ナイチンゲール-NaN\1067510921680650259\ナイチンゲール-NaN_1067510921680650259_10.png
+2025-07-07 10:29:07,440 - INFO - bilibili_week_opus_roll.py:232 - download_images - 图片已保存: data/bilibili/downloads\ナイチンゲール-NaN\1067510921680650259\ナイチンゲール-NaN_1067510921680650259_11.png
+2025-07-07 10:29:07,601 - INFO - bilibili_week_opus_roll.py:232 - download_images - 图片已保存: data/bilibili/downloads\ナイチンゲール-NaN\1067510921680650259\ナイチンゲール-NaN_1067510921680650259_12.png
+2025-07-07 10:29:09,246 - INFO - bilibili_week_opus_roll.py:232 - download_images - 图片已保存: data/bilibili/downloads\ナイチンゲール-NaN\1066118158302052353\ナイチンゲール-NaN_1066118158302052353_1.png
+2025-07-07 10:29:09,396 - INFO - bilibili_week_opus_roll.py:232 - download_images - 图片已保存: data/bilibili/downloads\ナイチンゲール-NaN\1066118158302052353\ナイチンゲール-NaN_1066118158302052353_2.png
+2025-07-07 10:29:09,512 - INFO - bilibili_week_opus_roll.py:232 - download_images - 图片已保存: data/bilibili/downloads\ナイチンゲール-NaN\1066118158302052353\ナイチンゲール-NaN_1066118158302052353_3.png
+2025-07-07 10:29:09,664 - INFO - bilibili_week_opus_roll.py:232 - download_images - 图片已保存: data/bilibili/downloads\ナイチンゲール-NaN\1066118158302052353\ナイチンゲール-NaN_1066118158302052353_4.png
+2025-07-07 10:29:10,008 - INFO - bilibili_week_opus_roll.py:232 - download_images - 图片已保存: data/bilibili/downloads\ナイチンゲール-NaN\1066118158302052353\ナイチンゲール-NaN_1066118158302052353_5.png
+2025-07-07 10:29:10,165 - INFO - bilibili_week_opus_roll.py:232 - download_images - 图片已保存: data/bilibili/downloads\ナイチンゲール-NaN\1066118158302052353\ナイチンゲール-NaN_1066118158302052353_6.png
+2025-07-07 10:29:10,654 - INFO - bilibili_week_opus_roll.py:232 - download_images - 图片已保存: data/bilibili/downloads\ナイチンゲール-NaN\1066118158302052353\ナイチンゲール-NaN_1066118158302052353_7.png
+2025-07-07 10:29:12,102 - INFO - bilibili_week_opus_roll.py:232 - download_images - 图片已保存: data/bilibili/downloads\ナイチンゲール-NaN\1059277224566325256\ナイチンゲール-NaN_1059277224566325256_1.png
+2025-07-07 10:29:12,257 - INFO - bilibili_week_opus_roll.py:232 - download_images - 图片已保存: data/bilibili/downloads\ナイチンゲール-NaN\1059277224566325256\ナイチンゲール-NaN_1059277224566325256_2.png
+2025-07-07 10:29:12,485 - INFO - bilibili_week_opus_roll.py:232 - download_images - 图片已保存: data/bilibili/downloads\ナイチンゲール-NaN\1059277224566325256\ナイチンゲール-NaN_1059277224566325256_3.png
+2025-07-07 10:29:12,704 - INFO - bilibili_week_opus_roll.py:232 - download_images - 图片已保存: data/bilibili/downloads\ナイチンゲール-NaN\1059277224566325256\ナイチンゲール-NaN_1059277224566325256_4.png
+2025-07-07 10:29:12,913 - INFO - bilibili_week_opus_roll.py:232 - download_images - 图片已保存: data/bilibili/downloads\ナイチンゲール-NaN\1059277224566325256\ナイチンゲール-NaN_1059277224566325256_5.png
+2025-07-07 10:29:13,105 - INFO - bilibili_week_opus_roll.py:232 - download_images - 图片已保存: data/bilibili/downloads\ナイチンゲール-NaN\1059277224566325256\ナイチンゲール-NaN_1059277224566325256_6.png
+2025-07-07 10:29:13,267 - INFO - bilibili_week_opus_roll.py:232 - download_images - 图片已保存: data/bilibili/downloads\ナイチンゲール-NaN\1059277224566325256\ナイチンゲール-NaN_1059277224566325256_7.png
+2025-07-07 10:29:13,476 - INFO - bilibili_week_opus_roll.py:232 - download_images - 图片已保存: data/bilibili/downloads\ナイチンゲール-NaN\1059277224566325256\ナイチンゲール-NaN_1059277224566325256_8.png
+2025-07-07 10:29:13,683 - INFO - bilibili_week_opus_roll.py:232 - download_images - 图片已保存: data/bilibili/downloads\ナイチンゲール-NaN\1059277224566325256\ナイチンゲール-NaN_1059277224566325256_9.png
+2025-07-07 10:29:13,852 - INFO - bilibili_week_opus_roll.py:232 - download_images - 图片已保存: data/bilibili/downloads\ナイチンゲール-NaN\1059277224566325256\ナイチンゲール-NaN_1059277224566325256_10.png
+2025-07-07 10:29:17,638 - INFO - bilibili_week_opus_roll.py:232 - download_images - 图片已保存: data/bilibili/downloads\ナイチンゲール-NaN\1053342314216292377\ナイチンゲール-NaN_1053342314216292377_1.png
+2025-07-07 10:29:17,985 - INFO - bilibili_week_opus_roll.py:232 - download_images - 图片已保存: data/bilibili/downloads\ナイチンゲール-NaN\1053342314216292377\ナイチンゲール-NaN_1053342314216292377_2.png
+2025-07-07 10:29:18,184 - INFO - bilibili_week_opus_roll.py:232 - download_images - 图片已保存: data/bilibili/downloads\ナイチンゲール-NaN\1053342314216292377\ナイチンゲール-NaN_1053342314216292377_3.png
+2025-07-07 10:29:18,425 - INFO - bilibili_week_opus_roll.py:232 - download_images - 图片已保存: data/bilibili/downloads\ナイチンゲール-NaN\1053342314216292377\ナイチンゲール-NaN_1053342314216292377_4.png
+2025-07-07 10:29:18,723 - INFO - bilibili_week_opus_roll.py:232 - download_images - 图片已保存: data/bilibili/downloads\ナイチンゲール-NaN\1053342314216292377\ナイチンゲール-NaN_1053342314216292377_5.png
+2025-07-07 10:29:18,930 - INFO - bilibili_week_opus_roll.py:232 - download_images - 图片已保存: data/bilibili/downloads\ナイチンゲール-NaN\1053342314216292377\ナイチンゲール-NaN_1053342314216292377_6.png
+2025-07-07 10:29:19,232 - INFO - bilibili_week_opus_roll.py:232 - download_images - 图片已保存: data/bilibili/downloads\ナイチンゲール-NaN\1053342314216292377\ナイチンゲール-NaN_1053342314216292377_7.png
+2025-07-07 10:29:19,924 - INFO - bilibili_week_opus_roll.py:232 - download_images - 图片已保存: data/bilibili/downloads\ナイチンゲール-NaN\1053342314216292377\ナイチンゲール-NaN_1053342314216292377_8.png
+2025-07-07 10:29:20,267 - INFO - bilibili_week_opus_roll.py:232 - download_images - 图片已保存: data/bilibili/downloads\ナイチンゲール-NaN\1053342314216292377\ナイチンゲール-NaN_1053342314216292377_9.png
+2025-07-07 10:29:20,538 - INFO - bilibili_week_opus_roll.py:232 - download_images - 图片已保存: data/bilibili/downloads\ナイチンゲール-NaN\1053342314216292377\ナイチンゲール-NaN_1053342314216292377_10.png
+2025-07-07 10:29:20,790 - INFO - bilibili_week_opus_roll.py:232 - download_images - 图片已保存: data/bilibili/downloads\ナイチンゲール-NaN\1053342314216292377\ナイチンゲール-NaN_1053342314216292377_11.png
+2025-07-07 10:30:12,794 - INFO - bilibili_week_opus_roll.py:113 - fetch_user_dynamics - 开始获取用户 ナイチンゲール-NaN(383355826) 的动态，起始时间: 1751126400
+2025-07-07 10:30:14,576 - INFO - bilibili_week_opus_roll.py:127 - fetch_user_dynamics - 请求用户 ナイチンゲール-NaN 第 1 页动态，offset=0
+2025-07-07 10:30:15,936 - INFO - _client.py:1740 - _send_single_request - HTTP Request: GET https://api.bilibili.com/x/frontend/finger/spi "HTTP/1.1 200 OK"
+2025-07-07 10:30:15,981 - INFO - _client.py:1740 - _send_single_request - HTTP Request: POST https://api.bilibili.com/x/internal/gaia-gateway/ExClimbWuzhi "HTTP/1.1 200 OK"
+2025-07-07 10:30:16,073 - INFO - _client.py:1740 - _send_single_request - HTTP Request: GET https://api.vc.bilibili.com/dynamic_svr/v1/dynamic_svr/space_history?host_uid=383355826&offset_dynamic_id=0&need_top=0 "HTTP/1.1 200 OK"
+2025-07-07 10:30:16,075 - INFO - bilibili_week_opus_roll.py:135 - fetch_user_dynamics - 用户 ナイチンゲール-NaN 第 1 页获取到 20 条动态
+2025-07-07 10:30:16,075 - INFO - bilibili_week_opus_roll.py:144 - fetch_user_dynamics - 用户 ナイチンゲール-NaN 遇到旧动态(<= 1751126400)，停止翻页
+2025-07-07 10:36:59,735 - INFO - bilibili_week_opus_roll.py:113 - fetch_user_dynamics - 开始获取用户 ナイチンゲール-NaN(383355826) 的动态，起始时间: 2025-06-29 00:00:00 (timestamp: 1751126400)
+2025-07-07 10:37:02,496 - INFO - bilibili_week_opus_roll.py:127 - fetch_user_dynamics - 请求用户 ナイチンゲール-NaN 第 1 页动态，offset=0
+2025-07-07 10:37:03,910 - INFO - _client.py:1740 - _send_single_request - HTTP Request: GET https://api.bilibili.com/x/frontend/finger/spi "HTTP/1.1 200 OK"
+2025-07-07 10:37:03,959 - INFO - _client.py:1740 - _send_single_request - HTTP Request: POST https://api.bilibili.com/x/internal/gaia-gateway/ExClimbWuzhi "HTTP/1.1 200 OK"
+2025-07-07 10:37:04,047 - INFO - _client.py:1740 - _send_single_request - HTTP Request: GET https://api.vc.bilibili.com/dynamic_svr/v1/dynamic_svr/space_history?host_uid=383355826&offset_dynamic_id=0&need_top=0 "HTTP/1.1 200 OK"
+2025-07-07 10:37:04,050 - INFO - bilibili_week_opus_roll.py:135 - fetch_user_dynamics - 用户 ナイチンゲール-NaN 第 1 页获取到 20 条动态
+2025-07-07 10:37:04,051 - INFO - bilibili_week_opus_roll.py:144 - fetch_user_dynamics - 用户 ナイチンゲール-NaN 遇到旧动态(<= 2025-06-29 00:00:00)，动态时间: 2025-06-23 18:58:06 (timestamp: 1750676286)，停止翻页
