@@ -3,17 +3,37 @@ Bilibili 动态采集与处理框架
 =====================================
 
 【设计特点】
-1. 模块化设计：用户管理、动态获取、动态处理、内容下载、输出管理各司其职
-2. 支持多种输入源：CSV文件或手动添加用户
-3. 两种抓取模式：增量更新（基于轮询时间）或全量抓取
-4. 动态类型处理：使用工厂模式自动选择处理器
-5. 可扩展性：易于添加新的动态类型处理器
+1. 模块化设计：
+    - 用户管理模块负责加载和管理需要采集动态的用户数据，支持从 CSV 文件加载或手动添加用户。
+    - 动态获取模块通过 B 站 API 接口获取指定用户的动态信息，支持全量抓取和增量更新两种模式。
+    - 动态处理模块使用工厂模式，根据动态的类型自动选择合适的处理器进行内容提取和资源下载。
+    - 内容下载模块负责下载动态中的图片、视频等资源，并对下载过程进行并发控制。
+    - 输出管理模块将处理结果保存到 JSON 文件，并更新 CSV 文件中的轮询时间，同时打印处理摘要。
+2. 支持多种输入源：
+    - 可以通过配置 data/Artist.csv 文件批量添加用户信息，也可以使用 add_user() 方法手动添加单个用户。
+3. 两种抓取模式：
+    - 增量更新模式：基于轮询时间，只获取自上次轮询之后更新的动态，提高采集效率。
+    - 全量抓取模式：获取用户的所有动态信息。
+4. 动态类型处理：
+    - 使用工厂模式，根据动态的类型自动选择合适的处理器，便于扩展新的动态类型处理逻辑。
+5. 可扩展性：
+    - 易于添加新的动态类型处理器，只需要继承 DynamicProcessor 基类并实现相应的方法即可。
 
 【使用说明】
-1. 配置 data/Artist.csv 或使用 add_user() 方法添加用户
-2. 在 main() 中配置凭证信息
-3. 选择抓取模式：full_fetch=True 全量抓取，False 增量抓取
-4. 运行脚本
+1. 配置用户信息：
+    - 可以选择配置 data/Artist.csv 文件，文件中应包含 bilibili_id（B站用户 ID）、bilibili_name（B站用户名）、bilibili_url（B站用户主页 URL）和 bilibili_roll_time（轮询时间，格式为 YYYY:MM:DD）等字段。
+    - 也可以使用 add_user() 方法手动添加用户，该方法接受用户 ID、用户名、用户主页 URL 和轮询时间作为参数。
+2. 配置凭证信息：
+    - 在 main() 函数中，通过 load_bilibili_credential() 函数加载 B 站的凭证信息，凭证信息存储在 userdata/bilibili-cookies.json 文件中。
+3. 选择抓取模式：
+    - 在调用 run() 方法时，通过 full_fetch 参数选择抓取模式，full_fetch=True 表示全量抓取，full_fetch=False 表示增量抓取。
+4. 运行脚本：
+    - 在代码的最后，调用 asyncio.run(main()) 来启动采集程序。
+
+【注意事项】
+- 运行脚本前，请确保已经安装了所需的依赖库，如 pandas、bilibili_api 等。
+- 请确保 userdata/bilibili-cookies.json 文件中包含有效的 B 站 Cookie 信息，否则可能无法正常获取动态数据。
+- 在采集过程中，为了避免对 B 站服务器造成过大压力，程序会在请求之间添加随机延迟。
 """
 
 import asyncio
@@ -257,7 +277,7 @@ class DrawProcessor(DynamicProcessor):
         
         user_name = self.data["user_name"]
         dynamic_id = self.data["id"]
-        return await downloader.download_images(user_name, dynamic_id, content["image_urls"])
+        return await downloader.download_images(user_name, dynamic_id, content["image_urls"], "draw")
     
     def _extract_image_urls(self, item: Dict) -> List[str]:
         """提取图片URL"""
@@ -306,6 +326,7 @@ class VideoProcessor(DynamicProcessor):
     
     async def download_resources(self, downloader: Any) -> bool:
         """下载视频封面"""
+        print("视频下载功能未实现，跳过处理。")
         # 待实现
         return False
 
@@ -323,6 +344,7 @@ class ArticleProcessor(DynamicProcessor):
     
     async def download_resources(self, downloader: Any) -> bool:
         """下载专栏图片"""
+        print("专栏下载功能未实现，跳过处理。")
         # 待实现
         return False
 
@@ -339,6 +361,7 @@ class ForwardProcessor(DynamicProcessor):
     
     async def download_resources(self, downloader: Any) -> bool:
         """处理转发内容中的资源"""
+        print("转发下载功能未实现，跳过处理。")
         # 待实现
         return False
 
@@ -355,6 +378,7 @@ class DefaultProcessor(DynamicProcessor):
     
     async def download_resources(self, downloader: Any) -> bool:
         """默认不下载资源"""
+        print("默认下载功能未实现，跳过处理。")
         return False
 
 class ProcessorFactory:
@@ -385,7 +409,7 @@ class ContentDownloader:
         self.failed_downloads = []
         self.semaphore = asyncio.Semaphore(5)  # 并发控制
     
-    async def download_images(self, user_name: str, dynamic_id: str, image_urls: List[str]) -> bool:
+    async def download_images(self, user_name: str, dynamic_id: str, image_urls: List[str], dynamic_type: str = "draw") -> bool:
         """下载图片"""
         if not image_urls:
             return False
@@ -394,23 +418,26 @@ class ContentDownloader:
             # 随机延迟防止高并发
             await asyncio.sleep(random.uniform(0.5, 2.0))
             return await asyncio.get_event_loop().run_in_executor(
-                None, self._download_images_sync, user_name, dynamic_id, image_urls
+                None, self._download_images_sync, user_name, dynamic_id, image_urls, dynamic_type
             )
     
-    def _download_images_sync(self, user_name: str, dynamic_id: str, image_urls: List[str]) -> bool:
+    def _download_images_sync(self, user_name: str, dynamic_id: str, image_urls: List[str], dynamic_type: str) -> bool:
         """同步下载图片"""
         try:
             import requests
-            user_dir = os.path.join(self.base_dir, user_name)
+
+            # 创建用户目录
+            user_dir = os.path.join(self.base_dir, user_name.replace('/', '_').replace('\\', '_'))
             os.makedirs(user_dir, exist_ok=True)
-            dynamic_dir = os.path.join(user_dir, str(dynamic_id))
-            os.makedirs(dynamic_dir, exist_ok=True)
+            # 创建类型-id 目录
+            type_id_dir = os.path.join(user_dir, f"{dynamic_type}-{dynamic_id}")
+            os.makedirs(type_id_dir, exist_ok=True)
             
             success = False
             for idx, url in enumerate(image_urls, 1):
                 ext = os.path.splitext(url)[1].split('?')[0] or '.jpg'
                 safe_name = user_name.replace('/', '_').replace('\\', '_')
-                img_path = os.path.join(dynamic_dir, f"{safe_name}_{dynamic_id}_{idx}{ext}")
+                img_path = os.path.join(type_id_dir, f"{safe_name}_{dynamic_id}_{idx}{ext}")
                 
                 try:
                     resp = requests.get(url, timeout=10)
@@ -631,7 +658,7 @@ async def main():
     
     # 手动添加用户（不会更新轮询时间）
     harvester.user_manager.add_user(23306371, "手动用户")
-
+    # 23306371
     # 运行采集
     await harvester.run(
         credential=credential,
