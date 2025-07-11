@@ -232,23 +232,20 @@ class DrawProcessor(DynamicProcessor):
             "text": "",
             "image_urls": []
         }
-        
-        """
-        有bug，实现错误
+
         try:
             # 提取文本内容
             modules = item.get("modules", {})
             module_dynamic = modules.get("module_dynamic", {})
-            desc = module_dynamic.get("desc", {})
+            desc = module_dynamic.get("desc", {}) or {}
             content["text"] = desc.get("text", "")
             
             # 提取图片URL
             content["image_urls"] = self._extract_image_urls(item)
-        """
         
-        # except Exception as e:
-        #     # 添加更详细的错误日志
-        #     logger.error(f"提取图文内容失败: {str(e)}")
+        except Exception as e:
+            # 添加更详细的错误日志
+            logger.error(f"提取图文内容失败: {str(e)}")
         
         return content
     
@@ -271,29 +268,23 @@ class DrawProcessor(DynamicProcessor):
             module_dynamic = modules.get("module_dynamic", {})
             
             # 主要图片区域
-            if "major" in module_dynamic and module_dynamic["major"].get("type") == "MAJOR_TYPE_DRAW":
-                draw = module_dynamic["major"].get("draw", {})
-                for img in draw.get("items", []):
-                    if url := img.get("src", ""):
-                        image_urls.append(url)
-            
-            # 附加图片区域
-            if "additional" in module_dynamic and module_dynamic["additional"].get("type") == "ADDITIONAL_TYPE_DRAW":
-                draw = module_dynamic["additional"].get("draw", {})
-                for img in draw.get("items", []):
-                    if url := img.get("src", ""):
+            major = module_dynamic.get("major")
+            if major and major.get("type") == "MAJOR_TYPE_OPUS":
+                pics = major.get("opus", {}).get("pics", [])
+                for pic in pics:
+                    if url := pic.get("url"):
                         image_urls.append(url)
             
             # 转发动态中的图片
-            if "origin" in item:
-                origin = item["origin"]
+            origin = item.get("origin")
+            if origin:
                 origin_modules = origin.get("modules", {})
                 origin_dynamic = origin_modules.get("module_dynamic", {})
-                
-                if "major" in origin_dynamic and origin_dynamic["major"].get("type") == "MAJOR_TYPE_DRAW":
-                    draw = origin_dynamic["major"].get("draw", {})
-                    for img in draw.get("items", []):
-                        if url := img.get("src", ""):
+                origin_major = origin_dynamic.get("major")
+                if origin_major and origin_major.get("type") == "MAJOR_TYPE_DRAW":
+                    items = origin_major.get("draw", {}).get("items", [])
+                    for img in items:
+                        if url := img.get("src"):
                             image_urls.append(url)
         
         except Exception as e:
@@ -651,5 +642,82 @@ async def main():
     )
 
 
+async def fetch_single_dynamic(credential: Credential, user_id: int, dynamic_id: str):
+    """
+    获取指定动态的原始数据
+    :param credential: B站凭证
+    :param user_id: 用户ID
+    :param dynamic_id: 动态ID
+    :return: 动态的原始数据
+    """
+    u = user.User(user_id, credential=credential)
+    offset = ""
+    has_more = True
+    try:
+        while has_more:
+            # 获取用户的动态数据
+            dynamics = await u.get_dynamics_new(offset)
+            if not dynamics or "items" not in dynamics or not dynamics["items"]:
+                break
+            items = dynamics["items"]
+            for item in items:
+                item_dynamic_id = item.get("id_str", str(item.get("id", "")))
+                if item_dynamic_id == dynamic_id:
+                    return item
+            # 检查是否还有更多
+            has_more = dynamics.get("has_more", 0) == 1
+            if has_more:
+                offset = dynamics.get("offset", "")
+    except Exception as e:
+        logger.error(f"获取动态 {dynamic_id} 失败: {str(e)}")
+    return None
+
+async def testoneopus():
+    """主函数"""
+    
+    # 加载凭证
+    try:
+        credential = load_bilibili_credential()
+    except Exception as e:
+        logger.error(f"凭证加载失败: {str(e)}")
+        return
+
+    # 获取指定动态的原始数据
+    user_id = 23306371  # 替换为实际的用户ID
+    dynamic_id = "992701134074281988"  # 替换为实际的动态ID
+    single_dynamic = await fetch_single_dynamic(credential, user_id, dynamic_id)
+    if single_dynamic:
+        print(f"动态 {dynamic_id} 的原始数据:")
+        print(json.dumps(single_dynamic, ensure_ascii=False, indent=2))
+        # 构建动态数据字典
+        dynamic_data = {
+            "user_id": user_id,
+            "user_name": "手动用户",  # 这里可以根据实际情况修改
+            "id": dynamic_id,
+            "type": single_dynamic.get("type", "UNKNOWN"),
+            "type_name": DYNAMIC_TYPE_MAP.get(single_dynamic.get("type", ""), "未知类型"),
+            "timestamp": single_dynamic["modules"]["module_author"]["pub_ts"],
+            "raw_data": single_dynamic
+        }
+
+        # 创建下载器和处理器
+        downloader = ContentDownloader()
+        processor = DrawProcessor(dynamic_data)
+
+        # 提取内容
+        content = processor.extract_content()
+
+        # 下载资源
+        download_success = await processor.download_resources(downloader)
+
+        if download_success:
+            print(f"动态 {dynamic_id} 的图片下载成功")
+        else:
+            print(f"动态 {dynamic_id} 的图片下载失败")
+    else:
+        print(f"未找到动态 {dynamic_id} 的原始数据")
+
+
 if __name__ == "__main__":
+    # asyncio.run(testoneopus())
     asyncio.run(main())
