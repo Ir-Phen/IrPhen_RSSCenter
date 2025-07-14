@@ -199,11 +199,13 @@ class DynamicFetcher:
                     # 增量模式且动态时间早于起始时间，停止翻页
                     if not full_fetch and timestamp <= since_timestamp:
                         timestamp_str = datetime.fromtimestamp(timestamp).strftime("%Y-%m-%d %H:%M:%S")
-                        timestamp_str = datetime.fromtimestamp(timestamp).strftime("%Y-%m-%d %H:%M:%S")
                         logger.info(f"用户 {name} 遇到旧动态(<= {since_str})，停止翻页")
                         has_more = False
                         break
                     
+                    if not has_more:
+                        break
+
                     dynamic_id = item.get("id_str", str(item.get("id", "")))
                     all_dynamics.append({
                         "user_id": uid,
@@ -216,9 +218,10 @@ class DynamicFetcher:
                     })
                 
                 # 检查是否还有更多
-                has_more = dynamics.get("has_more", 0) == 1
                 if has_more:
-                    offset = dynamics.get("offset", "")
+                    has_more = dynamics.get("has_more", 0) == 1
+                    if has_more:
+                        offset = dynamics.get("offset", "")
         
         except Exception as e:
             logger.error(f"获取用户 {name} 动态失败: {str(e)}")
@@ -611,7 +614,7 @@ class BiliDynamicHarvester:
         if csv_file:
             self.output_manager.update_csv()
         
-        self.output_manager.save_to_json("data/bilibili/results.json")
+        self.output_manager.save_to_json("C:/Users/Ryimi/Downloads/bilibili/results.json")
         self.output_manager.print_summary()
         
         # 打印下载失败详情
@@ -654,16 +657,16 @@ async def main():
         return
     
     # 从 CSV 加载用户（会更新轮询时间）
-    # harvester.user_manager.load_from_csv("data/Artist.csv")
+    harvester.user_manager.load_from_csv("data/Artist.csv")
     
     # 手动添加用户（不会更新轮询时间）
-    harvester.user_manager.add_user(23306371, "手动用户")
+    # harvester.user_manager.add_user(23306371, "手动用户")
     # 23306371
     # 运行采集
     await harvester.run(
         credential=credential,
-        # csv_file="data/Artist.csv",  # CSV文件路径
-        csv_file=None,  # CSV文件路径
+        csv_file="data/Artist.csv",  # CSV文件路径
+        # csv_file=None,  # CSV文件路径
         full_fetch=False,           # True=全量抓取, False=增量抓取
         group_size=3                 # 每组用户数量
     )
