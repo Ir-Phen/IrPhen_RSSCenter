@@ -592,10 +592,6 @@ class BiliDynamicHarvester:
         # 初始化输出管理器
         self.output_manager = OutputManager(csv_file, self.user_manager)
         
-        # 加载用户
-        if csv_file:
-            self.user_manager.load_from_csv(csv_file)
-        
         if not self.user_manager.users:
             logger.warning("没有可处理的用户")
             return
@@ -657,15 +653,17 @@ async def main():
         return
     
     # 从 CSV 加载用户（会更新轮询时间）
-    harvester.user_manager.load_from_csv("data/Artist.csv")
-    
+    csv_path = "data/Artist.csv"
+    harvester.user_manager.load_from_csv(csv_path)
+
     # 手动添加用户（不会更新轮询时间）
     # harvester.user_manager.add_user(23306371, "手动用户")
     # 23306371
+
     # 运行采集
     await harvester.run(
         credential=credential,
-        csv_file="data/Artist.csv",  # CSV文件路径
+        csv_file=csv_path,  # CSV文件路径
         # csv_file=None,  # CSV文件路径
         full_fetch=False,           # True=全量抓取, False=增量抓取
         group_size=3                 # 每组用户数量
