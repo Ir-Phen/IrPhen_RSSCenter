@@ -657,7 +657,7 @@ async def main():
     # harvester.user_manager.load_from_csv(csv_path)
 
     # 手动添加用户（不会更新轮询时间）
-    harvester.user_manager.add_user(91660641, "手动用户")
+    harvester.user_manager.add_user(12376109, "七赫兹_SevenHz")
 
     # 运行采集
     await harvester.run(
